@@ -1,1 +1,1 @@
-export { default } from "file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
+export { default } from "file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"

@@ -1,39 +1,39 @@
 import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { tmpdir } from 'node:os';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, getRequestURL, getResponseHeader, getQuery as getQuery$1, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, createError, getRouterParam, getResponseStatusText } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, getRequestURL, getResponseHeader, getQuery as getQuery$1, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, createError, getRouterParam, getResponseStatusText } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/h3/dist/index.mjs';
 import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
-import { escapeHtml } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/@vue/shared/dist/shared.cjs.js';
-import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/ufo/dist/index.mjs';
-import { renderToString } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/vue/server-renderer/index.mjs';
-import destr, { destr as destr$1 } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/destr/dist/index.mjs';
-import { createHooks } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/hookable/dist/index.mjs';
-import { createFetch, Headers as Headers$1 } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/ofetch/dist/node.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/node-mock-http/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/unstorage/drivers/fs.mjs';
-import { digest } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/ohash/dist/index.mjs';
-import { klona } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/klona/dist/index.mjs';
-import defu, { defuFn } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/defu/dist/defu.mjs';
-import { snakeCase } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/scule/dist/index.mjs';
-import { getContext } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/unctx/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/radix3/dist/index.mjs';
+import { escapeHtml } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/@vue/shared/dist/shared.cjs.js';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/ufo/dist/index.mjs';
+import { renderToString } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/vue/server-renderer/index.mjs';
+import destr, { destr as destr$1 } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/destr/dist/index.mjs';
+import { createHooks } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/hookable/dist/index.mjs';
+import { createFetch, Headers as Headers$1 } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/ofetch/dist/node.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/node-mock-http/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/unstorage/drivers/fs.mjs';
+import { digest } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/ohash/dist/index.mjs';
+import { klona } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/defu/dist/defu.mjs';
+import { snakeCase } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/scule/dist/index.mjs';
+import { getContext } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/unctx/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/radix3/dist/index.mjs';
 import { readFile } from 'node:fs/promises';
-import consola, { consola as consola$1 } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/youch-core/build/index.js';
-import { Youch } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/source-map/source-map.js';
+import consola, { consola as consola$1 } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/consola/dist/index.mjs';
+import { ErrorParser } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/youch-core/build/index.js';
+import { Youch } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/youch/build/index.js';
+import { SourceMapConsumer } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/source-map/source-map.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { stringify, uneval } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/devalue/index.js';
-import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/errx/dist/index.js';
-import { isVNode, toValue, isRef } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/vue/index.mjs';
-import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/unhead/dist/server.mjs';
-import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/unhead/dist/plugins.mjs';
-import { walkResolver } from 'file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/node_modules/unhead/dist/utils.mjs';
+import { stringify, uneval } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/devalue/index.js';
+import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/errx/dist/index.js';
+import { isVNode, toValue, isRef } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/vue/index.mjs';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/unhead/dist/server.mjs';
+import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/unhead/dist/plugins.mjs';
+import { walkResolver } from 'file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/node_modules/unhead/dist/utils.mjs';
 
-const serverAssets = [{"baseName":"server","dir":"/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen/server/assets"}];
 
 const assets = createStorage();
 
@@ -45,11 +45,11 @@ const storage = createStorage({});
 
 storage.mount('/assets', assets);
 
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen","watchOptions":{"ignored":[null]}}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/server","watchOptions":{"ignored":[null]}}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/.nuxt"}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/.nuxt/cache"}));
-storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/.data/kv"}));
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen","watchOptions":{"ignored":[null]}}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen/server","watchOptions":{"ignored":[null]}}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen/.nuxt"}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen/.nuxt/cache"}));
+storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -1010,13 +1010,13 @@ if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
 window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 `;
 
-const _m3MSU8CYnS6a3FlHqyBY2zFbxM3LF9ZSmMZuTjwanLA = (function(nitro) {
+const _UlQ7ORBKF4CLRr1QsQx9kSIWfHTPM4nQqVW3HBzA = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
-const rootDir = "/Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen";
+const rootDir = "/Users/nicholaslauiii/Local Sites/auto-deploy/app/public/MMD4-Biffen";
 
 const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
 
@@ -1035,7 +1035,7 @@ const devReducers = {
   URL: (data) => data instanceof URL ? data.toString() : void 0
 };
 const asyncContext = getContext("nuxt-dev", { asyncContext: true, AsyncLocalStorage });
-const _XkCnvhLpTTAIli2l_tsd6DohhGkzzYA3CfLM9QJBZHk = (nitroApp) => {
+const _OEDGsZaxNSZJt4eOK712IaT76LFyX4NuCbPHSBVHKQw = (nitroApp) => {
   const handler = nitroApp.h3App.handler;
   nitroApp.h3App.handler = (event) => {
     return asyncContext.callAsync({ logs: [], event }, () => handler(event));
@@ -1105,8 +1105,8 @@ function onConsoleLog(callback) {
 }
 
 const plugins = [
-  _m3MSU8CYnS6a3FlHqyBY2zFbxM3LF9ZSmMZuTjwanLA,
-_XkCnvhLpTTAIli2l_tsd6DohhGkzzYA3CfLM9QJBZHk
+  _UlQ7ORBKF4CLRr1QsQx9kSIWfHTPM4nQqVW3HBzA,
+_OEDGsZaxNSZJt4eOK712IaT76LFyX4NuCbPHSBVHKQw
 ];
 
 const VueResolver = (_, value) => {
@@ -1180,8 +1180,8 @@ function publicAssetsURL(...path) {
 
 const APP_ROOT_OPEN_TAG = `<${appRootTag}${propsToString(appRootAttrs)}>`;
 const APP_ROOT_CLOSE_TAG = `</${appRootTag}>`;
-const getServerEntry = () => import('file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
-const getClientManifest = () => import('file:///Users/rasmuspedersen/Documents/GitHub/MMD4-Biffen/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
+const getServerEntry = () => import('file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
+const getClientManifest = () => import('file:///Users/nicholaslauiii/Local%20Sites/auto-deploy/app/public/MMD4-Biffen/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
 const getSSRRenderer = lazyCachedFunction(async () => {
   const manifest = await getClientManifest();
   if (!manifest) {
@@ -1427,12 +1427,12 @@ async function getIslandContext(event) {
   return ctx;
 }
 
-const _lazy_b61Uwj = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_R2Juk7 = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
-  { route: '/__nuxt_error', handler: _lazy_b61Uwj, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_R2Juk7, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_b61Uwj, lazy: true, middleware: false, method: undefined }
+  { route: '/**', handler: _lazy_R2Juk7, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
