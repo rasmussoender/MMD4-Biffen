@@ -16,7 +16,6 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header />
   <div class="movieContainer">
     <h1>Now Showing</h1>
     <div v-if="movies.length === 0">Loading film...</div>
