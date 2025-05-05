@@ -1,16 +1,16 @@
 # Nuxt dev/build outputs
-.output/
-.nuxt/
-.nitro/
-.cache/
-dist/
-.data/
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
 
 # Node dependencies
-node_modules/
+node_modules
 
 # Logs
-logs/
+logs
 *.log
 
 # Misc
