@@ -40,6 +40,8 @@ onMounted(async () => {
 
 <style scoped>
 .movieContainer {
+background: red;
+
   padding: 20px;
 }
 
