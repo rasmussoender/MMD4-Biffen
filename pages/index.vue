@@ -53,7 +53,7 @@ onMounted(async () => {
 }
 
 .movieCard {
-  background: #fff;
+  background: green;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
