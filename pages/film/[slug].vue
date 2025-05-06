@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import Header from '@/components/Header.vue';
+
 
 const movie = ref(null);
 const route = useRoute();
@@ -18,15 +20,23 @@ onMounted(async () => {
 </script>
 
 <template>
+  <Header />
   <div v-if="movie">
     <h1>{{ movie.title.rendered }}</h1>
     <img :src="movie.acf.poster.url" :alt="movie.title.rendered" />
     <p>{{ movie.acf.description }}</p>
     <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato">
       <h2>{{ session.filmdato }}</h2>
-      <ul>
-        <li v-for="time in session.spilletid" :key="time.spilletidspunkt">{{ time.spilletidspunkt }}</li>
-      </ul>
+      <li
+        v-for="time in session.spilletid"
+        :key="time.spilletidspunkt"
+      >
+        <router-link
+          :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+        >
+          {{ time.spilletidspunkt }}
+        </router-link>
+      </li>
     </div>
   </div>
   <div v-else>Loading movie details...</div>

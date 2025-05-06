@@ -26,12 +26,18 @@ onMounted(async () => {
           <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="movieImage" />
           <div class="movieDetails">
             <h2>{{ movie.title.rendered }}</h2>
-            <p>{{ movie.acf.description }}</p>
             <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato" class="movieSessions">
               <h3>{{ session.filmdato }}</h3>
-              <ul>
-                <li v-for="time in session.spilletid" :key="time.spilletidspunkt">{{ time.spilletidspunkt }}</li>
-              </ul>
+              <li
+                v-for="time in session.spilletid"
+                :key="time.spilletidspunkt"
+              >
+                <router-link
+                  :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+                >
+                  {{ time.spilletidspunkt }}
+                </router-link>
+              </li>
             </div>
           </div>
         </router-link>
@@ -53,9 +59,9 @@ onMounted(async () => {
 }
 
 .movieCard {
-  background: green;
+  background: var(--secondary-blue);
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   padding: 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }

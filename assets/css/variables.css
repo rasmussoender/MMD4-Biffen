@@ -1,0 +1,35 @@
+
+:root {
+/* Font */
+--font-body: 'Ubuntu', sans-serif;
+--font-headings: 'Readex Pro', sans-serif;
+
+/* Font-størrelser */
+--font-standard: 20px;
+
+/* Farver */
+--color-body: #181F2F;
+--secondary-blue: #202F4D;
+--interactive-red: #F63758;
+
+/* Afstande */
+--space-container: 4rem;
+--space-section: 4rem;
+
+/* Standard line-height */
+--line-height-text: 1.75;
+
+/* Border radius */
+/* Sektioner */
+--radius-section: 20px;
+
+/* Cards/knapper */
+--radius-card: 10px;
+--radius-button: 5px;
+
+}
+
+
+
+
+
