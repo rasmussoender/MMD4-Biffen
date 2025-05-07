@@ -9,14 +9,16 @@ body {
 font-family: var(--font-body);
 background: #181F2F;
 color: white;
-padding: 0 var(--space-container);
 line-height: var(--line-height-text);
 font-size: var(--font-standard);
 }
 
+main {
+padding: 0 var(--space-container);
+}
 
 section {
-    border-radius: var(--radius-section);
+border-radius: var(--radius-section);
 }
 
 a {

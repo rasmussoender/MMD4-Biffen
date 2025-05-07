@@ -21,25 +21,29 @@ onMounted(async () => {
 
 <template>
   <Header />
-  <div v-if="movie">
-    <h1>{{ movie.title.rendered }}</h1>
-    <img :src="movie.acf.poster.url" :alt="movie.title.rendered" />
-    <p>{{ movie.acf.description }}</p>
-    <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato">
-      <h2>{{ session.filmdato }}</h2>
-      <li
-        v-for="time in session.spilletid"
-        :key="time.spilletidspunkt"
-      >
-        <router-link
-          :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+  <main>
+    <div v-if="movie">
+      <h1>{{ movie.title.rendered }}</h1>
+      <img :src="movie.acf.poster.url" :alt="movie.title.rendered" />
+      <p>{{ movie.acf.description }}</p>
+      <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato">
+        <h2>{{ session.filmdato }}</h2>
+        <li
+          v-for="time in session.spilletid"
+          :key="time.spilletidspunkt"
         >
-          {{ time.spilletidspunkt }}
-        </router-link>
-      </li>
+          <router-link
+            :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+          >
+            {{ time.spilletidspunkt }}
+          </router-link>
+        </li>
+      </div>
     </div>
-  </div>
-  <div v-else>Loading movie details...</div>
+    <div v-else>Loading movie details...</div>
+  </main>
+  <Footer />
+
 </template>
 
 <style scoped>

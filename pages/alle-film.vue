@@ -17,27 +17,31 @@ onMounted(async () => {
 
 <template>
     <Header />
-  <div class="movieContainer">
-    <h1>Now Showing</h1>
-    <div v-if="movies.length === 0">Loading film...</div>
-    <div v-else class="movieCards">
-      <div v-for="movie in movies" :key="movie.id" class="movieCard">
-        <router-link :to="`/film/${movie.slug}`">
-          <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="movieImage" />
-          <div class="movieDetails">
-            <h2>{{ movie.title.rendered }}</h2>
-            <p>{{ movie.acf.description }}</p>
-            <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato" class="movieSessions">
-              <h3>{{ session.filmdato }}</h3>
-              <ul>
-                <li v-for="time in session.spilletid" :key="time.spilletidspunkt">{{ time.spilletidspunkt }}</li>
-              </ul>
-            </div>
+    <main>
+      <div class="movieContainer">
+        <h1>Now Showing</h1>
+        <div v-if="movies.length === 0">Loading film...</div>
+        <div v-else class="movieCards">
+          <div v-for="movie in movies" :key="movie.id" class="movieCard">
+            <router-link :to="`/film/${movie.slug}`">
+              <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="movieImage" />
+              <div class="movieDetails">
+                <h2>{{ movie.title.rendered }}</h2>
+                <p>{{ movie.acf.description }}</p>
+                <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato" class="movieSessions">
+                  <h3>{{ session.filmdato }}</h3>
+                  <ul>
+                    <li v-for="time in session.spilletid" :key="time.spilletidspunkt">{{ time.spilletidspunkt }}</li>
+                  </ul>
+                </div>
+              </div>
+            </router-link>
           </div>
-        </router-link>
+        </div>
       </div>
-    </div>
-  </div>
+    </main>
+    <Footer />
+
 </template>
 
 <style scoped>

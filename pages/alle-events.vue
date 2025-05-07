@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import Footer from '~/components/Footer.vue'
 
 const events = ref([])
 
@@ -15,24 +16,29 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="eventContainer">
-    <h1>Kommende Events</h1>
-    <div v-if="events.length === 0">Indlæser events...</div>
-    <div v-else class="eventCards">
-      <div v-for="event in events" :key="event.id" class="eventCard">
-        <router-link :to="`/event/${event.slug}`">
-          <img :src="event.acf.event_billede.url" :alt="event.title.rendered" class="eventImage" />
-          <div class="eventDetails">
-            <h2>{{ event.title.rendered }}</h2>
-            <h3>{{ event.acf.subtitle }}</h3>
-            <p>{{ event.acf.dato }}</p>
-            <p>{{ event.acf.event_beskrivelse }}</p>
-            <a :href="event.acf.ticket_link" target="_blank" rel="noopener">Køb billet(er)</a>
-          </div>
-        </router-link>
+  <Header />
+  <main>
+    <div class="eventContainer">
+      <h1>Kommende Events</h1>
+      <div v-if="events.length === 0">Indlæser events...</div>
+      <div v-else class="eventCards">
+        <div v-for="event in events" :key="event.id" class="eventCard">
+          <router-link :to="`/event/${event.slug}`">
+            <img :src="event.acf.event_billede.url" :alt="event.title.rendered" class="eventImage" />
+            <div class="eventDetails">
+              <h2>{{ event.title.rendered }}</h2>
+              <h3>{{ event.acf.subtitle }}</h3>
+              <p>{{ event.acf.dato }}</p>
+              <p>{{ event.acf.event_beskrivelse }}</p>
+              <a :href="event.acf.ticket_link" target="_blank" rel="noopener">Køb billet(er)</a>
+            </div>
+          </router-link>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+  <Footer />
+
 </template>
 
 <style scoped>
@@ -47,7 +53,7 @@ onMounted(async () => {
 }
 
 .eventCard {
-  background: #fff;
+  background: black;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;

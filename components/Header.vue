@@ -12,9 +12,10 @@
   .header {
     background-color: pink;
     color: white;
-    padding: 20px;
+    padding: 0x;
     text-align: center;
     border-radius: 8px;
+    margin: 0;
   }
   
   .header h1 {

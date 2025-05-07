@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import Header from '@/components/Header.vue';
+
 
 const movies = ref([]);
 
@@ -16,41 +16,56 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header />
-  <div class="movieContainer">
-    <h1>Now Showing</h1>
-    <div v-if="movies.length === 0">Loading film...</div>
-    <div v-else class="movieCards">
-      <div v-for="movie in movies" :key="movie.id" class="movieCard">
-        <router-link :to="`/film/${movie.slug}`">
-          <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="movieImage" />
-          <div class="movieDetails">
-            <h2>{{ movie.title.rendered }}</h2>
-            <div v-for="session in movie.acf.spilletider.filmvisning" :key="session.filmdato" class="movieSessions">
-              <h3>{{ session.filmdato }}</h3>
-              <li
-                v-for="time in session.spilletid"
-                :key="time.spilletidspunkt"
+    <Header />
+
+    <main class="movieContainer">
+      <h1>Now Showing</h1>
+
+      <div v-if="movies.length === 0">Loading film...</div>
+
+      <section v-else class="movieCards">
+        <article
+          v-for="movie in movies"
+          :key="movie.id"
+          class="movieCard"
+        >
+          <router-link :to="`/film/${movie.slug}`">
+            <img
+              :src="movie.acf.poster.url"
+              :alt="movie.title.rendered"
+              class="movieImage"
+            />
+            <div class="movieDetails">
+              <h2>{{ movie.title.rendered }}</h2>
+              <div
+                v-for="session in movie.acf.spilletider.filmvisning"
+                :key="session.filmdato"
+                class="movieSessions"
               >
-                <router-link
-                  :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
-                >
-                  {{ time.spilletidspunkt }}
-                </router-link>
-              </li>
+                <h3>{{ session.filmdato }}</h3>
+                <ul>
+                  <li
+                    v-for="time in session.spilletid"
+                    :key="time.spilletidspunkt"
+                  >
+                    <router-link
+                      :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+                    >
+                      {{ time.spilletidspunkt }}
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </router-link>
-      </div>
-    </div>
-  </div>
+          </router-link>
+        </article>
+      </section>
+    </main>
+    <Footer />
+
 </template>
 
 <style scoped>
-.movieContainer {
-
-  padding: 20px;
-}
 
 .movieCards {
   display: grid;

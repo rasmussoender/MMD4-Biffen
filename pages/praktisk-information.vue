@@ -1,11 +1,14 @@
 <script setup>
-import Header from '@/components/Header.vue';
 
 </script>
 
 <template>
   <Header />
-  <img src="../assets/img/Sauna-2025.hd (1).jpg" alt="">
+  <main>
+    <img src="../assets/img/Sauna-2025.hd (1).jpg" alt="">
+
+  </main>
+  <Footer />
 
 </template>
 

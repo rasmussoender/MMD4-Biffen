@@ -36,13 +36,17 @@ onMounted(async () => {
 
 <template>
     <Header />
-    <div v-if="visning">
-      <h1>{{ visning.title }}</h1>
-      <p>Dato: {{ visning.date }}</p>
-      <p>Spilletidspunkt: {{ visning.time }}</p>
-      <img v-if="visning.posterUrl" :src="visning.posterUrl" :alt="visning.title" />
-    </div>
-    <div v-else>
-      <p>Film ikke fundet</p>
-    </div>
+    <main>
+      <div v-if="visning">
+        <h1>{{ visning.title }}</h1>
+        <p>Dato: {{ visning.date }}</p>
+        <p>Spilletidspunkt: {{ visning.time }}</p>
+        <img v-if="visning.posterUrl" :src="visning.posterUrl" :alt="visning.title" />
+      </div>
+      <div v-else>
+        <p>Film ikke fundet</p>
+      </div>
+    </main>
+    <Footer />
+
   </template>
