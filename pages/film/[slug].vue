@@ -80,6 +80,10 @@ onMounted(async () => {
   padding: 0;
 }
 
+.movieDetail p {
+  font-size: 15px;
+}
+
 .heroWrapper {
   display: flex;
   flex-direction: column;
@@ -90,7 +94,7 @@ onMounted(async () => {
   background-size: cover;
   background-position: center;
   padding-bottom: 2rem;
-  padding: 2rem;
+  padding: var(--space-container);
   border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
@@ -108,7 +112,7 @@ onMounted(async () => {
   width:40%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0px 0px 20px 2px #4C90FF;
   display: block;
 }
@@ -124,6 +128,11 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.details h1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .genre span {
