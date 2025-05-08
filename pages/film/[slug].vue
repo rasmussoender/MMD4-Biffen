@@ -20,25 +20,38 @@ onMounted(async () => {
 <template>
   <Header />
   <main v-if="movie" class="movieDetail">
+
+    <div class="backButton">
+        <NuxtLink to="/alle-film" class="btn back">
+          <i class="fa fa-arrow-left"></i> Tilbage
+        </NuxtLink>
+      </div>
+    
     <section class="heroWrapper" :style="{ backgroundImage: `url(${movie.acf.backgroundimage.url})` }">
       <div class="hero">
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="poster" />
 
         <div class="details">
           <div class="genre">
-            <span v-for="(g, index) in movie.acf.genre" :key="index">{{ g.filmgenre }}</span>
-          </div>
+          <span v-for="(g, index) in movie.acf.genre" :key="index" class="genreItem">
+            {{ g.filmgenre }}
+          </span>
+        </div>
+
 
           <h1>{{ movie.title.rendered }}</h1>
 
           <div class="meta">
             <span id="ratingStyle"><i class="fa-solid fa-star"></i> {{ movie.acf.rating }}/10</span>
             <span><i class="fa-solid fa-calendar-days"></i> {{ movie.acf.udgivelsesdato }}</span>
-            <span><i class="fa-solid fa-clock"></i> {{ movie.acf.varighed }} min</span>
+            <span><i class="fa-solid fa-clock"></i> {{ movie.acf.varighed }} t</span>
             <span v-if="movie.acf.age.length"><i class="fa-solid fa-user-shield"></i> {{ movie.acf.age[0].aldersgraense }}</span>
           </div>
 
-          <p>{{ movie.acf.description }}...</p>
+          <p class="movieinstructor">Instruktør(ere): {{ movie.acf.movieinstructor.map(i => i.instructor).join(', ') }}</p>
+
+
+          <p class="moviedescription">{{ movie.acf.description }}</p>
           <div class="buttons">
             <a :href="movie.acf.trailer" target="_blank" class="btn red">Se trailer</a>
             <a :href="movie.acf.imdb" target="_blank" class="btn outline">Læs mere</a>
@@ -87,7 +100,7 @@ onMounted(async () => {
 .heroWrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 70vh;
   gap: 2rem;
   margin-bottom: 3rem;
   position: relative;
@@ -102,15 +115,15 @@ onMounted(async () => {
 
 .hero {
   display: flex;
-  gap: 5rem;
+  gap: 7rem;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 
 .poster {
-  width:40%;
-  height: 100%;
+  width: 40%;
+  height: 90%;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0px 0px 20px 2px #4C90FF;
@@ -119,7 +132,7 @@ onMounted(async () => {
 
 .details {
   width: 60%;
-  height: 100%;
+  height: 90%;
   background: rgba(32, 47, 77, 0.8);
   padding: 2rem;
   padding-bottom: 0;
@@ -135,20 +148,43 @@ onMounted(async () => {
   margin-bottom: 1rem;
 }
 
-.genre span {
-  padding: 5px;
-  border-radius: 4px;
-  margin-right: 0.5rem;
+.genre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 15px;
+}
+
+.genreItem {
+  position: relative;
+  padding: 0 0.5rem;
   font-weight: bold;
 }
 
+.genreItem:not(:last-child)::after {
+  content: '|';
+  position: absolute;
+  right: -0.5rem;
+  color: white;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 .meta span {
-  margin-right: 1rem;
   background: #181F2F;
-  padding: 5px;
+  padding: 5px 8px;
   border-radius: var(--radius-button);
   font-weight: 500;
   font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .meta span i {
@@ -156,13 +192,19 @@ onMounted(async () => {
 }
 
 #ratingStyle {
-  background-color: rgba(234, 179, 5, 0.5);
-  padding: 5px;
-  border-radius: var(--radius-button);
+  background-color: rgba(234, 179, 5, 0.15);
 }
 
 #ratingStyle i {
   color: #EAB305;
+}
+
+.movieinstructor p {
+  font-weight: bold;
+}
+
+.moviedescription {
+  margin-top: 0;
 }
 
 .buttons {
@@ -226,3 +268,4 @@ onMounted(async () => {
 }
 
 </style>
+
