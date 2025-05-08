@@ -39,27 +39,35 @@ onMounted(async () => {
     <section>
       <article>
         <img src="../assets/img/CinematicsMobil.png" alt="">
-        <div></div>
+        <div class="whiteLine">
+          <div class="redLine"></div>
+        </div>
         <h3>Cinemates</h3>
         <p>Biffen Cinemates er Biffens egen filmklub med fantastiske filmoplevelser. En mandag aften hver måned vises en udvalgt premierefilm</p>
       </article>
       <article>
-        <img src="../assets/img/CinematicsMobil.png" alt="">
-        <div></div>
-        <h3>Cinemates</h3>
-        <p>Biffen Cinemates er Biffens egen filmklub med fantastiske filmoplevelser. En mandag aften hver måned vises en udvalgt premierefilm</p>
+        <img src="../assets/img/FranskefilmMobil.png" alt="">
+        <div class="whiteLine">
+          <div class="redLine"></div>
+        </div>
+        <h3>Franske Film Mandage</h3>
+        <p>Oplev det bedste fra den franske filmscene!</p>
       </article>
       <article>
-        <img src="../assets/img/CinematicsMobil.png" alt="">
-        <div></div>
-        <h3>Cinemates</h3>
-        <p>Biffen Cinemates er Biffens egen filmklub med fantastiske filmoplevelser. En mandag aften hver måned vises en udvalgt premierefilm</p>
+        <img src="../assets/img/OperaIBiffenMobil.png" alt="">
+        <div class="whiteLine">
+          <div class="redLine"></div>
+        </div>
+        <h3>Opera i Biffen</h3>
+        <p>Oplev nogle af de største operaer på det store lærred når vi viser Opera i Biffen.</p>
       </article>
       <article>
-        <img src="../assets/img/CinematicsMobil.png" alt="">
-        <div></div>
-        <h3>Cinemates</h3>
-        <p>Biffen Cinemates er Biffens egen filmklub med fantastiske filmoplevelser. En mandag aften hver måned vises en udvalgt premierefilm</p>
+        <img src="../assets/img/BiffenInternationalMobil.png" alt="">
+        <div class="whiteLine">
+          <div class="redLine"></div>
+        </div>
+        <h3>Biffen International</h3>
+        <p>On selected days, you can watch premiere films with English subtitles at Biffen International</p>
       </article>
     </section>
   </section>
@@ -69,7 +77,8 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-h1,h2,h3,h4,h5,h6,p{
+
+h1,h2,h3,h4,h5,h6{
   margin: 0px;
 }
 .introEvents{
@@ -80,8 +89,19 @@ h1,h2,h3,h4,h5,h6,p{
 .introEvents img{
   border-radius: 15px;
 }
+.introEvents{
+  margin-bottom: var(--space-section);
+}
+
+.introWrapper{
+  padding-bottom: 20px;
+}
 main{
   padding: 0px 12px;
+}
+
+.headingNdLine{
+  margin: 40px 0px;
 }
 
 .headingNdLine div{
@@ -95,61 +115,20 @@ main{
 }
 .events section{
   display: grid;
-  row-gap: 75px;
+  row-gap: 60px;
+}
+
+.whiteLine{
+  width: 100%;
+  height: 1px;
+  background-color: white;
+  position: relative;
+  margin: 16px 0px;
+}
+.redLine{
+  position: absolute;
+  width: 30%;
+  height: 1px;
+  background-color: var(--interactive-red)
 }
 </style>
-<!-- .eventContainer {
-  padding: 20px;
-}
-
-.eventCards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.eventCard {
-  background: black;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.eventImage {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.eventDetails {
-  margin-top: 15px;
-}
-
-.eventDetails h3 {
-  margin: 5px 0;
-} -->
-
-
-
-
-
-
- <!-- <div class="eventContainer">
-      <h1>Kommende Events</h1>
-      <div v-if="events.length === 0">Indlæser events...</div>
-      <div v-else class="eventCards">
-        <div v-for="event in events" :key="event.id" class="eventCard">
-          <router-link :to="`/event/${event.slug}`">
-            <img :src="event.acf.event_billede.url" :alt="event.title.rendered" class="eventImage" />
-            <div class="eventDetails">
-              <h2>{{ event.title.rendered }}</h2>
-              <h3>{{ event.acf.subtitle }}</h3>
-              <p>{{ event.acf.dato }}</p>
-              <p>{{ event.acf.event_beskrivelse }}</p>
-              <a :href="event.acf.ticket_link" target="_blank" rel="noopener">Køb billet(er)</a>
-            </div>
-          </router-link>
-        </div>
-      </div>
-    </div> -->
