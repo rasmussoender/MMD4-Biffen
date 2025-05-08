@@ -1,143 +1,201 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, watchEffect, nextTick } from 'vue'
 
-const movies = ref([])
-
-onMounted(async () => {
-  try {
-    const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie')
-    const data = await response.json()
-    movies.value = data
-  } catch (error) {
-    console.error('Error fetching movies:', error)
-  }
-
-  setTimeout(() => {
-    if (slider.value) {
-      const slideWidth = 180
-      const initialScroll = (activeSlideIndex.value * slideWidth) - (slider.value.clientWidth / 2) + (slideWidth / 2)
-      slider.value.scrollLeft = initialScroll
-    }
-  }, 100)
-})
-
-const heroBgImage = new URL('@/assets/img/sing-sing-bg.jpg', import.meta.url).href
-
-const films = [
+const movies = ref([
   {
     id: 1,
-    title: "Queer",
-    poster: new URL('@/assets/img/sing-sing-poster.jpg', import.meta.url).href
+    title: 'Sing Sing',
+    genre: 'Drama | Fængsel',
+    rating: '7.4/10',
+    release_date: '18 dec. 2024',
+    duration: '2:36',
+    age_rating: '7 år+',
+    description: `Divine G sidder fængslet i Sing Sing for en forbrydelse, han ikke har begået, men finder mening i livet gennem en teatergruppe.`,
+    background_image: new URL('@/assets/img/sing-sing-banner.png', import.meta.url).href
   },
   {
     id: 2,
-    title: "Under Stjernerne",
-    poster: new URL('@/assets/img/seebach-poster.jpg', import.meta.url).href
+    title: 'The Last Light',
+    genre: 'Drama | Sci-fi',
+    rating: '7.9/10',
+    release_date: '15 okt. 2025',
+    duration: '2:15',
+    age_rating: '11 år+',
+    description: `I en fremtid hvor solen er ved at dø ud, kæmper menneskeheden for at overleve i evigt mørke.`,
+    background_image: new URL('@/assets/img/dylan-banner.png', import.meta.url).href
   },
   {
     id: 3,
-    title: "Unknown",
-    poster: new URL('@/assets/img/dylan-poster.jpg', import.meta.url).href
+    title: 'Ocean Depths',
+    genre: 'Dokumentar | Natur',
+    rating: '9.0/10',
+    release_date: '1 jun. 2025',
+    duration: '1:30',
+    age_rating: 'Tilladt for alle',
+    description: `Udforsk havets mysterier i denne visuelt betagende dokumentar.`,
+    background_image: new URL('@/assets/img/queer-banner.png', import.meta.url).href
   },
   {
     id: 4,
-    title: "Sing Sing",
-    poster: new URL('@/assets/img/sing-sing-poster.jpg', import.meta.url).href
+    title: 'The Painter',
+    genre: 'Drama | Kunst',
+    rating: '8.5/10',
+    release_date: '21 apr. 2025',
+    duration: '2:20',
+    age_rating: '7 år+',
+    description: `En kunstners liv bliver vendt på hovedet...`,
+    background_image: new URL('@/assets/img/seebach-banner.jpg', import.meta.url).href
   },
   {
     id: 5,
-    title: "Busters Verden",
-    poster: new URL('@/assets/img/buster-poster.jpg', import.meta.url).href
+    title: 'Jungle Strike',
+    genre: 'Action | Thriller',
+    rating: '7.8/10',
+    release_date: '7 mar. 2025',
+    duration: '2:00',
+    age_rating: '15 år+',
+    description: `En elitesoldat sendes på mission...`,
+    background_image: new URL('@/assets/img/sauna-hero.png', import.meta.url).href
   },
   {
     id: 6,
-    title: "Sauna",
-    poster: new URL('@/assets/img/sauna-poster.jpg', import.meta.url).href
+    title: 'Love in Winter',
+    genre: 'Romantik | Drama',
+    rating: '6.9/10',
+    release_date: '14 feb. 2025',
+    duration: '1:45',
+    age_rating: 'Tilladt for alle',
+    description: `To mennesker mødes i en snedækket by og opdager, at kærlighed kan opstå selv i de koldeste tider.`,
+    background_image: new URL('@/assets/img/buster-banner.png', import.meta.url).href
   }
-]
+])
 
-const slider = ref(null)
-const activeSlideIndex = ref(3)
+const currentIndex = ref(0)
+const previousIndex = ref(null)
+const expanded = ref(false)
+const showReadMore = ref(false)
+const descriptionEl = ref(null)
+const isFading = ref(false)
+const hasMounted = ref(false)
+let intervalId = null
 
-const scrollLeft = () => {
-  if (slider.value) {
-    slider.value.scrollLeft -= 200
-    updateActiveSlide()
-  }
+const fadeDuration = 1000
+
+const nextMovie = async () => {
+  previousIndex.value = currentIndex.value
+  isFading.value = true
+
+  await nextTick()
+
+  currentIndex.value = (currentIndex.value + 1) % movies.value.length
+  expanded.value = false
+  await nextTick()
+  checkIfOverflowing()
+
+  setTimeout(() => {
+    previousIndex.value = null
+    isFading.value = false
+  }, fadeDuration)
 }
 
-const scrollRight = () => {
-  if (slider.value) {
-    slider.value.scrollLeft += 200
-    updateActiveSlide()
-  }
+const checkIfOverflowing = () => {
+  const el = descriptionEl.value
+  if (!el) return
+
+  const lineHeight = parseFloat(getComputedStyle(el).lineHeight)
+  const maxHeight = lineHeight * 3
+  showReadMore.value = el.scrollHeight > (maxHeight + 5)
+
+  el.style.display = 'none'
+  setTimeout(() => {
+    if (el) el.style.display = ''
+  }, 0)
 }
 
-const updateActiveSlide = () => {
-  if (!slider.value) return
+onMounted(async () => {
+  await nextTick()
+  checkIfOverflowing()
+  hasMounted.value = true
+  intervalId = setInterval(nextMovie, 5000)
+})
 
-  const sliderRect = slider.value.getBoundingClientRect()
-  const sliderCenter = sliderRect.left + sliderRect.width / 2
+onUnmounted(() => {
+  clearInterval(intervalId)
+})
 
-  let closest = null
-  let closestDistance = Infinity
+watchEffect(async () => {
+  await nextTick()
+  checkIfOverflowing()
+})
 
-  slider.value.querySelectorAll('.slide').forEach((slide, index) => {
-    const slideRect = slide.getBoundingClientRect()
-    const slideCenter = slideRect.left + slideRect.width / 2
-    const distance = Math.abs(slideCenter - sliderCenter)
-
-    if (distance < closestDistance) {
-      closestDistance = distance
-      closest = index
-    }
-  })
-
-  if (closest !== null) {
-    activeSlideIndex.value = closest
-  }
+const toggleDescription = () => {
+  expanded.value = !expanded.value
 }
 </script>
 
 <template>
-  <section class="hero" :style="`background-image: url('${heroBgImage}')`">
+  <section class="hero">
+    <!-- Previous background fading out -->
+    <div
+      v-if="previousIndex !== null"
+      class="background-layer fade-out"
+      :style="{ backgroundImage: `url(${movies[previousIndex].background_image})` }"
+    ></div>
+
+    <!-- Current background -->
+    <div
+      class="background-layer"
+      :class="{ 'fade-in': isFading }"
+      :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"
+    ></div>
+
+    <!-- Initial background without transition -->
+    <div
+      v-if="!hasMounted"
+      class="background-layer"
+      :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"
+    ></div>
+
+    <!-- Overlay -->
     <div class="overlay">
       <div class="info">
-        <p class="genre">Drama | Fængsel</p>
-        <h1 class="title">Sing Sing</h1>
+        <p class="genre">{{ movies[currentIndex].genre }}</p>
+        <h1 class="title">{{ movies[currentIndex].title }}</h1>
         <ul class="details">
-          <li>⭐ 7.4/10</li>
-          <li>📅 18 dec. 2024</li>
-          <li>⏱️ 2:36</li>
-          <li>🔞 7 år+</li>
+          <li>⭐ {{ movies[currentIndex].rating }}</li>
+          <li>📅 {{ movies[currentIndex].release_date }}</li>
+          <li>⏱️ {{ movies[currentIndex].duration }}</li>
+          <li>🔞 {{ movies[currentIndex].age_rating }}</li>
         </ul>
-        <p class="description">
-          Divine G sidder fængslet i Sing Sing for en forbrydelse, han ikke har begået,
-          men finder mening i livet gennem en...
-        </p>
+
+        <div class="description-container">
+          <p
+            ref="descriptionEl"
+            class="description"
+            :class="{ collapsed: !expanded }"
+          >
+            {{ movies[currentIndex].description }}
+          </p>
+          <div v-if="showReadMore && !expanded" class="read-more-container">
+            <a href="#" class="read-more" @click.prevent="toggleDescription">Read more</a>
+          </div>
+          <div v-if="expanded" class="read-more-container">
+            <a href="#" class="read-more" @click.prevent="toggleDescription">Show less</a>
+          </div>
+        </div>
+
         <div class="buttons">
           <button class="primary">🎟️ Bestil billetter</button>
           <button class="secondary">▶️ Se trailer</button>
         </div>
       </div>
 
-      <div class="slider-section">
-        <div class="navigation-arrows">
-          <button class="arrow" @click="scrollLeft">❮</button>
-          <button class="arrow" @click="scrollRight">❯</button>
-        </div>
-        <div class="slider-wrapper">
-          <div class="slider" ref="slider">
-            <div 
-              class="slide" 
-              v-for="(film, index) in films" 
-              :key="film.id"
-              :class="{ active: index === activeSlideIndex }"
-            >
-              <img :src="film.poster" :alt="film.title" />
-            </div>
-          </div>
-        </div>
+      <div class="slider-dots">
+        <span
+          v-for="(movie, index) in movies"
+          :key="movie.id"
+          :class="{ dot: true, active: index === currentIndex }"
+        ></span>
       </div>
     </div>
   </section>
@@ -146,30 +204,54 @@ const updateActiveSlide = () => {
 <style scoped>
 .hero {
   width: 100%;
-  max-width: 100vw;
   height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
   position: relative;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
+  color: white;
+}
+
+.background-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
+  z-index: 0;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  z-index: 1;
+}
+
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 1s forwards;
+  z-index: 2;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .overlay {
-  background: radial-gradient(
-    circle at 80% center,
+  position: relative;
+  z-index: 10;
+  background: radial-gradient(circle at 80% center,
     rgba(255, 255, 255, 0.2) 0%,
     rgba(0, 0, 0, 0.2) 40%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+    rgba(0, 0, 0, 0.5) 100%);
   padding: 3rem;
-  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -200,10 +282,34 @@ const updateActiveSlide = () => {
   font-size: 0.9rem;
 }
 
-.description {
+.description-container {
   margin-bottom: 1rem;
+}
+
+.description {
+  margin-bottom: 0;
   font-size: 1rem;
   line-height: 1.5;
+  overflow: hidden;
+}
+
+.description.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.read-more-container {
+  margin-top: 0.3rem;
+}
+
+.read-more {
+  color: #e50914;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .buttons {
@@ -231,84 +337,23 @@ const updateActiveSlide = () => {
   color: black;
 }
 
-.slider-section {
-  width: 100vw;
-  position: relative;
+.slider-dots {
+  display: flex;
+  gap: 0.5rem;
   margin-top: 2rem;
-}
-
-.slider-wrapper {
-  width: 100%;
-  overflow: hidden;
-  padding: 1rem 0;
-  position: relative;
-}
-
-.slider {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-  scroll-behavior: smooth;
-  overflow-x: auto;
-  padding: 1rem 2rem;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.slider::-webkit-scrollbar {
-  display: none;
-}
-
-.slide {
-  position: relative;
-}
-
-.slide img {
-  width: 100%;
-  max-width: 180px;
-  height: 270px;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-  object-fit: cover;
-}
-
-.slide:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-.slide.active img {
-  border: 2px solid white;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.navigation-arrows {
-  position: absolute;
-  top: -1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  gap: 2rem;
-}
-
-.arrow {
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  font-size: 1.5rem;
-  border: none;
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
+  align-items: center;
 }
 
-.arrow:hover {
-  background: rgba(0, 0, 0, 0.8);
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #fff;
 }
 </style>
