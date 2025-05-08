@@ -38,7 +38,11 @@ onMounted(async () => {
     </div>
     <section>
       <article>
-        <img src="../assets/img/CinematicsMobil.png" alt="">
+        <picture>
+          <source srcset="../assets/img/CinematicsMobil.png" media="(max-width:999px)">
+          <source srcset="../assets/img/CinematicsDesktop.png" media="(min-width:1000px)">
+          <img src="../assets/img/CinematicsMobil.png" alt="">
+        </picture>
         <div class="whiteLine">
           <div class="redLine"></div>
         </div>
@@ -46,7 +50,11 @@ onMounted(async () => {
         <p>Biffen Cinemates er Biffens egen filmklub med fantastiske filmoplevelser. En mandag aften hver måned vises en udvalgt premierefilm</p>
       </article>
       <article>
-        <img src="../assets/img/FranskefilmMobil.png" alt="">
+        <picture>
+          <source srcset="../assets/img/FranskefilmMobil.png" media="(max-width:999px)">
+          <source srcset="../assets/img/FranskefilmDesktop.png" media="(min-width:1000px)">
+          <img src="../assets/img/FranskefilmMobil.png" alt="">
+        </picture>
         <div class="whiteLine">
           <div class="redLine"></div>
         </div>
@@ -54,7 +62,11 @@ onMounted(async () => {
         <p>Oplev det bedste fra den franske filmscene!</p>
       </article>
       <article>
-        <img src="../assets/img/OperaIBiffenMobil.png" alt="">
+        <picture>
+          <source srcset="../assets/img/OperaIBiffenMobil.png" media="(max-width:999px)">
+          <source srcset="../assets/img/OperaIBiffenDesktop.png" media="(min-width:1000px)">
+          <img src="../assets/img/OperaIBiffenMobil.png" alt="">
+        </picture>
         <div class="whiteLine">
           <div class="redLine"></div>
         </div>
@@ -78,6 +90,7 @@ onMounted(async () => {
 
 <style scoped>
 
+/* Mobile styling */
 h1,h2,h3,h4,h5,h6{
   margin: 0px;
 }
@@ -130,5 +143,19 @@ main{
   width: 30%;
   height: 1px;
   background-color: var(--interactive-red)
+}
+
+
+/* Desktop styling */
+
+@media (min-width: 1000px){
+  .events section{
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 3rem;
+    row-gap: 3rem;
+  }
+  main{
+    padding: 0 var(--space-container);
+  }
 }
 </style>
