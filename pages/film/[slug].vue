@@ -3,14 +3,26 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const movie = ref(null);
+const cast = ref([]);
 const route = useRoute();
 const slug = route.params.slug;
+const TMDB_API_KEY = 'b65594f1d77a7f9b07f9c713616d0cc8';
 
 onMounted(async () => {
   try {
     const response = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?slug=${slug}`);
     const data = await response.json();
     movie.value = data[0];
+
+  //  The movie db api
+    const tmdbUrl = movie.value?.acf?.moviedb?.url;
+    const match = tmdbUrl?.match(/movie\/(\d+)/);
+    const tmdbId = match ? match[1] : null;
+    if (tmdbId) {
+      const castResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=${TMDB_API_KEY}&language=da`);
+      const castData = await castResponse.json();
+      cast.value = castData.cast?.slice(0, 6) || [];
+    }
   } catch (error) {
     console.error('Der skete en fejl!', error);
   }
@@ -37,7 +49,6 @@ const prevDays = () => {
 const visibleSessions = computed(() => {
   return movie.value?.acf.spilletider.filmvisning.slice(visibleStart.value, visibleStart.value + visibleCount) || [];
 });
-
 </script>
 
 <template>
@@ -109,19 +120,30 @@ const visibleSessions = computed(() => {
       </div>
     </section>
 
-    <section class="actors">
-      <h2>Top skuespillere</h2>
-      <div class="actorSection">
-        <div class="actorGroup" v-for="n in 6" :key="n">
-          <img class="actorImg" src="/assets/img/Sauna-2025.hd (1).jpg" alt="">
-          <h3 class="actorName">timotheeee</h3>
-          <h4 class="actorRole">Lay</h4>
-        </div>
-      </div>
-      <div class="actorbutton">
-        <a :href="movie.acf.imdb" target="_blank" class="btn outline">Se alle skuespillere</a>
-      </div>
-    </section>
+<section class="actors">
+  <h2>Top skuespillere</h2>
+  <div class="actorSection">
+    <a
+      class="actorGroup"
+      v-for="actor in cast"
+      :key="actor.id"
+      :href="`https://www.themoviedb.org/person/${actor.id}`"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        class="actorImg"
+        :src="actor.profile_path ? `https://image.tmdb.org/t/p/w300${actor.profile_path}` : '/img/actorPlaceholderIMG.jpg'"
+        :alt="actor.name"
+      />
+      <h3 class="actorName">{{ actor.name }}</h3>
+      <h4 class="actorRole">{{ actor.character }}</h4>
+    </a>
+  </div>
+  <div class="actorbutton">
+    <a :href="movie.acf.themoviedbactors.url" target="_blank" class="btn outline">Se alle skuespillere</a>
+  </div>
+</section>
   </main>
 
   <div v-else>Loading movie details...</div>
@@ -347,6 +369,10 @@ const visibleSessions = computed(() => {
     padding-top: 0;
 }
 
+.actors a {
+  text-decoration: none;
+}
+
 .actorSection {
  display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -364,7 +390,13 @@ const visibleSessions = computed(() => {
   height: 70%;     
   object-fit: cover;  
   border-radius: 8px; 
+  transition: transform 0.5s ease;
 }
+
+:hover.actorImg {
+    transform: scale(1.10);
+}
+
 
 .actorName, .actorRole {
   text-align: center;
