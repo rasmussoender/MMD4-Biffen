@@ -151,77 +151,145 @@ const toggleDescription = () => {
 </script>
 
 <template>
-  <section class="hero">
-    <div v-if="previousIndex !== null" class="background-layer fade-out" :style="{ backgroundImage: `url(${movies[previousIndex].background_image})` }"></div>
-    <div class="background-layer" :class="{ 'fade-in': isFading }" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
-    <div v-if="!hasMounted" class="background-layer" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
+  <section class="forside-hero">
+    <div v-if="previousIndex !== null" class="forside-hero-background-layer forside-hero-fade-out" :style="{ backgroundImage: `url(${movies[previousIndex].background_image})` }"></div>
+    <div class="forside-hero-background-layer" :class="{ 'forside-hero-fade-in': isFading }" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
+    <div v-if="!hasMounted" class="forside-hero-background-layer" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
 
-    <div class="overlay">
-      <div class="info">
-        <p class="genre">
+    <div class="forside-hero-overlay">
+      <div class="forside-hero-info">
+        <p class="forside-hero-genre">
           <template v-for="(g, i) in movies[currentIndex].genre" :key="i">
             <span>{{ g }}</span>
-            <span v-if="i < movies[currentIndex].genre.length - 1" class="genre-separator">|</span>
+            <span v-if="i < movies[currentIndex].genre.length - 1" class="forside-hero-genre-separator">|</span>
           </template>
         </p>
 
-        <h1 class="title">{{ movies[currentIndex].title }}</h1>
+        <h1 class="forside-hero-title">{{ movies[currentIndex].title }}</h1>
 
-        <ul class="details">
-          <li class="detail rating"><i class="fas fa-star icon-detail"></i><span>{{ movies[currentIndex].rating }}</span></li>
-          <li class="detail date"><i class="fas fa-film icon-detail"></i><span>{{ movies[currentIndex].release_date }}</span></li>
-          <li class="detail time"><i class="fas fa-clock icon-detail"></i><span>{{ movies[currentIndex].duration }}</span></li>
-          <li class="detail age"><i class="fas fa-child-reaching icon-detail"></i><span>{{ movies[currentIndex].age_rating }}</span></li>
+        <ul class="forside-hero-details">
+          <li class="forside-hero-detail forside-hero-rating"><i class="fas fa-star forside-hero-icon-detail"></i><span>{{ movies[currentIndex].rating }}</span></li>
+          <li class="forside-hero-detail forside-hero-date"><i class="fas fa-film forside-hero-icon-detail"></i><span>{{ movies[currentIndex].release_date }}</span></li>
+          <li class="forside-hero-detail forside-hero-time"><i class="fas fa-clock forside-hero-icon-detail"></i><span>{{ movies[currentIndex].duration }}</span></li>
+          <li class="forside-hero-detail forside-hero-age"><i class="fas fa-child-reaching forside-hero-icon-detail"></i><span>{{ movies[currentIndex].age_rating }}</span></li>
         </ul>
 
-        <div class="description-container">
-          <p ref="descriptionEl" class="description" :class="{ collapsed: !expanded }">{{ movies[currentIndex].description }}</p>
-          <div v-if="showReadMore && !expanded" class="read-more-container">
-            <a href="#" class="read-more" @click.prevent="toggleDescription">Læs mere</a>
+        <div class="forside-hero-description-container">
+          <p ref="descriptionEl" class="forside-hero-description" :class="{ 'forside-hero-collapsed': !expanded }">{{ movies[currentIndex].description }}</p>
+          <div v-if="showReadMore && !expanded" class="forside-hero-read-more-container">
+            <a href="#" class="forside-hero-read-more" @click.prevent="toggleDescription">Læs mere</a>
           </div>
-          <div v-if="expanded" class="read-more-container">
-            <a href="#" class="read-more" @click.prevent="toggleDescription">Vis mindre</a>
+          <div v-if="expanded" class="forside-hero-read-more-container">
+            <a href="#" class="forside-hero-read-more" @click.prevent="toggleDescription">Vis mindre</a>
           </div>
         </div>
 
-        <div class="buttons">
-  <button class="btn btn-primary">
-    <span class="material-icons">local_activity</span>
-    Bestil billetter
-  </button>
-  <button class="btn btn-secondary">
-    <i class="fab fa-youtube"></i>
-    Se trailer
-  </button>
-</div>
-
+        <div class="forside-hero-buttons">
+          <button class="forside-hero-btn forside-hero-btn-primary">
+            <span class="material-symbols-outlined">local_activity</span>
+            Bestil billetter
+          </button>
+          <button class="forside-hero-btn forside-hero-btn-secondary">
+            <i class="fab fa-youtube"></i>
+            Se trailer
+          </button>
+        </div>
       </div>
 
-      <div class="slider-controls">
-        <button @click="prevMovie" class="arrow">
-          <span class="material-icons icon-arrow">chevron_left</span>
+      <div class="forside-hero-slider-controls">
+        <button @click="prevMovie" class="forside-hero-arrow">
+          <span class="material-icons forside-hero-icon-arrow">chevron_left</span>
         </button>
-        <div class="slider-dots">
-          <span v-for="(movie, index) in movies" :key="movie.id" :class="{ dot: true, active: index === currentIndex }"></span>
+        <div class="forside-hero-slider-dots">
+          <span v-for="(movie, index) in movies" :key="movie.id" :class="{ 'forside-hero-dot': true, 'forside-hero-active': index === currentIndex }"></span>
         </div>
-        <button @click="nextMovie" class="arrow">
-          <span class="material-icons icon-arrow">chevron_right</span>
+        <button @click="nextMovie" class="forside-hero-arrow">
+          <span class="material-icons forside-hero-icon-arrow">chevron_right</span>
         </button>
       </div>
     </div>
   </section>
+  <section>
+    <div class="section-boks-1-container">
+    <div class="section-boks-1">
+      <div class="section-boks-1-content">
+        <div class="section-boks-1-text">
+          <h4 class="subtitle-boks-1">Velkommen til</h4>
+          <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
+          <p class="section-boks-1-beskrivelse">Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.</p>
+        </div>
+        <div class="section-boks-1-video">
+          <video autoplay muted loop>
+            <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4">
+            Din browser understøtter ikke videoafspilning.
+          </video>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <section>
+    <h2 class="overskrift-med-streg"><span>Program</span></h2>
+    <div class="film-program-container">
+      <div class="film-program">
+        <div class="film-program-content">
+        <div class="program-film-poster">
+          <img src="../assets/img/queer-poster.jpg" alt="">
+        </div>
+        <div class="film-program-detaljer">
+          <div class="film-program-titel-og-info">
+            <h3>Queer</h3>
+            <ul>
+              <li><i class="fas fa-clock"></i>2:36 t</li>
+              <li><i class="fas fa-child-reaching"></i>7 år+</li>
+            </ul>
+          </div>
+          <hr class="film-program-hr">
+          <!-- Indsæt tider her -->
+        </div>
+        </div>
+        <div class="film-program-content">
+        <div class="program-film-poster">
+          <img src="../assets/img/queer-poster.jpg" alt="">
+        </div>
+        <div class="film-program-detaljer">
+          <div class="film-program-titel-og-info">
+            <h3>Queer</h3>
+            <ul>
+              <li><i class="fas fa-clock"></i>2:36 t</li>
+              <li><i class="fas fa-child-reaching"></i>7 år+</li>
+            </ul>
+          </div>
+          <hr class="film-program-hr">
+          <!-- Indsæt tider her -->
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-flere-film-cta">
+  <a href="#">
+    Vis flere film
+    <span class="material-symbols-outlined">arrow_circle_right</span>
+  </a>
+</div>
+  </section>
+  <section>
+    <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
+  </section>
+  
 </template>
 
 <style scoped>
-.hero {
+.forside-hero {
   width: 100%;
   height: 75vh;
   position: relative;
   overflow: hidden;
   color: white;
+  border-radius: 0;
 }
 
-.background-layer {
+.forside-hero-background-layer {
   position: absolute;
   inset: 0;
   background-size: cover;
@@ -232,13 +300,13 @@ const toggleDescription = () => {
   z-index: 0;
 }
 
-.fade-in {
+.forside-hero-fade-in {
   opacity: 0;
   animation: fadeIn 1s forwards;
   z-index: 1;
 }
 
-.fade-out {
+.forside-hero-fade-out {
   opacity: 1;
   animation: fadeOut 1s forwards;
   z-index: 2;
@@ -254,7 +322,7 @@ const toggleDescription = () => {
   to { opacity: 0; }
 }
 
-.overlay {
+.forside-hero-overlay {
   position: relative;
   z-index: 10;
   background:
@@ -266,13 +334,13 @@ const toggleDescription = () => {
   justify-content: space-between;
 }
 
-.info {
+.forside-hero-info {
   max-width: 700px;
   padding-left: 120px;
   padding-top: 12rem;
 }
 
-.genre {
+.forside-hero-genre {
   font-size: 1rem;
   color: #fff;
   margin-bottom: 10px;
@@ -282,20 +350,20 @@ const toggleDescription = () => {
   font-weight: 500;
 }
 
-.genre-separator {
+.forside-hero-genre-separator {
   padding: 0 0.5rem;
   font-weight: bold;
   color: white;
 }
 
-.title {
+.forside-hero-title {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 1rem;
   line-height: 120%;
 }
 
-.details {
+.forside-hero-details {
   display: flex;
   gap: 1rem;
   list-style: none;
@@ -304,7 +372,7 @@ const toggleDescription = () => {
   margin-top: 24px;
 }
 
-.detail {
+.forside-hero-detail {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -316,39 +384,39 @@ const toggleDescription = () => {
   color: white;
 }
 
-.detail.rating {
+.forside-hero-rating {
   background-color: #5C4315;
 }
 
-.detail.rating .icon-detail {
+.forside-hero-rating .forside-hero-icon-detail {
   color: gold;
 }
 
-.detail.date .icon-detail,
-.detail.time .icon-detail,
-.detail.age .icon-detail {
+.forside-hero-date .forside-hero-icon-detail,
+.forside-hero-time .forside-hero-icon-detail,
+.forside-hero-age .forside-hero-icon-detail {
   color: #F63758;
 }
 
-.description-container {
+.forside-hero-description-container {
   margin-bottom: 1rem;
   margin-top: 3rem;
 }
 
-.description {
+.forside-hero-description {
   font-size: 18px;
   line-height: 175%;
   overflow: hidden;
 }
 
-.description.collapsed {
+.forside-hero-collapsed {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.read-more {
+.forside-hero-read-more {
   color: #F63758;
   cursor: pointer;
   display: inline-block;
@@ -356,13 +424,13 @@ const toggleDescription = () => {
   font-size: 18px;
 }
 
-.buttons {
+.forside-hero-buttons {
   display: flex;
   gap: 1.5rem;
   margin-top: 2rem;
 }
 
-.btn {
+.forside-hero-btn {
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -375,35 +443,35 @@ const toggleDescription = () => {
   white-space: nowrap;
 }
 
-.btn .material-icons {
+.forside-hero-btn .material-icons, .material-symbols-outlined {
   font-size: 34px;
 }
 
-.btn-primary {
+.forside-hero-btn-primary {
   background-color: #d63d4a;
   color: white;
   border: none;
 }
 
-.btn-primary:hover {
+.forside-hero-btn-primary:hover {
   background-color: #b7313d;
 }
 
-.btn-secondary {
+.forside-hero-btn-secondary {
   background-color: transparent;
   color: white;
   border: 2px solid white;
 }
 
-.btn-secondary i {
+.forside-hero-btn-secondary i {
   font-size: 28px;
 }
 
-.btn-secondary:hover {
+.forside-hero-btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.slider-controls {
+.forside-hero-slider-controls {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -411,7 +479,7 @@ const toggleDescription = () => {
   margin-bottom: 2rem;
 }
 
-.arrow {
+.forside-hero-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -425,16 +493,16 @@ const toggleDescription = () => {
   transition: background 0.2s;
 }
 
-.arrow:hover {
+.forside-hero-arrow:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
-.slider-dots {
+.forside-hero-slider-dots {
   display: flex;
   gap: 0.5rem;
 }
 
-.dot {
+.forside-hero-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -442,15 +510,210 @@ const toggleDescription = () => {
   transition: background-color 0.3s ease;
 }
 
-.dot.active {
+.forside-hero-active {
   background-color: #fff;
 }
 
-.icon-detail {
+.forside-hero-icon-detail {
   font-size: 16px;
 }
 
-.icon-arrow {
+.forside-hero-icon-arrow {
   font-size: 30px;
 }
+
+.section-boks-1-container {
+  padding-left: 120px;
+  padding-right: 120px;
+  margin-top: 8rem;
+  margin-bottom: 8rem;
+}
+
+.section-boks-1 {
+  background: #202F4D;
+  padding: 50px;
+  border-radius: 20px;
+}
+
+.section-boks-1-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 70px;
+}
+
+.section-boks-1-text,
+.section-boks-1-video {
+  flex: 1;
+  max-width: 50%;
+}
+
+.section-boks-1-video video {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.overskrift-boks-1 {
+  font-size: 55px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.overskrift-boks-1 span {
+  position: relative;
+  display: inline-block;
+}
+
+.overskrift-boks-1 span::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background-color: #F63758;
+}
+
+.subtitle-boks-1 {
+  font-size: 26px;
+  font-weight: 200;
+  line-height: 150%;
+}
+
+.section-boks-1-beskrivelse {
+  font-size: 18px;
+  line-height: 175%;
+  margin-top: 40px;
+}
+
+.overskrift-med-streg {
+  font-size: 55px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-left: 120px;
+  max-width: 550px;
+}
+
+.overskrift-med-streg span {
+  position: relative;
+  display: inline-block;
+}
+
+.overskrift-med-streg span::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background-color: #F63758;
+}
+
+.film-program-container {
+  padding-left: 120px;
+  padding-right: 120px;
+  margin-bottom: 3rem;
+}
+
+.film-program {
+  background: #202F4D;
+  padding: 50px;
+  border-radius: 20px;
+  margin-top: 4rem;
+}
+
+.film-program-content {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+  padding-bottom: 6rem;
+}
+
+.film-program-content:last-child {
+  padding-bottom: 0;
+}
+
+.program-film-poster img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+.film-program-detaljer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.film-program-titel-og-info {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.film-program-titel-og-info h3 {
+  font-size: 36px;
+  color: white;
+  font-weight: 700;
+}
+
+.film-program-titel-og-info ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.film-program-titel-og-info li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #131C31;
+  color: white;
+}
+
+.film-program-titel-og-info i {
+  color: #F63758;
+}
+
+.film-program-hr {
+  border: none;
+  height: 1px;
+  background-color: white;
+  margin-top: 12px;
+}
+
+.vis-flere-film-cta {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 120px;
+  margin-bottom: 8rem;
+}
+
+.vis-flere-film-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 1rem;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.vis-flere-film-cta .material-symbols-outlined {
+  font-size: 30px;
+}
+
 </style>
