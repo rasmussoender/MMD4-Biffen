@@ -3,10 +3,16 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const movie = ref(null);
-const cast = ref([]);
 const route = useRoute();
 const slug = route.params.slug;
+
+// https://www.themoviedb.org/ API KEY
 const TMDB_API_KEY = 'b65594f1d77a7f9b07f9c713616d0cc8';
+// Skuespillere
+const cast = ref([]);
+// Backdrop billede
+const backdropImage = ref('');
+
 
 onMounted(async () => {
   try {
@@ -14,19 +20,29 @@ onMounted(async () => {
     const data = await response.json();
     movie.value = data[0];
 
-  //  The movie db api
-    const tmdbUrl = movie.value?.acf?.moviedb?.url;
-    const match = tmdbUrl?.match(/movie\/(\d+)/);
-    const tmdbId = match ? match[1] : null;
+    // TMDB ID
+    const tmdbId = movie.value?.acf?.moviedb_id;
+
     if (tmdbId) {
+      // Fetch cast
       const castResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=${TMDB_API_KEY}&language=da`);
       const castData = await castResponse.json();
       cast.value = castData.cast?.slice(0, 6) || [];
+
+      // Fetch background image (backdrop)
+      const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=da`);
+      const movieData = await movieResponse.json();
+
+
+      if (movieData.backdrop_path) {
+        backdropImage.value = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`;
+      }
     }
   } catch (error) {
     console.error('Der skete en fejl!', error);
   }
 });
+
 
 const visibleStart = ref(0);
 const visibleCount = 7;
@@ -60,7 +76,7 @@ const visibleSessions = computed(() => {
       </NuxtLink>
     </div>
 
-    <section class="movieHeroWrapper" :style="{ backgroundImage: `url(${movie.acf.backgroundimage.url})` }">
+    <section class="movieHeroWrapper" :style="{ backgroundImage: `url(${backdropImage})` }">
       <div class="hero">
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="moviePoster" />
 
