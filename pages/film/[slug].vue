@@ -44,6 +44,7 @@ onMounted(async () => {
 });
 
 
+// Spilletid knapper
 const visibleStart = ref(0);
 const visibleCount = 7;
 
@@ -115,7 +116,11 @@ const visibleSessions = computed(() => {
 
       <div class="days">
         <div class="showtimeDayCard" v-for="session in visibleSessions" :key="session.filmdato">
-          <h4>{{ session.filmdato }}</h4>
+          
+          <div class="dateCard">
+            <h4 class="date">{{ session.filmdato }}</h4>
+          </div>
+
           <div class="showtimeSlots">
             <router-link
               v-for="time in session.spilletid"
@@ -136,30 +141,31 @@ const visibleSessions = computed(() => {
       </div>
     </section>
 
-<section class="actors">
-  <h2>Top skuespillere</h2>
-  <div class="actorSection">
-    <a
-      class="actorGroup"
-      v-for="actor in cast"
-      :key="actor.id"
-      :href="`https://www.themoviedb.org/person/${actor.id}`"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <img
-        class="actorImg"
-        :src="actor.profile_path ? `https://image.tmdb.org/t/p/w300${actor.profile_path}` : '/img/actorPlaceholderIMG.jpg'"
-        :alt="actor.name"
-      />
-      <h3 class="actorName">{{ actor.name }}</h3>
-      <h4 class="actorRole">{{ actor.character }}</h4>
-    </a>
-  </div>
-  <div class="actorbutton">
-    <a :href="movie.acf.themoviedbactors.url" target="_blank" class="btn outline">Se alle skuespillere</a>
-  </div>
-</section>
+
+    <section class="actors">
+      <h2>Top skuespillere</h2>
+      <div class="actorSection">
+        <a
+          class="actorGroup"
+          v-for="actor in cast"
+          :key="actor.id"
+          :href="`https://www.themoviedb.org/person/${actor.id}`"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            class="actorImg"
+            :src="actor.profile_path ? `https://image.tmdb.org/t/p/w300${actor.profile_path}` : '/img/actorPlaceholderIMG.jpg'"
+            :alt="actor.name"
+          />
+          <h3 class="actorName">{{ actor.name }}</h3>
+          <h4 class="actorRole">{{ actor.character }}</h4>
+        </a>
+      </div>
+      <div class="actorbutton">
+        <a :href="movie.acf.themoviedbactors.url" target="_blank" class="btn outline">Se alle skuespillere</a>
+      </div>
+    </section>
   </main>
 
   <div v-else>Loading movie details...</div>
@@ -190,6 +196,7 @@ const visibleSessions = computed(() => {
   border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
+
 }
 
 .hero {
@@ -335,16 +342,30 @@ const visibleSessions = computed(() => {
 }
 
 .showtimeDayCard {
-  background-color: var(--color-body);
-  text-align: center;
-  border-radius: var(--radius-button);
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
+
+.dateCard {
+  background-color: var(--color-body);
+  padding: 1.5rem;
+  border-radius: var(--radius-button);
+  text-align: center;
+  color: white;
+}
+.dateCard h4 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
 
 .showtimeSlots {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .time {
@@ -355,6 +376,7 @@ const visibleSessions = computed(() => {
   text-align: center;
   text-decoration: none;
   font-weight: 600;
+  font-size: 1rem;
 }
 
 .timesNav {
