@@ -33,16 +33,20 @@ onMounted(async () => {
       const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=da`);
       const movieData = await movieResponse.json();
 
-
       if (movieData.backdrop_path) {
         backdropImage.value = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`;
       }
+
+      // Hent rating fra tmdb
+      if (movieData.vote_average) {
+        movie.value.rating = movieData.vote_average;
+      }
+
     }
   } catch (error) {
     console.error('Der skete en fejl!', error);
   }
 });
-
 
 // Spilletid knapper
 const visibleStart = ref(0);
@@ -91,7 +95,8 @@ const visibleSessions = computed(() => {
           <h1>{{ movie.title.rendered }}</h1>
 
           <div class="movieMetadata">
-            <span id="ratingStyle"><i class="fa-solid fa-star"></i> {{ movie.acf.rating }}/10</span>
+            <span id="ratingStyle">
+            <i class="fa-solid fa-star"></i> {{ movie.rating.toFixed(1) }}/10</span>
             <span><i class="fa-solid fa-calendar-days"></i> {{ movie.acf.udgivelsesdato }}</span>
             <span><i class="fa-solid fa-clock"></i> {{ movie.acf.varighed }} t</span>
             <span v-if="movie.acf.age.length"><i class="fa-solid fa-user-shield"></i> {{ movie.acf.age[0].aldersgraense }}</span>
@@ -101,7 +106,7 @@ const visibleSessions = computed(() => {
           <p class="moviedescription">{{ movie.acf.description }}</p>
           <div class="buttons">
             <a :href="movie.acf.trailer" target="_blank" class="btn red">Se trailer</a>
-            <a :href="movie.acf.imdb" target="_blank" class="btn outline">Læs mere</a>
+            <a :href="movie.acf.tmdb" target="_blank" class="btn outline">Læs mere</a>
           </div>
         </div>
       </div>
@@ -163,7 +168,7 @@ const visibleSessions = computed(() => {
         </a>
       </div>
       <div class="actorbutton">
-        <a :href="movie.acf.themoviedbactors.url" target="_blank" class="btn outline">Se alle skuespillere</a>
+        <a :href="movie.acf.moviedb_actors" target="_blank" class="btn outline">Se alle skuespillere</a>
       </div>
     </section>
   </main>
