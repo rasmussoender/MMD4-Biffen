@@ -341,9 +341,10 @@ const visibleSessions = computed(() => {
   display: flex;
   padding: 5rem;
   flex-wrap: nowrap;
-  gap: 2rem;
+  gap: 1rem;
   overflow-x: auto;
   justify-content: center;
+  
 }
 
 .showtimeDayCard {
@@ -351,14 +352,16 @@ const visibleSessions = computed(() => {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  
 }
 
 .dateCard {
   background-color: var(--color-body);
-  padding: 1.5rem;
+  padding: .5rem;
   border-radius: var(--radius-button);
   text-align: center;
   color: white;
+
 }
 .dateCard h4 {
   margin: 0;
