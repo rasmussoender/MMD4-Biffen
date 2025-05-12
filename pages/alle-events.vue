@@ -19,6 +19,8 @@ onMounted(async () => {
   <Header />
   <main>
   <section class="introEvents">
+    <img src="../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
+    <img src="../assets/img/IntroEventDesktop.png" alt="" class="pcbillede">
     <div class="introWrapper">
     <div class="headingNdLine">
       <h1>Biffens event</h1>
@@ -28,8 +30,6 @@ onMounted(async () => {
     <p>Vi får bl.a. besøg af aktuelle skuespillere og instruktører til Q&A’s, hvor publikum får mulighed for at stille spørgsmål og få et unikt indblik i filmens tilblivelse. Vi afholder både nationale og internationale filmfestivaler som CPH:DOX, Don't Fear the Weird og Cinematekets Musikfilmfestival, som giver plads til både nye stemmer og etablerede navne.</p>
     <p>Derudover sætter vi en ære i at skabe den rette ramme omkring hver visning – hvad enten det er gennem introduktioner, debatarrangementer eller særlige temaaftener, der sætter filmen i perspektiv og inviterer til refleksion.</p>
     </div>
-    <img src="../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
-    <img src="../assets/img/IntroEventDesktop.png" alt="" class="pcbillede">
   </section>
 
   <section class="upcomingEvents upcoming">
@@ -205,7 +205,7 @@ main{
 
 .headingNdLine{
   display: inline-block;
-  margin: 40px 0px;
+  margin-top: 40px;
 }
 
 .headingNdLine div{
@@ -322,10 +322,13 @@ main{
     padding: 40px 100px;
   }
   .introEvents .introWrapper{
-    justify-self: start;
+    grid-template-columns: 1;
+    grid-row: 1;
+    justify-self: end;
   }
   .introEvents img{
     justify-self: end;
+    grid-column: 2;
   }
 
 }

@@ -56,6 +56,20 @@ import Header from '@/components/Header.vue';
         </div>
       </article>
     </section>
+
+     <section class="introEvents">
+    <img src="../assets/img/FirmabilleterMobil.png" alt="" class="mobilbillede">
+    <img src="../assets/img/FirmabilleterDesktop.png" alt="" class="pcbillede">
+    <div class="introWrapper">
+    <div class="headingNdLine">
+      <h1>Firmabilletter</h1>
+      <div></div>
+    </div>
+    <p>Med vores firmaordning kan du nemt og billigt glæde dine medarbejdere og forretningsforbindelser med store filmoplevelser. </p>
+    <p>En firmabillet koster 76 kr. inkl. moms (min. 10 stk.) og kan indløses til alle ordinære forestillinger i Biffen Nordkraft. Der opkræves tillæg for forlænget spilletid og events. Tilkøb af lækkerier fra caféen er muligt. Kontakt os for at høre mere om mulighederne og evt. tilbud. Det ønskede antal billetter fremsendes til din firmaadresse sammen med en faktura. I forbindelse med køb af firmabilletter skal virksomhedens CVR-nr. oplyses. </p>
+    <p>Firmabilletter kan bestilles hos Karin Fast på info@biffen.eu eller tlf. 31909977 hverdage kl. 9-13.</p>
+    </div>
+  </section>
   </main>
   <Footer />
 
@@ -63,6 +77,38 @@ import Header from '@/components/Header.vue';
 
 
 <style scoped>
+.pcbillede{
+    display: none;
+  }
+
+h1,h2,h3,h4,h5,h6{
+  margin: 0px;
+}
+.headingNdLine{
+  display: inline-block;
+  margin-top: 40px;
+}
+
+.headingNdLine div{
+  width: 50%;
+  background-color: var(--interactive-red);
+  height: 3px;
+}
+.introEvents{
+  background-color: var(--secondary-blue);
+  padding: 20px 20px;
+}
+
+.introEvents img{
+  border-radius: 20px;
+}
+.introEvents{
+  margin-bottom: var(--space-section);
+}
+
+.introWrapper{
+  padding-bottom: 20px;
+}
 main{
   padding: 0px 12px;
 }
@@ -158,6 +204,30 @@ main{
   .udvalg article:last-of-type{
     grid-column: 2;
   }
+  .mobilbillede{
+    display: none;
+  }
+  .pcbillede{
+    display: block;
+  }
+
+    .introEvents{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    padding: 40px 100px;
+  }
+  .introEvents .introWrapper{
+    grid-template-columns: 1;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .introEvents img{
+    justify-self: end;
+    grid-column: 2;
+  }
+
+
   
 }
 
