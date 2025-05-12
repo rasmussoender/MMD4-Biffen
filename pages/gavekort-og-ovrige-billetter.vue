@@ -9,7 +9,7 @@ import Header from '@/components/Header.vue';
     <section class="udvalg">
       <article>
         <div class="udvalgCard">
-          <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo">
+          <!-- <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo"> -->
           <img src="../assets/img/GavepakkeIkon.png" alt="" class="iconthing">
           <img src="../assets/img/Gavepakke1.png" alt="">
         </div>
