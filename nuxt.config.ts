@@ -5,5 +5,19 @@ export default defineNuxtConfig({
     '@fortawesome/fontawesome-free/css/all.css',
     '@/assets/css/style.css',
     '@/assets/css/variables.css'
-  ]
+  ],
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined'
+        }
+      ]
+    }
+  }
 })
