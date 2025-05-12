@@ -5,7 +5,7 @@ const movies = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie');
+    const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
     const data = await response.json();
     movies.value = data;
   } catch (error) {

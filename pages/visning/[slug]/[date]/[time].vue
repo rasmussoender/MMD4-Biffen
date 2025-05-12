@@ -9,7 +9,7 @@ const visning = ref(null);
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie');
+    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
     const movies = await res.json();
 
     const movie = movies.find(m => m.slug === slug);
