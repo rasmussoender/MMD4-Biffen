@@ -273,59 +273,35 @@ const toggleDescription = () => {
   </a>
 </div>
   </section>
-  <section>
-    <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
-  </section>
-  <section class="forside-entry-points-container">
-  <div class="entry entry-cinemateket">
-    <img src="../assets/img/sauna-poster.jpg" alt="Cinemateket logo" />
-    <div class="entry-text">
-      <h3>Cinemateket</h3>
-      <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
-    </div>
+  <section class="forside-entry-grid">
+  <div class="forside-entry-item cinemateket">
+    <img src="../assets/img/sauna-poster.jpg" alt="Cinemateket" />
+    <h3>Cinemateket</h3>
   </div>
-
-  <div class="entry-side">
-    <div class="entry entry-filmklubber">
-      <img src="../assets/img/sauna-poster.jpg" alt="Filmklubber" />
-      <div class="entry-text">
-        <h3>Filmklubber</h3>
-        <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
-      </div>
-    </div>
-    <div class="entry entry-events">
-      <img src="../assets/img/sauna-poster.jpg" alt="Events" />
-      <div class="entry-text">
-        <h3>Events</h3>
-        <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
-      </div>
-    </div>
+  <div class="forside-entry-item">
+    <img src="../assets/img/sauna-poster.jpg" alt="Filmklubber" />
+    <h3>Filmklubber</h3>
+  </div>
+  <div class="forside-entry-item">
+    <img src="../assets/img/sauna-poster.jpg" alt="Events" />
+    <h3>Events</h3>
+  </div>
+  <div class="forside-entry-item">
+    <img src="../assets/img/sauna-poster.jpg" alt="Gavekort" />
+    <h3>Gavekort</h3>
+  </div>
+  <div class="forside-entry-item">
+    <img src="../assets/img/sauna-poster.jpg" alt="Biografsale" />
+    <h3>Biografsale</h3>
+  </div>
+  <div class="forside-entry-item">
+    <img src="../assets/img/sauna-poster.jpg" alt="Kontakt" />
+    <h3>Kontakt</h3>
   </div>
 </section>
 
-<div class="forside-extra-cards">
-  <div class="entry">
-    <img src="../assets/img/sauna-poster.jpg" alt="Gavekort" />
-    <div class="entry-text">
-      <h3>Gavekort</h3>
-      <p>Køb et gavekort og glæd én, du holder af, med en god filmoplevelse.</p>
-    </div>
-  </div>
-  <div class="entry">
-    <img src="../assets/img/sauna-poster.jpg" alt="Biografsal" />
-    <div class="entry-text">
-      <h3>Biografsal</h3>
-      <p>Læs mere om vores sale og faciliteter hos Biffen Nordkraft.</p>
-    </div>
-  </div>
-  <div class="entry">
-    <img src="../assets/img/sauna-poster.jpg" alt="Kontakt os" />
-    <div class="entry-text">
-      <h3>Kontakt os</h3>
-      <p>Har du spørgsmål? Kontakt os her – vi er klar til at hjælpe dig.</p>
-    </div>
-  </div>
-</div>
+
+
 
 
 </template>
@@ -333,11 +309,20 @@ const toggleDescription = () => {
 <style scoped>
 .forside-hero {
   width: 100%;
-  height: 75vh;
+  min-height: 75vh;
   position: relative;
   overflow: hidden;
   color: white;
+  display: flex;
+  flex-direction: column;
   border-radius: 0;
+}
+
+/* Ekstra højde på laptops med lav skærmhøjde */
+@media (min-width: 1024px) and (max-height: 900px) {
+  .forside-hero {
+    min-height: 90vh;
+  }
 }
 
 .forside-hero-background-layer {
@@ -379,16 +364,16 @@ const toggleDescription = () => {
   background:
     linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
     radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%);
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 3rem;
 }
 
 .forside-hero-info {
   max-width: 700px;
-  padding-left: 120px;
-  padding-top: 12rem;
+  padding: 8rem 2rem 2rem 120px;
 }
 
 .forside-hero-genre {
@@ -421,6 +406,7 @@ const toggleDescription = () => {
   padding: 0;
   margin-bottom: 1.5rem;
   margin-top: 24px;
+  flex-wrap: wrap;
 }
 
 .forside-hero-detail {
@@ -479,6 +465,7 @@ const toggleDescription = () => {
   display: flex;
   gap: 1.5rem;
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
 .forside-hero-btn {
@@ -494,7 +481,8 @@ const toggleDescription = () => {
   white-space: nowrap;
 }
 
-.forside-hero-btn .material-icons, .material-symbols-outlined {
+.forside-hero-btn .material-icons,
+.forside-hero-btn .material-symbols-outlined {
   font-size: 34px;
 }
 
@@ -528,6 +516,7 @@ const toggleDescription = () => {
   justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .forside-hero-arrow {
@@ -571,6 +560,58 @@ const toggleDescription = () => {
 
 .forside-hero-icon-arrow {
   font-size: 30px;
+}
+
+/* Responsivitet */
+@media (max-width: 1024px) {
+  .forside-hero-info {
+    padding-left: 4rem;
+    padding-top: 6rem;
+  }
+
+  .forside-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .forside-hero-description {
+    font-size: 16px;
+  }
+
+  .forside-hero-btn {
+    font-size: 0.9rem;
+    padding: 8px 1rem;
+  }
+
+  .forside-hero-btn .material-icons,
+  .forside-hero-btn .material-symbols-outlined {
+    font-size: 28px;
+  }
+
+  .forside-hero-slider-controls {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .forside-hero-info {
+    padding-left: 2rem;
+    padding-top: 4rem;
+  }
+
+  .forside-hero-title {
+    font-size: 2rem;
+  }
+
+  .forside-hero-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .forside-hero-slider-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .section-boks-1-container {
@@ -767,66 +808,42 @@ const toggleDescription = () => {
   font-size: 30px;
 }
 
-/* Grid layout med 3 kolonner */
-.forside-entry-points-container {
+.forside-entry-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 0 120px;
+  grid-auto-rows: 343px;
   gap: 83px;
-}
-
-/* Cinemateket kort skal fylde 2 kolonner */
-.entry-cinemateket {
-  grid-column: span 2;
-}
-
-/* Tre kort nedenunder (gavekort osv.) */
-.forside-extra-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   padding: 0 120px;
-  gap: 83px;
-  margin-top: 83px;
 }
 
-/* Kort-styling */
-.entry {
-  background-color: #161b2c;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+.forside-entry-item {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
 }
 
-/* Billeder */
-.entry img {
+.forside-entry-item img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-grow: 1;
   display: block;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
-/* Tekstcontainer */
-.entry-text {
-  padding: 1rem 1.5rem;
+.forside-entry-item h3 {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
 }
 
-/* Overskrift */
-.entry-text h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem;
-  border-bottom: 2px solid #e94560;
-  display: inline-block;
-  padding-bottom: 0.25rem;
+/* Cinemateket card span 2 columns + 2 rows */
+.cinemateket {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 
-/* Brødtekst */
-.entry-text p {
-  margin: 0.5rem 0 0;
-  font-size: 0.95rem;
-  color: #dcdcdc;
-}
 
 
 </style>
