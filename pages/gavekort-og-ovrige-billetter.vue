@@ -19,7 +19,7 @@ import Header from '@/components/Header.vue';
       </article>
        <article>
         <div class="udvalgCard">
-          <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo">
+          <!-- <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo"> -->
           <img src="../assets/img/GavepakkeIkon.png" alt="" class="iconthing">
           <img src="../assets/img/Gavepakke2.png" alt="">
         </div>
@@ -29,7 +29,7 @@ import Header from '@/components/Header.vue';
       </article>
        <article>
         <div class="udvalgCard">
-          <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo">
+          <!-- <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo"> -->
           <img src="../assets/img/GavepakkeIkon.png" alt="" class="iconthing">
            <img src="../assets/img/Gavepakke3.png" alt="">
         </div>
@@ -39,7 +39,7 @@ import Header from '@/components/Header.vue';
       </article>
        <article>
         <div class="udvalgCard">
-          <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo">
+          <!-- <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo"> -->
           <img src="../assets/img/GavepakkeIkon.png" alt="" class="iconthing">
           <div class="gavepakke4img">
           <div class="textOverlay">
