@@ -276,7 +276,58 @@ const toggleDescription = () => {
   <section>
     <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
   </section>
-  
+  <section class="forside-entry-points-container">
+  <div class="entry entry-cinemateket">
+    <img src="../assets/img/sauna-poster.jpg" alt="Cinemateket logo" />
+    <div class="entry-text">
+      <h3>Cinemateket</h3>
+      <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
+    </div>
+  </div>
+
+  <div class="entry-side">
+    <div class="entry entry-filmklubber">
+      <img src="../assets/img/sauna-poster.jpg" alt="Filmklubber" />
+      <div class="entry-text">
+        <h3>Filmklubber</h3>
+        <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
+      </div>
+    </div>
+    <div class="entry entry-events">
+      <img src="../assets/img/sauna-poster.jpg" alt="Events" />
+      <div class="entry-text">
+        <h3>Events</h3>
+        <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="forside-extra-cards">
+  <div class="entry">
+    <img src="../assets/img/sauna-poster.jpg" alt="Gavekort" />
+    <div class="entry-text">
+      <h3>Gavekort</h3>
+      <p>Køb et gavekort og glæd én, du holder af, med en god filmoplevelse.</p>
+    </div>
+  </div>
+  <div class="entry">
+    <img src="../assets/img/sauna-poster.jpg" alt="Biografsal" />
+    <div class="entry-text">
+      <h3>Biografsal</h3>
+      <p>Læs mere om vores sale og faciliteter hos Biffen Nordkraft.</p>
+    </div>
+  </div>
+  <div class="entry">
+    <img src="../assets/img/sauna-poster.jpg" alt="Kontakt os" />
+    <div class="entry-text">
+      <h3>Kontakt os</h3>
+      <p>Har du spørgsmål? Kontakt os her – vi er klar til at hjælpe dig.</p>
+    </div>
+  </div>
+</div>
+
+
 </template>
 
 <style scoped>
@@ -715,5 +766,67 @@ const toggleDescription = () => {
 .vis-flere-film-cta .material-symbols-outlined {
   font-size: 30px;
 }
+
+/* Grid layout med 3 kolonner */
+.forside-entry-points-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 120px;
+  gap: 83px;
+}
+
+/* Cinemateket kort skal fylde 2 kolonner */
+.entry-cinemateket {
+  grid-column: span 2;
+}
+
+/* Tre kort nedenunder (gavekort osv.) */
+.forside-extra-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 120px;
+  gap: 83px;
+  margin-top: 83px;
+}
+
+/* Kort-styling */
+.entry {
+  background-color: #161b2c;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Billeder */
+.entry img {
+  width: 100%;
+  display: block;
+}
+
+/* Tekstcontainer */
+.entry-text {
+  padding: 1rem 1.5rem;
+}
+
+/* Overskrift */
+.entry-text h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  border-bottom: 2px solid #e94560;
+  display: inline-block;
+  padding-bottom: 0.25rem;
+}
+
+/* Brødtekst */
+.entry-text p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #dcdcdc;
+}
+
 
 </style>
