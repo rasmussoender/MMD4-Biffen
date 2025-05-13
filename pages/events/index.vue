@@ -13,17 +13,17 @@ onMounted(async () => {
   eventList.value = await eventResponse.json()
 })
 
+function getEventCategorySlug(eventItem) {
+  const categoryId = eventItem['event-kategori']?.[0]
+  const foundCategory = categoryList.value.find(cat => cat.id === categoryId)
+  return foundCategory?.slug || 'unknown'
+}
 const sortedEvents = computed(() => {
   return [...eventList.value].sort((a, b) => {
     return new Date(a.acf?.dato) - new Date(b.acf?.dato)
   })
 })
 
-function getEventCategorySlug(eventItem) {
-  const categoryId = eventItem['event-kategori']?.[0]
-  const foundCategory = categoryList.value.find(cat => cat.id === categoryId)
-  return foundCategory?.slug || 'unknown'
-}
 </script>
 
 <template>
@@ -35,6 +35,7 @@ function getEventCategorySlug(eventItem) {
         <div class="introWrapper">
         <div class="headingNdLine">
           <h1>Biffens event</h1>
+          <div></div>
         </div>
         <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
         <p>Vi får bl.a. besøg af aktuelle skuespillere og instruktører til Q&A’s, hvor publikum får mulighed for at stille spørgsmål og få et unikt indblik i filmens tilblivelse. Vi afholder både nationale og internationale filmfestivaler som CPH:DOX, Don't Fear the Weird og Cinematekets Musikfilmfestival, som giver plads til både nye stemmer og etablerede navne.</p>
@@ -43,7 +44,8 @@ function getEventCategorySlug(eventItem) {
 
       <section class="upcomingEvents upcoming">
       <div class="headingNdLine">
-        <h1>Kommende events</h1>
+        <h2>Kommende events</h2>
+        <div></div>
       </div>
       <section>
         <NuxtLink
@@ -70,7 +72,8 @@ function getEventCategorySlug(eventItem) {
 
       <section class="events">
       <div class="headingNdLine">
-        <h1>Vores events</h1>
+        <h2>Vores events</h2>
+        <div></div>
       </div>
 
       <section>
@@ -183,10 +186,11 @@ main {
   display: inline-block;
   margin-top: 40px;
   padding-bottom: 1rem;
+  font-size: 20px;
 }
 
 .headingNdLine div {
-  width: 50%;
+  width: 75%;
   background-color: var(--interactive-red);
   height: 3px;
 }
