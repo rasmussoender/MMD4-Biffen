@@ -76,7 +76,7 @@ const visibleSessions = computed(() => {
   <Header />
   <main v-if="movie" class="movieDetailsPage">
     <div class="backButton">
-      <NuxtLink to="/alle-film" class="btn back">
+      <NuxtLink to="/film" class="btn back">
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
     </div>
@@ -131,7 +131,7 @@ const visibleSessions = computed(() => {
               v-for="time in session.spilletid"
               :key="time.spilletidspunkt"
               class="time"
-              :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+              :to="`/film/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
             >
               {{ time.spilletidspunkt }}
             </router-link>
