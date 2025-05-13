@@ -50,7 +50,7 @@ onMounted(async () => {
 
     <section class="upcomingEvents upcoming">
       <div class="headingNdLine">
-        <h1>{{ currentCategorySlug }}</h1>
+        <h2>Kommende events</h2>
       </div>
       <section>
         <NuxtLink
@@ -130,7 +130,8 @@ a {
 }
 
 .upcomingEvents {
-  padding: var(--space-container);
+  padding: var(--space-section);
+  padding-top: 0;
 }
 
 .upcomingEvents section {
