@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const categoryList = ref([])
 const eventList = ref([])
@@ -11,6 +11,12 @@ onMounted(async () => {
   ])
   categoryList.value = await categoryResponse.json()
   eventList.value = await eventResponse.json()
+})
+
+const sortedEvents = computed(() => {
+  return [...eventList.value].sort((a, b) => {
+    return new Date(a.acf?.dato) - new Date(b.acf?.dato)
+  })
 })
 
 function getEventCategorySlug(eventItem) {
@@ -32,7 +38,6 @@ function getEventCategorySlug(eventItem) {
         </div>
         <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
         <p>Vi får bl.a. besøg af aktuelle skuespillere og instruktører til Q&A’s, hvor publikum får mulighed for at stille spørgsmål og få et unikt indblik i filmens tilblivelse. Vi afholder både nationale og internationale filmfestivaler som CPH:DOX, Don't Fear the Weird og Cinematekets Musikfilmfestival, som giver plads til både nye stemmer og etablerede navne.</p>
-        <p>Derudover sætter vi en ære i at skabe den rette ramme omkring hver visning – hvad enten det er gennem introduktioner, debatarrangementer eller særlige temaaftener, der sætter filmen i perspektiv og inviterer til refleksion.</p>
         </div>
     </section>
 
@@ -42,14 +47,14 @@ function getEventCategorySlug(eventItem) {
       </div>
       <section>
         <NuxtLink
-          v-for="event in eventList"
-          :key="event.id"
-          :to="`/events/${getEventCategorySlug(event)}/${event.slug}`"
-          class="eventCardLink"
+        v-for="event in sortedEvents"
+        :key="event.id"
+        :to="`/events/${getEventCategorySlug(event)}/${event.slug}`"
+        class="eventCardLink"
         >
-          <article>
+        <article>
             <div class="wrapper">
-              <img :src="event.acf?.event_billede?.url" :alt="event.title.rendered" />
+              <img class="eventImg" :src="event.acf?.event_billede?.url" :alt="event.title.rendered" />
               <div class="overlay"></div>
               <div class="calendar">
                 <i class="fa-solid fa-calendar-days" id="calendarIcon"></i>
@@ -57,7 +62,7 @@ function getEventCategorySlug(eventItem) {
               </div>
               <h4 v-html="event.title.rendered"></h4>
             </div>
-            <p v-html="event.acf?.event_beskrivelse"></p>
+            <!-- <p class="eventBeskrivelse" v-html="event.acf?.event_beskrivelse"></p> -->
           </article>
         </NuxtLink>
       </section>
@@ -90,7 +95,7 @@ function getEventCategorySlug(eventItem) {
               <div class="redLine"></div>
             </div>
             <h3>{{ category.name }}</h3>
-            <p>{{ category.description }}</p>
+            <p class="eventBeskrivelse">{{ category.description }}</p>
           </article>
         </NuxtLink>
       </section>
@@ -126,12 +131,16 @@ a {
 
 .wrapper {
   position: relative;
+  overflow: hidden; 
+  border-radius: var(--radius-card);
 }
+
 
 .upcoming > section article div h4 {
   position: absolute;
   bottom: 36px;
   left: 16px;
+  z-index: 2;
 }
 
 .pcbillede {
@@ -161,6 +170,11 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 20px;
 }
 
+.eventBeskrivelse {
+  font-size: 15px;
+  padding-top: 1rem;
+}
+
 main {
   padding: 0px 12px;
 }
@@ -185,21 +199,26 @@ main {
   border-radius: 6px;
 }
 
-.wrapper img {
-  position: relative;
+
+.eventImg {
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.wrapper:hover .eventImg {
+  transform: scale(1.10);
 }
 
 .overlay {
-  background: radial-gradient(
-    50% 50% at 50% 50%, 
-    rgba(24, 31, 47, 0) 0%, 
-    rgba(24, 31, 47, 0.7) 100%);
   position: absolute;
-  top: 0px;
-  bottom: 0px;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  background: radial-gradient(circle at bottom, rgba(24, 31, 47, 1), transparent 100%);
+  z-index: 1;
+  border-radius: var(--radius-card);
+
 }
+
+
 
 /* EVENTS GRID LAYOUT */
 .events section, .upcomingEvents section {
@@ -213,10 +232,23 @@ main {
   height: 300px; 
   object-fit: cover;
   border-radius: 15px;
+    transition: transform 0.5s ease;
+
 }
+
+.events section {
+  overflow: hidden;
+
+}
+.events section article img:hover, .upcomingEvents section article img:hover {
+  transform: scale(1.05);
+
+}
+
 
 .events section article {
   position: relative;
+  
 }
 
 .events section article .redLine {
@@ -245,6 +277,7 @@ main {
     display: flex;
     flex-direction: column;
     position: relative;
+    
   }
 
   .events section article img {
@@ -252,6 +285,7 @@ main {
     height: 400px; 
     object-fit: cover;
     border-radius: 15px;
+
   }
 
 
@@ -309,7 +343,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  padding: 40px 100px;
+  padding: 2rem;
 }
 
 .introEvents .introWrapper {

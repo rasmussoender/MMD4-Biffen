@@ -18,6 +18,8 @@ onMounted(async () => {
   const eventResponse = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?event-kategori=${matchingCategory.id}&_embed`)
   eventsInCategory.value = await eventResponse.json()
 })
+
+
 </script>
 
 <template>
@@ -69,7 +71,7 @@ onMounted(async () => {
               </div>
               <h4 v-html="event.title.rendered"></h4>
             </div>
-            <p v-html="event.acf?.event_beskrivelse"></p>
+            <!-- <p v-html="event.acf?.event_beskrivelse"></p> -->
           </article>
         </NuxtLink>
       </section>
