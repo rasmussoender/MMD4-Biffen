@@ -22,7 +22,32 @@ onMounted(async () => {
 
 <template>
   <Header />
-  <main>
+  <main class="mainEvents">
+
+<section
+  class="eventHeroWrapper"
+  v-if="categoryList.length"
+  :style="{ backgroundImage: `url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})` }"
+>
+  <div class="eventInfoBox">
+    <div class="textContent">
+      <h1>{{ categoryList.find(cat => cat.slug === currentCategorySlug)?.name }}</h1>
+      <p class="moviedescription">
+        {{ categoryList.find(cat => cat.slug === currentCategorySlug)?.description }}
+      </p>
+    </div>
+
+    <div class="imageWrapper">
+      <img
+        :src="categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_billede?.url"
+        :alt="categoryList.find(cat => cat.slug === currentCategorySlug)?.name"
+      />
+    </div>
+  </div>
+</section>
+
+
+
     <section class="upcomingEvents upcoming">
       <div class="headingNdLine">
         <h1>{{ currentCategorySlug }}</h1>
@@ -55,6 +80,10 @@ onMounted(async () => {
 
 
 <style scoped>
+.mainEvents {
+  padding: 0;
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -87,35 +116,92 @@ a {
   left: 16px;
 }
 
-.pcbillede {
-  display: none;
+.wrapper img {
+  position: relative;
 }
 
-/* Mobile styling */
+.overlay {
+  background: radial-gradient(50% 50% at 50% 50%, rgba(24, 31, 47, 0) 0%, rgba(24, 31, 47, 0.7) 100%);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.upcomingEvents {
+  padding: var(--space-container);
+}
+
+.upcomingEvents section {
+  display: grid;
+  row-gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  column-gap: 2rem;
+}
+
+.upcomingEvents section article {
+  display: flex;
+  flex-direction: column;
+}
+
+.upcomingEvents section article:hover {
+  cursor: pointer;
+}
+
+.upcomingEvents section article img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+}
+
+/* Hero sektion for kategoriside */
+.eventHeroWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-container);
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-section);
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.eventInfoBox {
+  display: flex;
+  gap: 1rem;
+  background: rgba(32, 47, 77, 0.85);
+  padding: 2rem;
+  border-radius: var(--radius-section);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.eventInfoBox .textContent {
+  flex: 1;
+  color: white;
+}
+
+.eventInfoBox .imageWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventInfoBox .imageWrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-section);
+  object-fit: cover;
+  max-height: 400px;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  margin: 0px;
-}
-
-.introEvents {
-  background-color: var(--secondary-blue);
-  padding: 20px 20px;
-  margin-top: var(--space-section);
-}
-
-.introEvents img {
-  border-radius: 20px;
-}
-
-.introEvents {
-  margin-bottom: var(--space-section);
-}
-
-.introWrapper {
-  padding-bottom: 20px;
-}
-
-main {
-  padding: 0px 12px;
+  margin: 0;
 }
 
 .headingNdLine {
@@ -130,161 +216,33 @@ main {
   height: 3px;
 }
 
-.events:last-of-type img {
-  border-radius: 15px;
-}
-
-.events:nth-of-type(2) img {
-  border-radius: 6px;
-}
-
-.wrapper img {
-  position: relative;
-}
-
-.overlay {
-  background: radial-gradient(
-    50% 50% at 50% 50%, 
-    rgba(24, 31, 47, 0) 0%, 
-    rgba(24, 31, 47, 0.7) 100%);
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  width: 100%;
-  height: 100%;
-}
-
-/* EVENTS GRID LAYOUT */
-.events section, .upcomingEvents section {
-  display: grid;
-  row-gap: 30px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-}
-
-.events section article img, .upcomingEvents section article img {
-  width: 100%; 
-  height: 300px; 
-  object-fit: cover;
-  border-radius: 15px;
-}
-
-.events section article {
-  position: relative;
-}
-
-.events section article .redLine {
-  position: absolute;
-  bottom: 0; 
-  left: 0;
-  width: 0%; 
-  height: 2px;
-  background-color: var(--interactive-red);
-  transition: width 500ms ease;
-}
-
-.events section article:hover .redLine {
-  width: 100%; 
-}
-
 /* Desktop styling */
 @media (min-width: 1000px) {
-  .events section {
-    grid-template-columns: repeat(3, 1fr); 
+  .upcomingEvents section {
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 2rem;
     row-gap: 2rem;
   }
 
-  .events section article {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  .upcomingEvents section article img {
+    height: 400px;
   }
 
-  .events section article img {
-    width: 100%;
-    height: 400px; 
-    object-fit: cover;
-    border-radius: 15px;
-  }
-
-
-  .events section article:hover {
+  .upcomingEvents section article:hover {
     cursor: pointer;
   }
+}
 
-  .redLine {
-    transition: width 500ms ease;
-    position: absolute;
-    width: 0%; 
-    height: 1px;
-    background-color: var(--interactive-red);
-    bottom: 0;
-  }
-
-  .events section article:hover .redLine {
-    width: 100%; 
+@media (min-width: 1200px) {
+  .eventHeroWrapper {
+    max-width: 100%;
   }
 }
 
-.mobilbillede {
-  display: none;
-}
-
-.pcbillede {
-  display: block;
-}
-
-main {
-  padding: 0 var(--space-container);
-}
-
-.upcomingEvents section {
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 2rem;
-  row-gap: 2rem;
-}
-
-.upcomingEvents section article {
-  display: flex;
-  flex-direction: column;
-}
-
-.upcomingEvents section article:hover {
-  cursor: pointer;
-}
-
-.upcomingEvents section article img {
-  width: 100%;
-  display: block;
-}
-
-.introEvents {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  padding: 40px 100px;
-}
-
-.introEvents .introWrapper {
-  grid-template-columns: 1;
-  grid-row: 1;
-  justify-self: end;
-}
-
-.introEvents img {
-  justify-self: end;
-  grid-column: 2;
-}
-
-.whiteLine {
-  height: 1px;
-  background-color: white;
-  position: relative;
-  margin: 16px 0px;
-}
-
-.redLine {
-  width: 0%;
+@media (min-width: 700px) {
+  .eventInfoBox {
+    max-width: 100%;
+  }
 }
 
 
