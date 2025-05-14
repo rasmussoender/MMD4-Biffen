@@ -6,6 +6,29 @@
   <Header />
   <main>
     <section>
+       <div class="info">
+      <div class="headingNdLine">
+      <h1>Kontakt os</h1>
+      <div></div>
+      </div>
+      <p>Er du i tvivl om noget vedrørende vores biograf, billetter, forestillinger eller andet? Vi har samlet svar på de mest almindelige spørgsmål, så du hurtigt og nemt kan finde den information, du har brug for</p>
+      <div>
+        <p>Se vores udvalg af film!</p>
+        <button>Se alle film  </button>
+      </div>
+      </div>
+
+      <div class="tabs">
+        <i class="fa-solid fa-angle-left"></i>
+        <div class="buttons">
+        <button>Mest stillet</button>
+        <button>Billetter & Priser</button>
+        <button>Program</button>
+        </div>
+        <i class="fa-solid fa-angle-right"></i>
+      </div>
+    </section>
+    <section>
         <div class="contact">
         <div class="wrapper">
         <div class="firstname">
@@ -66,20 +89,86 @@
       <p>Har du spørgsmål? Du er altid velkommen til at kontakte os via vores formular, telefon eller e-mail.</p>
       
       <div class="wrapper2">
-
+        <div>
+          <div class="phoneinfo">
+            <i class="fa-solid fa-phone"></i>
+            <p>Telefon</p>
+          </div>
+          <p>+45 98 16 99 77</p>
+        </div>
+        <div>
+          <div class="emailinfo">
+            <i class="fa-solid fa-envelope"></i>
+            <p>E-mail</p>
+          </div>
+          <p>info@biffen.eu</p>
+        </div>
       </div>
+      </div>
+    </section>
+
+    <section>
+       <div class="info">
+      <div class="headingNdLine">
+      <h1>Find os</h1>
+      <div></div>
+      </div>
+      <p>Vil du finde vej til os? Brug kortet ved siden af for at se, hvor vi holder til. Du er altid velkommen til at kontakte os via formularen, telefon eller e-mail, hvis du har spørgsmål.</p>
+      <div class="wrapper2">
+        <div>
+          <div class="phoneinfo">
+            <i class="fa-solid fa-location-dot"></i>
+            <p>Adresse</p>
+          </div>
+          <p>Biffen Nordkraft Teglgårds Plads 1, 9000 Aalborg</p>
+        </div>
+      </div>
+      </div>
+
+      <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4340.601994573049!2d9.930255076832756!3d57.04638757359037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4649328a079ff57f%3A0xada0085706926fec!2sBiffen!5e0!3m2!1sda!2sdk!4v1747210243096!5m2!1sda!2sdk" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
   </main>
   <Footer />
 
 </template>
+
+
 <style scoped>
+.tabs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.tabs i{
+  font-size: 32px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+iframe{
+  width: 100%;
+  border-radius: 20px;
+}
+.emailinfo, .phoneinfo{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.emailinfo i, .phoneinfo i{
+  color: var(--interactive-red);
+}
+
 .centerbtn{
   display: flex;
   justify-content: center;
 }
-.centerbtn button
+button
 {
   color: white;
   background-color: var(--interactive-red);
@@ -122,7 +211,7 @@ input{
   flex-direction: column;
 }
 
-.contact,.info{
+.contact,.info,.map{
   background-color: var(--secondary-blue);
   padding: 25px 25px;
   margin-bottom: 60px;
