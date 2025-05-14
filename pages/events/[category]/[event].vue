@@ -17,11 +17,19 @@ onMounted(async () => {
 <template>
 <main class="eventSingleMain">
 
-  <section
-    class="eventHeroWrapper"
-    :style="{ backgroundImage: `url(${singleEvent?.acf?.event_baggrundsbillede?.url})` }"
-    v-if="singleEvent"
-  >
+<section
+  class="eventHeroWrapper"
+  v-if="singleEvent"
+  :style="{
+    background: `
+      linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
+      radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
+      url(${singleEvent?.acf?.event_baggrundsbillede?.url})
+    `,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  }"
+>
   <HeaderImageBackground />
       <div class="backButton">
       <NuxtLink to="/events" class="backbtn">
@@ -117,7 +125,7 @@ onMounted(async () => {
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-width: 300px;
 }
 

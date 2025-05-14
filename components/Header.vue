@@ -99,4 +99,24 @@ function toggleMenu() {
   display: block;
 }
 
+@media (max-width: 900px) {
+  .mainNav {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .burgerMenuWrapper {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+
+.siteHeader.menuOpen .burgerMenuWrapper {
+  border-left: none;
+  padding-left: 0;
+}
+
+
 </style>

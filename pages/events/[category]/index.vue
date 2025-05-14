@@ -24,11 +24,22 @@ onMounted(async () => {
 <template>
   <main class="mainEvents">
     
-    <section
-    class="eventHeroWrapper"
-    v-if="categoryList.length"
-    :style="{ backgroundImage: `url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})` }"
-    >
+<section
+  class="eventHeroWrapper"
+  v-if="categoryList.length"
+  :style="{
+    background: `
+      linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
+      radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
+      url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})
+    `,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  }"
+>
+  <HeaderImageBackground />
+
+
     
     <div class="eventInfoBox">
 
@@ -169,7 +180,6 @@ a {
   background-size: cover;
   background-position: center;
   border-radius: var(--radius-section);
-  margin-bottom: 3rem;
   width: 100%;
 }
 

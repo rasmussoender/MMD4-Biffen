@@ -9,7 +9,7 @@ function toggleMenu() {
 </script>
 
 <template>
-  <header class="siteHeader">
+  <header class="siteHeader" :class="{ menuOpen: isMenuOpen }">
     <a href="/" class="logoWrapper">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
     </a>
@@ -48,6 +48,7 @@ function toggleMenu() {
   height: 70px;
   border-radius: 0 0 20px 20px;
 }
+
 
 .logoWrapper {
   z-index: 1000;
@@ -102,5 +103,25 @@ function toggleMenu() {
 .menuOverlay.menuOverlayOpen {
   display: block;
 }
+
+@media (max-width: 900px) {
+  .mainNav {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .burgerMenuWrapper {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+
+.siteHeader.menuOpen .burgerMenuWrapper {
+  border-left: none;
+  padding-left: 0;
+}
+
 
 </style>

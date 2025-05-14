@@ -91,8 +91,8 @@ const visibleSessions = computed(() => {
       <NuxtLink to="/film" class="backbtn">
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
-
     </div>
+    
       <div class="hero">
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="moviePoster" />
 
@@ -265,7 +265,7 @@ const visibleSessions = computed(() => {
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-width: 300px;
 }
 
@@ -357,12 +357,12 @@ const visibleSessions = computed(() => {
 .showtimesSection {
   background: var(--secondary-blue);
   border-radius: 12px;
-  padding: 1rem;
   margin: 3rem auto;
   overflow-x: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: var(--space-container);
 }
 
 .days {
@@ -497,7 +497,7 @@ const visibleSessions = computed(() => {
 }
 
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
   .hero, .showtimesSection {
     max-width: 1200px;
   }
@@ -513,5 +513,5 @@ const visibleSessions = computed(() => {
   .moviePoster {
     max-width: 400px;
   }
-}
+} */
 </style>

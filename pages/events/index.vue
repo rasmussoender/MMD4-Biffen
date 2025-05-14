@@ -159,6 +159,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--secondary-blue);
   padding: 20px 20px;
   margin-top: var(--space-section);
+
 }
 
 .introEvents img {
@@ -171,6 +172,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .introWrapper {
   padding-bottom: 20px;
+
 }
 
 .eventBeskrivelse {
