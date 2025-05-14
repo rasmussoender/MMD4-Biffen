@@ -22,15 +22,27 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header />
   <main class="mainEvents">
-
+    
 <section
   class="eventHeroWrapper"
   v-if="categoryList.length"
-  :style="{ backgroundImage: `url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})` }"
+  :style="{
+    background: `
+      linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
+      radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
+      url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})
+    `,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  }"
 >
-  <div class="eventInfoBox">
+  <HeaderImageBackground />
+
+
+    
+    <div class="eventInfoBox">
+
     <div class="textContent">
       <h1>{{ categoryList.find(cat => cat.slug === currentCategorySlug)?.name }}</h1>
       <p class="moviedescription">
@@ -168,7 +180,6 @@ a {
   background-size: cover;
   background-position: center;
   border-radius: var(--radius-section);
-  margin-bottom: 3rem;
   width: 100%;
 }
 
@@ -180,6 +191,7 @@ a {
   border-radius: var(--radius-section);
   width: 100%;
   box-sizing: border-box;
+  margin-top: 2rem;
 }
 
 .eventInfoBox .textContent {

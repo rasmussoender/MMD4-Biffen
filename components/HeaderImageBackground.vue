@@ -8,10 +8,9 @@ function toggleMenu() {
 }
 </script>
 
-
 <template>
-  <header class="siteHeader">
-    <a class="logoWrapper" href="/">
+  <header class="siteHeader" :class="{ menuOpen: isMenuOpen }">
+    <a href="/" class="logoWrapper">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
     </a>
 
@@ -34,24 +33,29 @@ function toggleMenu() {
   <div class="menuOverlay" :class="{ menuOverlayOpen: isMenuOpen }"></div>
 </template>
 
+
   
 <style scoped>
 .siteHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--secondary-blue);
   padding: 3rem 5rem;
   height: 70px;
   border-radius: 0 0 20px 20px;
 }
 
-.siteLogo {
-  height: 50px;
-}
 
 .logoWrapper {
   z-index: 1000;
+}
+
+.siteLogo {
+  height: 50px;
 }
 
 .headerRight {
@@ -93,6 +97,7 @@ function toggleMenu() {
   background-color: var(--color-body);
   display: none;
   z-index: 999;
+  
 }
 
 .menuOverlay.menuOverlayOpen {

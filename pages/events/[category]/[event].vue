@@ -15,14 +15,27 @@ onMounted(async () => {
 
 
 <template>
-<Header />
 <main class="eventSingleMain">
 
-  <section
-    class="eventHeroWrapper"
-    :style="{ backgroundImage: `url(${singleEvent?.acf?.event_baggrundsbillede?.url})` }"
-    v-if="singleEvent"
-  >
+<section
+  class="eventHeroWrapper"
+  v-if="singleEvent"
+  :style="{
+    background: `
+      linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
+      radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
+      url(${singleEvent?.acf?.event_baggrundsbillede?.url})
+    `,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  }"
+>
+  <HeaderImageBackground />
+      <div class="backButton">
+      <NuxtLink to="/events" class="backbtn">
+        <i class="fa fa-arrow-left"></i> Tilbage
+      </NuxtLink>
+    </div>
     <div class="eventHeroContent">
       <img
         :src="singleEvent.acf.event_billede.url"
@@ -76,7 +89,6 @@ onMounted(async () => {
 .eventHeroWrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   margin-bottom: 3rem;
   position: relative;
   background-size: cover;
@@ -94,6 +106,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: stretch;
   width: 100%;
+  padding-top: 1rem;
 }
 
 .eventPoster {
@@ -112,7 +125,7 @@ onMounted(async () => {
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-width: 300px;
 }
 
@@ -160,6 +173,20 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.backButton {
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.backbtn {
+  padding: 0.6rem 0;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: white;
 }
 
 .btn {
