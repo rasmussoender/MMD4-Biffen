@@ -28,18 +28,7 @@
       <h3>Gavekort</h3>
       <p>Et gavekort til Biffen er mere end bare en gave – det er en oplevelse. Se også vores øvrige billetter.</p>
     </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/a-salen_lille.jpg" alt="Card 5">
-      <hr>
-      <h3>Book en biografsal</h3>
-      <p>Book en af vores sale. Perfekt til skoler, virksomhedsarrangementer, børnefødselsdage mm.</p>
     </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/kontakt-entry.jpg" alt="Card 6">
-      <hr>
-      <h3>Kontakt os</h3>
-    </div>
-  </div>
 </section>
 </template>
 <style scoped>
