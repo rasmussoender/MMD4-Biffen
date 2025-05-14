@@ -73,13 +73,8 @@ const visibleSessions = computed(() => {
 </script>
 
 <template>
-  <Header />
   <main v-if="movie" class="movieDetailsPage">
-    <div class="backButton">
-      <NuxtLink to="/film" class="btn back">
-        <i class="fa fa-arrow-left"></i> Tilbage
-      </NuxtLink>
-    </div>
+
 
     <section class="movieHeroWrapper" :style="{
   background: `
@@ -90,6 +85,14 @@ const visibleSessions = computed(() => {
   backgroundSize: 'cover',
   backgroundPosition: 'center'
 }">
+<HeaderImageBackground />
+
+    <div class="backButton">
+      <NuxtLink to="/film" class="backbtn">
+        <i class="fa fa-arrow-left"></i> Tilbage
+      </NuxtLink>
+
+    </div>
       <div class="hero">
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="moviePoster" />
 
@@ -113,8 +116,8 @@ const visibleSessions = computed(() => {
           <p class="movieinstructor">Instruktør(ere): {{ movie.acf.movieinstructor.map(i => i.instructor).join(', ') }}</p>
           <p class="moviedescription">{{ movie.acf.description }}</p>
           <div class="buttons">
-            <a :href="movie.acf.trailer" target="_blank" class="btn red">Se trailer</a>
-            <a :href="movie.acf.tmdb" target="_blank" class="btn outline">Læs mere</a>
+            <a :href="movie.acf.trailer" target="_blank" class="btn red"> <i class="fa-brands fa-youtube"></i> Se trailer</a>
+            <a :href="movie.acf.tmdb" target="_blank" class="btn outline"> <i class="fa-solid fa-circle-info"></i> Læs mere</a>
           </div>
         </div>
       </div>
@@ -200,7 +203,7 @@ const visibleSessions = computed(() => {
 .movieHeroWrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 3rem;
   position: relative;
   background-size: cover;
@@ -220,6 +223,30 @@ const visibleSessions = computed(() => {
   justify-content: center;
   align-items: stretch;
   width: 100%;
+}
+
+.backButton {
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.backbtn {
+  padding: 0.6rem 0;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: white;
+  border-radius: 5px;
 }
 
 .moviePoster {
@@ -315,14 +342,6 @@ const visibleSessions = computed(() => {
   gap: 1rem;
 }
 
-.btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
 
 .btn.red {
   background-color: #ff3b5c;

@@ -15,7 +15,6 @@ onMounted(async () => {
 
 
 <template>
-<Header />
 <main class="eventSingleMain">
 
   <section
@@ -23,6 +22,12 @@ onMounted(async () => {
     :style="{ backgroundImage: `url(${singleEvent?.acf?.event_baggrundsbillede?.url})` }"
     v-if="singleEvent"
   >
+  <HeaderImageBackground />
+      <div class="backButton">
+      <NuxtLink to="/events" class="backbtn">
+        <i class="fa fa-arrow-left"></i> Tilbage
+      </NuxtLink>
+    </div>
     <div class="eventHeroContent">
       <img
         :src="singleEvent.acf.event_billede.url"
@@ -76,7 +81,6 @@ onMounted(async () => {
 .eventHeroWrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   margin-bottom: 3rem;
   position: relative;
   background-size: cover;
@@ -94,6 +98,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: stretch;
   width: 100%;
+  padding-top: 1rem;
 }
 
 .eventPoster {
@@ -160,6 +165,20 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.backButton {
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.backbtn {
+  padding: 0.6rem 0;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: white;
 }
 
 .btn {

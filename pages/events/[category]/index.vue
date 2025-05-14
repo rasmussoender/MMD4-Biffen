@@ -22,15 +22,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header />
   <main class="mainEvents">
+    
+    <section
+    class="eventHeroWrapper"
+    v-if="categoryList.length"
+    :style="{ backgroundImage: `url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})` }"
+    >
+    
+    <div class="eventInfoBox">
 
-<section
-  class="eventHeroWrapper"
-  v-if="categoryList.length"
-  :style="{ backgroundImage: `url(${categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_baggrundsbillede?.url})` }"
->
-  <div class="eventInfoBox">
     <div class="textContent">
       <h1>{{ categoryList.find(cat => cat.slug === currentCategorySlug)?.name }}</h1>
       <p class="moviedescription">
@@ -180,6 +181,7 @@ a {
   border-radius: var(--radius-section);
   width: 100%;
   box-sizing: border-box;
+  margin-top: 2rem;
 }
 
 .eventInfoBox .textContent {
