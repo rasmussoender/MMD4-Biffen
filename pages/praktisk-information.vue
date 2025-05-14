@@ -14,7 +14,7 @@
       <p>Er du i tvivl om noget vedrørende vores biograf, billetter, forestillinger eller andet? Vi har samlet svar på de mest almindelige spørgsmål, så du hurtigt og nemt kan finde den information, du har brug for</p>
       <div>
         <p>Se vores udvalg af film!</p>
-        <button>Se alle film  </button>
+        <button>Se alle film </button>
       </div>
       </div>
 
@@ -26,6 +26,29 @@
         <button>Program</button>
         </div>
         <i class="fa-solid fa-angle-right"></i>
+      </div>
+
+      <div class="accordions">
+        <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
       </div>
     </section>
     <section>
@@ -120,7 +143,7 @@
             <i class="fa-solid fa-location-dot"></i>
             <p>Adresse</p>
           </div>
-          <p>Biffen Nordkraft Teglgårds Plads 1, 9000 Aalborg</p>
+          <p>Biffen Nordkraft Teglgårds Plads 1, 9000 Aalborg</p>
         </div>
       </div>
       </div>
@@ -211,6 +234,35 @@ input{
   flex-direction: column;
 }
 
+.accordion{
+  border-radius: 5px;
+  background-color: var(--secondary-blue);
+  box-sizing: border-box;
+  padding: 4px 16px;
+}
+
+.accordions
+
+.accordion{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion div{
+  background-color: var(--interactive-red);
+  padding: 4px 14px;
+  border-radius: 6px;
+}
+.accordion div i {
+  font-size: 25px;
+}
+.accordions{
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
 .contact,.info,.map{
   background-color: var(--secondary-blue);
   padding: 25px 25px;
