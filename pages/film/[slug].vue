@@ -76,12 +76,20 @@ const visibleSessions = computed(() => {
   <Header />
   <main v-if="movie" class="movieDetailsPage">
     <div class="backButton">
-      <NuxtLink to="/alle-film" class="btn back">
+      <NuxtLink to="/film" class="btn back">
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
     </div>
 
-    <section class="movieHeroWrapper" :style="{ backgroundImage: `url(${backdropImage})` }">
+    <section class="movieHeroWrapper" :style="{
+  background: `
+    linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
+    radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
+    url(${backdropImage})
+  `,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center'
+}">
       <div class="hero">
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="moviePoster" />
 
@@ -131,7 +139,7 @@ const visibleSessions = computed(() => {
               v-for="time in session.spilletid"
               :key="time.spilletidspunkt"
               class="time"
-              :to="`/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
+              :to="`/film/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
             >
               {{ time.spilletidspunkt }}
             </router-link>
@@ -201,6 +209,7 @@ const visibleSessions = computed(() => {
   border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
+  
 
 }
 

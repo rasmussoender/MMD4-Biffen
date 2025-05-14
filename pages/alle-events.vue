@@ -84,11 +84,6 @@ onMounted(async () => {
       </div>
     <section>
       <article>
-        <!-- <picture>
-          <source srcset="../assets/img/CinematicsMobil.png" media="(max-width:999px)">
-          <source srcset="../assets/img/CinematicsDesktop.png" media="(min-width:1000px)">
-          <img src="../assets/img/CinematicsMobil.png" alt="">
-        </picture> -->
         <img src="../assets/img/CinematicsMobil.png" alt="" class="mobilbillede">
         <img src="../assets/img/CinematicsDesktop.png" alt="" class="pcbillede">
         <div class="whiteLine">
@@ -98,11 +93,6 @@ onMounted(async () => {
         <p>Biffen Cinemates er Biffens egen filmklub med fantastiske filmoplevelser. En mandag aften hver måned vises en udvalgt premierefilm</p>
       </article>
       <article>
-        <!-- <picture>
-          <source srcset="../assets/img/FranskefilmMobil.png" media="(max-width:999px)">
-          <source srcset="../assets/img/FranskefilmDesktop.png" media="(min-width:1000px)">
-          <img src="../assets/img/FranskefilmMobil.png" alt="">
-        </picture> -->
         <img src="../assets/img/FranskefilmMobil.png" alt="" class="mobilbillede">
         <img src="../assets/img/FranskefilmDesktop.png" alt="" class="pcbillede">
         <div class="whiteLine">
@@ -112,11 +102,7 @@ onMounted(async () => {
         <p>Oplev det bedste fra den franske filmscene!</p>
       </article>
       <article>
-        <!-- <picture>
-          <source srcset="../assets/img/OperaIBiffenMobil.png" media="(max-width:999px)">
-          <source srcset="../assets/img/OperaIBiffenDesktop.png" media="(min-width:1000px)">
-          <img src="../assets/img/OperaIBiffenMobil.png" alt="">
-        </picture> -->
+
         <img src="../assets/img/OperaIBiffenMobil.png" alt="" class="mobilbillede">
         <img src="../assets/img/OperaIBiffenDesktop.png" alt="" class="pcbillede">
 
@@ -127,11 +113,7 @@ onMounted(async () => {
         <p>Oplev nogle af de største operaer på det store lærred når vi viser Opera i Biffen.</p>
       </article>
       <article>
-        <!-- <picture>
-          <source srcset="../assets/img/BiffenInternationalMobil.png" media="(max-width:999px)">
-          <source srcset="../assets/img/BiffenInternationalDesktop.png" media="(min-width:1000px)">
-          <img src="../assets/img/BiffenInternationalMobil.png" alt="">
-        </picture> -->
+
         <img src="../assets/img/BiffenInternationalMobil.png" alt="" class="mobilbillede">
         <img src="../assets/img/BiffenInternationalDesktop.png" alt="" class="pcbillede">
 
