@@ -4,8 +4,6 @@ import { ref, onMounted } from 'vue'
 
 const route = useRoute()
 const eventSlug = route.params.event
-const categorySlug = route.params.category
-
 const singleEvent = ref(null)
 
 onMounted(async () => {

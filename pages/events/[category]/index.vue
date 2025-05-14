@@ -19,7 +19,6 @@ onMounted(async () => {
   eventsInCategory.value = await eventResponse.json()
 })
 
-
 </script>
 
 <template>
