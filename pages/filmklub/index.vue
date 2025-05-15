@@ -1,6 +1,8 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 
 </script>
+
 <template>
 <section>
     <div class="section-boks-1-container">
@@ -46,6 +48,7 @@
     </div>
 </section>
 </template>
+
 <style scoped>
 .section-boks-1-container {
   padding-left: 120px;
