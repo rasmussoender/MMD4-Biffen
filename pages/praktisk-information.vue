@@ -1,4 +1,8 @@
 <script setup>
+import { onMounted } from 'vue'
+
+onMounted(()=>{
+})
 
 </script>
 
@@ -23,11 +27,12 @@
         <div class="buttons">
         <button>Mest stillet</button>
         <button>Billetter & Priser</button>
+        <button>Faciliteter</button>
         <button>Program</button>
+        <button>Mad & Drikke</button>
         </div>
         <i class="fa-solid fa-angle-right"></i>
       </div>
-
       <div class="accordions">
         <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
@@ -170,9 +175,14 @@
 }
 
 .buttons{
+  width: 400px;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   gap: 15px;
+}
+.buttons button{
+  padding: 0px 6px;
 }
 iframe{
   width: 100%;
