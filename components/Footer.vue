@@ -2,7 +2,7 @@
   </script>
 
 <template>
-<footer class="siteFooter">
+<footer>
   <div class="footerContentWrapper">
     <div class="footerLeft">
           <a class="logoWrapper" href="/">
@@ -88,7 +88,7 @@ a {
 }
 
 
-.siteFooter {
+footer {
   border-radius: 50px 50px 0 0;
   background-color: var(--secondary-blue);
   color: white;
@@ -210,7 +210,7 @@ a {
   background-color: #e11d48;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .footerContentWrapper {
     flex-direction: column;
     gap: 2rem;
