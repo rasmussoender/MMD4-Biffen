@@ -316,8 +316,5 @@ main{
   .contact{
     padding: 25px 128px;
   }
-  .map{
-
-  }
 }
 </style>
