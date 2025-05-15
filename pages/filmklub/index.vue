@@ -1,53 +1,61 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const filmklubber = ref([]);
+
+onMounted(async () => {
+  try {
+    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?per_page=100');
+    const data = await res.json();
+    filmklubber.value = data;
+  } catch (err) {
+    console.error('Fejl ved hentning af filmklubber:', err);
+  }
+});
 </script>
 
 <template>
-<section>
-    <div class="section-boks-1-container">
-    <div class="section-boks-1">
-      <div class="section-boks-1-content">
-        <div class="section-boks-1-text">
-          <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
-          <p class="section-boks-1-beskrivelse">Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.</p>
-        </div>
-        <div class="section-boks-1-billede">
-          <img src="../assets/img/filmklubber-boks-billede.jpg" alt="">
+    <section>
+      <!-- Sektion 1 med tekst og billede -->
+      <div class="section-boks-1-container">
+        <div class="section-boks-1">
+          <div class="section-boks-1-content">
+            <div class="section-boks-1-text">
+              <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
+              <p class="section-boks-1-beskrivelse">
+                Biffen Nordkraft er Aalborgs eneste uafhængige biograf...
+              </p>
+            </div>
+            <div class="section-boks-1-billede">
+              <img src="../assets/img/filmklubber-boks-billede.jpg" alt="">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+  
+    <!-- Entry kort -->
+    <section class="forside-entry-section">
+    <div class="forside-entry-grid">
+      <router-link
+        v-for="klub in filmklubber"
+        :key="klub.id"
+        :to="`/filmklub/${klub.slug}`"
+        class="forside-entry-card"
+      >
+        <img
+          :src="klub.acf?.['filmklub-billede']?.url || '../assets/img/placeholder.jpg'"
+          :alt="klub.title.rendered"
+        />
+        <hr />
+        <h3 v-html="klub.title.rendered"></h3>
+        <p>{{ klub.acf?.['filmklub-gruppe1']?.['filmklub-gruppe1-tekst'] || '' }}</p>
+      </router-link>
     </div>
   </section>
-<section class="forside-entry-section">
-  <div class="forside-entry-grid">
-    <div class="forside-entry-card forside-entry-card--white-bg">
-      <img src="../assets/img/cinemateket-entry.png" alt="Card 1">
-      <hr>
-      <h3>Cinemateket</h3>
-      <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/filmklubben-entry.png" alt="Card 2">
-      <hr>
-      <h3>Filmklubber</h3>
-      <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/events-entry.png" alt="Card 3">
-      <hr>
-      <h3>Events</h3>
-      <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/gavekort-entry.png" alt="Card 4">
-      <hr>
-      <h3>Gavekort</h3>
-      <p>Et gavekort til Biffen er mere end bare en gave – det er en oplevelse. Se også vores øvrige billetter.</p>
-    </div>
-    </div>
-</section>
-</template>
+
+  </template>
+  
 
 <style scoped>
 .section-boks-1-container {
