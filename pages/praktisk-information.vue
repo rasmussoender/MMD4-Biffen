@@ -251,8 +251,6 @@ input{
   padding: 4px 16px;
 }
 
-.accordions
-
 .accordion{
   display: flex;
   align-items: center;
@@ -293,5 +291,33 @@ main{
 .headingNdLine{
   display: inline-block;
   margin-top: 40px;
+}
+
+@media (min-width: 1000px){
+   main{
+    padding: 0 var(--space-container);
+  }
+
+  section:nth-last-of-type(2){
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2rem;
+  }
+
+  section:last-of-type{
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 2rem;
+  }
+
+  h1,h2,h3,h4,h5,h6,p{
+    margin: 0px;
+  }
+  .contact{
+    padding: 25px 128px;
+  }
+  .map{
+
+  }
 }
 </style>
