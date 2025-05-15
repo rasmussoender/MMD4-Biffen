@@ -15,7 +15,7 @@ function toggleMenu() {
     </a>
 
     <div class="headerRight">
-      <nav class="mainNav">
+      <nav class="mainNav underlineAnimationLinks">
         <a href="/film">Alle film</a>
         <a href="/film">Kommende film</a>
         <a href="/events">Events</a>
@@ -46,7 +46,7 @@ function toggleMenu() {
   justify-content: space-between;
   padding: 3rem 5rem;
   height: 70px;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 30px 30px;
 }
 
 
@@ -74,6 +74,8 @@ function toggleMenu() {
   text-decoration: none;
   font-size: 16px;
 }
+
+
 
 .burgerMenuWrapper {
   border-left: 1px solid white;

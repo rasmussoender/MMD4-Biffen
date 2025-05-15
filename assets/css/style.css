@@ -13,7 +13,7 @@ color: white;
 
 body {
 font-family: var(--font-body);
-background: #181F2F;
+background: var(--color-body);
 color: white;
 line-height: var(--line-height-text);
 font-size: var(--font-standard);
@@ -29,4 +29,28 @@ border-radius: var(--radius-section);
 
 a {
     color: var(--interactive-red);
+}
+
+
+/* link underlinje animation */
+.underlineAnimationLinks a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.underlineAnimationLinks a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: var(--interactive-red);
+  transition: width 0.5s ease;
+}
+
+.underlineAnimationLinks a:hover::after {
+  width: 100%;
 }
