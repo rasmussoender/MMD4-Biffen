@@ -45,25 +45,32 @@ onMounted(async () => {
       </div>
 
       <div class="hero">
-        <div class="movieInfoBox">
-          <h1 v-html="klub.title.rendered" />
+  <div class="movieInfoBox">
+    <h2 class="overskrift-boks-1"><span v-html="klub.title.rendered" /></h2>
+    
+    <div class="movie-description-container">
 
-          <p class="moviedescription" v-if="klub.acf['filmklub-gruppe1']">
-            <strong>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-title'] }}:</strong><br>
-            {{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-tekst'] }}
-          </p>
-
-          <p class="moviedescription" v-if="klub.acf['filmklub-gruppe2']">
-            <strong>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-title'] }}:</strong><br>
-            {{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-tekst'] }}
-          </p>
-
-          <p class="moviedescription" v-if="klub.acf['filmklub-gruppe3']">
-            <strong>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-title'] }}:</strong><br>
-            {{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-tekst'] }}
-          </p>
-        </div>
+      <div v-if="klub.acf['filmklub-gruppe1']">
+        <h3>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-title'] }}</h3>
+        <p>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-tekst'] }}</p>
       </div>
+
+      <div v-if="klub.acf['filmklub-gruppe2']">
+        <h3>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-title'] }}</h3>
+        <p>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-tekst'] }}</p>
+      </div>
+
+      <div v-if="klub.acf['filmklub-gruppe3']">
+        <h3>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-title'] }}</h3>
+        <p>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-tekst'] }}</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+    </section>
+    <section>
+        <h2 class="overskrift-med-streg"><span>Program 2025</span></h2>
     </section>
   </main>
 
@@ -91,11 +98,9 @@ onMounted(async () => {
   background-size: cover;
   background-position: center;
   padding: var(--space-container);
-  border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
-  
-
+  border-radius: 0;
 }
 
 .hero {
@@ -105,6 +110,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: stretch;
   width: 100%;
+  
 }
 
 .backButton {
@@ -131,19 +137,10 @@ onMounted(async () => {
   border-radius: 5px;
 }
 
-.moviePoster {
-  flex: 0 1 35%;
-  height: auto;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  border-radius: var(--radius-section);
-  box-shadow: 0px 0px 20px 2px #4C90FF;
-}
-
 .movieInfoBox {
   flex: 1 1 55%;
   background: rgba(32, 47, 77, 0.85);
-  padding: 2rem;
+  padding: 50px;
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;
@@ -185,11 +182,56 @@ onMounted(async () => {
   margin-bottom: 1rem;
 }
 
-
-
 .moviedescription {
   margin: 1rem 0;
 }
 
+.movie-description-container {
+  display: flex;
+  gap: 4rem;
+  margin-top: 3rem;
+}
 
+.overskrift-boks-1 {
+  font-size: 55px;
+  font-weight: 700;
+}
+
+.overskrift-boks-1 span {
+  position: relative;
+  display: inline-block;
+}
+
+.overskrift-boks-1 span::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background-color: #F63758;
+}
+
+.overskrift-med-streg {
+  font-size: 55px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-left: 120px;
+  max-width: 550px;
+}
+
+.overskrift-med-streg span {
+  position: relative;
+  display: inline-block;
+}
+
+.overskrift-med-streg span::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background-color: #F63758;
+}
 </style>

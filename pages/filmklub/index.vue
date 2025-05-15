@@ -21,13 +21,23 @@ onMounted(async () => {
         <div class="section-boks-1">
           <div class="section-boks-1-content">
             <div class="section-boks-1-text">
-              <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
-              <p class="section-boks-1-beskrivelse">
-                Biffen Nordkraft er Aalborgs eneste uafhængige biograf...
-              </p>
+              <h2 class="overskrift-boks-1"><span>Filmklubber</span></h2>
+              <div class="section-boks-1-beskrivelse">
+                <p>
+                    Meld dig ind i én filmklub, og se udvalgte film til reduceret pris!
+                </p>
+                <br>
+                <p>
+                    Udover Biffens egne filmklubber, 'De Smukke og Særlige' og 'SeniorBifffen', kan du også se filmene fra 'Filmporten' og 'Biografklub Danmark' i Biffen. 
+                </p>
+                <br>
+                <p>
+                    Du kan læse mere om de filmklubber  vi tilbyder nedenunder og find den filmklub dig passer dig og dine filmbehov bedst!
+                </p>
+              </div>
             </div>
             <div class="section-boks-1-billede">
-              <img src="../assets/img/filmklubber-boks-billede.jpg" alt="">
+              <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
             </div>
           </div>
         </div>
@@ -49,7 +59,7 @@ onMounted(async () => {
         />
         <hr />
         <h3 v-html="klub.title.rendered"></h3>
-        <p>{{ klub.acf?.['filmklub-gruppe1']?.['filmklub-gruppe1-tekst'] || '' }}</p>
+        <p>{{ klub.acf?.['filmklub-teaser-tekst'] || '' }}</p>
       </router-link>
     </div>
   </section>
@@ -134,6 +144,8 @@ onMounted(async () => {
   flex-direction: column;
   align-items: flex-start;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .forside-entry-card img {
@@ -186,7 +198,7 @@ onMounted(async () => {
 }
 
 .forside-entry-card p {
-  margin: 0;
+  margin-top: 10px;
   font-size: 18px;
   font-weight: 300;
 }
