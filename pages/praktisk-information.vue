@@ -1,7 +1,16 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+
+const buttons = ref([
+  {label: "Mest stillet"},
+  {label: "Billeter & Priser"},
+  {label: "Facilleter"},
+  {label: "Program"},
+  {label: "Mad & Drikke"}
+]);
 
 onMounted(()=>{
+
 })
 
 </script>
