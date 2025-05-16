@@ -87,7 +87,7 @@ const visibleSessions = computed(() => {
 }">
 <HeaderImageBackground />
 
-    <div class="backButton">
+    <div class="backButton underlineAnimationLinks">
       <NuxtLink to="/film" class="backbtn">
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
