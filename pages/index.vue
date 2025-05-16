@@ -179,7 +179,9 @@ const handleSendClick = () => {
     <div class="forside-hero-background-layer" :class="{ 'forside-hero-fade-in': isFading }" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
     <div v-if="!hasMounted" class="forside-hero-background-layer" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
 
+
     <div class="forside-hero-overlay">
+      <HeaderImageBackground />
       <div class="forside-hero-info">
         <p class="forside-hero-genre">
           <template v-for="(g, i) in movies[currentIndex].genre" :key="i">
@@ -416,6 +418,8 @@ const handleSendClick = () => {
     </div>
   </div>
 </section>
+
+ <Footer />
 
 </template>
 
