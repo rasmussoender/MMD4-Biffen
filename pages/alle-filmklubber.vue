@@ -6,7 +6,6 @@ import Header from '@/components/Header.vue';
 <template>
   <Header />
   <main>
-    <img src="../assets/img/Sauna-2025.hd (1).jpg" alt="">
 
   </main>
   <Footer />
