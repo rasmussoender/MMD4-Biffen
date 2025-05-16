@@ -12,7 +12,7 @@ onMounted(()=>{
     <section>
        <div class="info">
       <div class="headingNdLine">
-      <h1>Kontakt os</h1>
+      <h1>FAQ</h1>
       <div></div>
       </div>
       <p>Er du i tvivl om noget vedrørende vores biograf, billetter, forestillinger eller andet? Vi har samlet svar på de mest almindelige spørgsmål, så du hurtigt og nemt kan finde den information, du har brug for</p>
@@ -35,6 +35,10 @@ onMounted(()=>{
       </div>
       <div class="accordions">
         <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
         </div>
@@ -304,9 +308,10 @@ main{
     gap: 2rem;
   }
 
-  section:last-of-type{
+  section:last-of-type, section:first-of-type{
     display: grid;
     grid-template-columns: 1fr 1.6fr;
+    grid-row: auto 1fr;
     gap: 2rem;
   }
 
@@ -315,6 +320,28 @@ main{
   }
   .contact{
     padding: 25px 128px;
+  }
+
+  .tabs{
+    grid-column: 1/3;
+    grid-row: 1;
+  }
+
+  .tabs i {
+    display: none;
+  }
+
+  .accordion{
+    padding: 16px 16px;
+  }
+
+  .buttons{
+    width: 100%;
+    overflow: visible;
+  }
+
+  .buttons button{
+    padding: 10px 16px;
   }
 }
 </style>
