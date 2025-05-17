@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 
 const movies = ref([]);
 
+
 onMounted(async () => {
   try {
     const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
@@ -13,14 +14,20 @@ onMounted(async () => {
   }
 });
 
-const formatDate = (dateStr) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('da-DK', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  });
+// Kommende dato tag
+const isUpcoming = (releaseDate) => {
+  const today = new Date();
+  const release = new Date(releaseDate);
+  return release > today;
 };
+
+// Formatering af dato
+const formatDate = (dateString) => {
+  const options = { day: 'numeric', month: 'short', year: 'numeric' };
+  const parsedDate = new Date(dateString);
+  return parsedDate.toLocaleDateString('da-DK', options);
+};
+
 </script>
 
 
@@ -46,13 +53,24 @@ const formatDate = (dateStr) => {
         <div v-for="movie in movies" :key="movie.id" class="movieCard">
           <router-link :to="`/film/${movie.slug}`" class="movieLink">
             <div class="moviePosterWrapper">
-              <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="movieImage" />
+              <img
+                :src="movie.acf.poster.url"
+                :alt="movie.title.rendered"
+                class="movieImage"
+              />
               <div class="movieOverlay"></div>
               <div class="movieTitleOverlay">{{ movie.title.rendered }}</div>
-              <span class="movieDate">
-                <i class="fa-solid fa-film"></i>
-                {{ formatDate(movie.acf.udgivelsesdato) }}
-              </span>
+                  <span class="movieDate">
+                  <i class="fa-solid fa-film"></i>
+                  {{ formatDate(movie.acf.udgivelsesdato) }}
+                  </span>
+
+                  <span
+                  v-if="isUpcoming(movie.acf.udgivelsesdato)"
+                  class="upcomingTag"
+                  >
+                  Kommende
+                  </span>
             </div>
           </router-link>
           <router-link :to="`/film/${movie.slug}`" class="movieLink">
@@ -68,7 +86,10 @@ const formatDate = (dateStr) => {
 </template>
 
 
+
 <style scoped>
+
+
 .movieContainer {
   padding: 40px 20px;
 }
@@ -166,6 +187,21 @@ const formatDate = (dateStr) => {
   font-weight: 600;
   z-index: 1;
 }
+
+
+.upcomingTag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ef4565;
+  color: white;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: var(--radius-button);
+  z-index: 2;
+}
+
 
 .movieDate {
   position: absolute;
