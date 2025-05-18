@@ -41,6 +41,7 @@
       <div class="footerColumn underlineAnimationLinks">
         <h4>Biografen</h4>
         <a href="/film">Alle film</a>
+        <a href="/kommende-film">Kommende film</a>
         <a href="/cinemateket">Cinemateket</a>
         <a href="/alle-filmklubber">Filmklubber</a>
         <a href="/events">Events</a>
