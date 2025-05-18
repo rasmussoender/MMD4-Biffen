@@ -1,16 +1,26 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-
-const buttons = ref([
-  {label: "Mest stillet"},
-  {label: "Billeter & Priser"},
-  {label: "Facilleter"},
-  {label: "Program"},
-  {label: "Mad & Drikke"}
-]);
-
 onMounted(()=>{
 
+  const buttons = document.querySelectorAll(".buttons button");
+  const accordions = document.querySelectorAll(".accordions");
+
+
+  buttons.forEach(function(button, index){
+    button.addEventListener("click",function(e){
+      accordions.forEach(function(accordion){
+        accordion.classList.add("hide");
+      });
+      accordions[index].classList.remove("hide")
+    });
+  });
+
+  const arrows = document.querySelectorAll(".fa-angle-right");
+  arrows.forEach(function(arrow){
+    arrow.addEventListener("click",function(e){
+      arrow.parentElement.parentElement.parentElement.lastElementChild.classList.toggle("hide")
+    })
+  })
 })
 
 </script>
@@ -43,31 +53,317 @@ onMounted(()=>{
         <i class="fa-solid fa-angle-right"></i>
       </div>
       <div class="accordions">
-        <div class="accordion">
+
+      <div class="wrapper3">
+          <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
         </div>
-         <div class="accordion">
+        <p>hej</p>
+      </div>
+          <div class="wrapper3">
+          <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
         </div>
-         <div class="accordion">
+         <p>hej</p>
+        </div>
+
+         <div class="wrapper3">
+          <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
         </div>
-         <div class="accordion">
+         <p>hej</p>
+        </div>
+
+         <div class="wrapper3">
+          <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
         </div>
-         <div class="accordion">
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
         </div>
-         <div class="accordion">
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
           <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
         </div>
       </div>
+       <div class="accordions">
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+          <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+      </div>
+       <div class="accordions">
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+          <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+      </div>
+       <div class="accordions">
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+          <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+      </div>
+       <div class="accordions">
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+          <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+      </div>
+       <div class="accordions">
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+          <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+      </div>
+       <div class="accordions">
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+          <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+         <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+       <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+        <div class="wrapper3">
+          <div class="accordion">
+          <p>Hvordan bestiller man billetter?</p>
+          <div><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+         <p>hej</p>
+        </div>
+      </div>
+            
     </section>
     <section>
         <div class="contact">
@@ -177,6 +473,10 @@ onMounted(()=>{
 
 
 <style scoped>
+.hide{
+  display: none !important;
+}
+
 .tabs{
   display: flex;
   justify-content: center;
@@ -257,7 +557,7 @@ input{
   flex-direction: column;
 }
 
-.accordion{
+.wrapper3{
   border-radius: 5px;
   background-color: var(--secondary-blue);
   box-sizing: border-box;
@@ -340,7 +640,7 @@ main{
     display: none;
   }
 
-  .accordion{
+  .wrapper3{
     padding: 16px 16px;
   }
 
