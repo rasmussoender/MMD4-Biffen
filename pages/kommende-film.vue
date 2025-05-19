@@ -3,39 +3,41 @@ import { ref, onMounted } from 'vue';
 
 const movies = ref([]);
 
-
-onMounted(async () => {
-  try {
-    const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
-    const data = await response.json();
-    movies.value = data;
-  } catch (error) {
-    console.error('Der skete en fejl', error);
-  }
-});
-
-// Kommende dato tag
+// Tjek om en film er kommende
 const isUpcoming = (releaseDate) => {
   const today = new Date();
   const release = new Date(releaseDate);
   return release > today;
 };
 
-// Formatering af dato
+// Formater dato
 const formatDate = (dateString) => {
   const options = { day: 'numeric', month: 'short', year: 'numeric' };
   const parsedDate = new Date(dateString);
   return parsedDate.toLocaleDateString('da-DK', options);
 };
 
-</script>
+onMounted(async () => {
+  try {
+    const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
+    const data = await response.json();
+    // Viser kun kommende film, og sorterer efter næste dato
+    const upcomingMovies = data
+      .filter(movie => isUpcoming(movie.acf.udgivelsesdato))
+      .sort((a, b) => new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato));
 
+    movies.value = upcomingMovies;
+  } catch (error) {
+    console.error('Der skete en fejl', error);
+  }
+});
+</script>
 
 <template>
   <Header />
   <main>
     <div class="movieContainer">
-      <h1>Alle Film</h1>
+      <h1>Kommende Film</h1>
       <div class="buttonContainer">
         <button class="calenderButton">
           <i class="fa-solid fa-calendar-days"></i> Kalender
@@ -46,7 +48,7 @@ const formatDate = (dateString) => {
       </div>
 
       <div v-if="movies.length === 0">
-        <i class="fa fa-spinner fa-spin"></i> Loader alle film
+        <i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...
       </div>
 
       <div v-else class="movieCards">
@@ -60,17 +62,15 @@ const formatDate = (dateString) => {
               />
               <div class="movieOverlay"></div>
               <div class="movieTitleOverlay">{{ movie.title.rendered }}</div>
-                  <span class="movieDate">
-                  <i class="fa-solid fa-film"></i>
-                  {{ formatDate(movie.acf.udgivelsesdato) }}
-                  </span>
 
-                  <span
-                  v-if="isUpcoming(movie.acf.udgivelsesdato)"
-                  class="upcomingTag"
-                  >
-                  Kommende
-                  </span>
+              <span class="movieDate">
+                <i class="fa-solid fa-film"></i>
+                {{ formatDate(movie.acf.udgivelsesdato) }}
+              </span>
+
+              <span class="upcomingTag">
+                Kommende
+              </span>
             </div>
           </router-link>
           <router-link :to="`/film/${movie.slug}`" class="movieLink">
@@ -84,8 +84,6 @@ const formatDate = (dateString) => {
   </main>
   <Footer />
 </template>
-
-
 
 <style scoped>
 

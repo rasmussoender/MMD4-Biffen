@@ -18,7 +18,7 @@ function toggleMenu() {
     <div class="headerRight">
       <nav class="mainNav underlineAnimationLinks">
         <a href="/film">Alle film</a>
-        <a href="/film">Kommende film</a>
+        <a href="/kommende-film">Kommende film</a>
         <a href="/events">Events</a>
       </nav>
 

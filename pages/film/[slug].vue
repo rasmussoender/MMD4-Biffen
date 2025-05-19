@@ -184,7 +184,7 @@ const visibleSessions = computed(() => {
     </section>
   </main>
 
-  <div v-else>Loading movie details...</div>
+  <div v-else><i class="fa fa-spinner fa-spin"> </i>Loader film detaljer...</div>
   <Footer />
 </template>
 
