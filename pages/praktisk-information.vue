@@ -9,16 +9,20 @@ onMounted(()=>{
       accordions.forEach(function(accordion){
         accordion.classList.add("hide");
       });
-      accordions[index].classList.remove("hide")
+      accordions[index].classList.remove("hide");
+      for(let i = 0; i<buttons.length; i++){
+        buttons[i].classList.add("inactive");
+      }
+      button.classList.remove("inactive")
+      button.classList.add("active")
     });
   });
 
-  const arrows = document.querySelectorAll(".accordion .fa-angle-right");
+  const arrows = document.querySelectorAll(".click");
   arrows.forEach(function(arrow){
     arrow.addEventListener("click",function(e){
-      console.log(e)
-      arrow.classList.toggle("rotate");
-      arrow.parentElement.parentElement.parentElement.lastElementChild.classList.toggle("hide")
+      arrow.querySelector("i").classList.toggle("rotate");
+      arrow.parentElement.parentElement.querySelector("p:last-child").classList.toggle("hide")
     })
   })
 })
@@ -43,11 +47,11 @@ onMounted(()=>{
 
       <div class="tabs">
         <div class="buttons">
-        <button>Mest stillet</button>
-        <button>Billetter & Priser</button>
-        <button>Faciliteter</button>
-        <button>Program</button>
-        <button>Mad & Drikke</button>
+        <button class="active">Mest stillet</button>
+        <button class="inactive">Billetter & Priser</button>
+        <button class="inactive">Faciliteter</button>
+        <button class="inactive">Program</button>
+        <button class="inactive">Mad & Drikke</button>
         </div>
       </div>
       <div class="accordions">
@@ -62,7 +66,7 @@ onMounted(()=>{
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
@@ -70,7 +74,7 @@ onMounted(()=>{
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
@@ -78,21 +82,21 @@ onMounted(()=>{
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
@@ -101,42 +105,42 @@ onMounted(()=>{
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?1+1-!!</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
@@ -145,42 +149,42 @@ onMounted(()=>{
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter??!?!??!?!</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
          <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
@@ -189,42 +193,42 @@ onMounted(()=>{
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter??!?!</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
@@ -233,42 +237,42 @@ onMounted(()=>{
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter??????????+</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
          <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
          <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
@@ -277,42 +281,42 @@ onMounted(()=>{
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter???</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
          <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
            <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
@@ -321,42 +325,42 @@ onMounted(()=>{
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter??</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
          <p class="hide">hej</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
           <p>Hvordan bestiller man billetter?</p>
-          <div><i class="fa-solid fa-angle-right"></i></div>
+          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
           <p class="hide">hej</p>
         </div>
@@ -511,7 +515,7 @@ iframe{
   display: flex;
   justify-content: start;
 }
-button
+.info button,.active, .centerbtn button
 {
   color: white;
   background-color: var(--interactive-red);
@@ -658,5 +662,18 @@ main{
 
 .rotate{
   rotate: 90deg;
+}
+
+.inactive{
+  background-color: var(--color-body);
+  border-color: var(--interactive-red) !important;
+  border-radius: 5px;
+  color: white;
+  box-sizing: border-box;
+  border: solid;
+}
+
+.info,.contact,.map{
+  border-radius: 20px;
 }
 </style>
