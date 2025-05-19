@@ -11,7 +11,7 @@ onMounted(async () => {
   try {
     const klubData = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`).then(res => res.json())
     klub.value = klubData[0]
-    backdropImage.value = klub.value?.acf?.['filmklub-billede']?.url || ''
+    backdropImage.value = klub.value.acf?.['filmklub-billede'].url 
 
     const kategorier = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub-kategori?per_page=100`).then(res => res.json())
     const kategori = kategorier.find(k => k.slug === slug)
@@ -22,8 +22,6 @@ onMounted(async () => {
   }
 })
 </script>
-
-
 
 
 <template>
@@ -73,9 +71,9 @@ onMounted(async () => {
       </section>
   
       <section>
-        <h2 class="overskrift-med-streg"><span>Program 2025 – {{ klub.title.rendered }}</span></h2>
-  
+        
         <div class="film-program-container">
+          <h2 class="overskrift-med-streg"><span>Program</span></h2>
           <div
             v-if="filmProgram.length > 0"
             class="film-program"
@@ -288,8 +286,7 @@ onMounted(async () => {
   font-size: 55px;
   font-weight: 700;
   margin-bottom: 1rem;
-  padding-left: 120px;
-  max-width: 550px;
+  max-width: 100%;
 }
 
 .overskrift-med-streg span {
@@ -308,8 +305,8 @@ onMounted(async () => {
 }
 
 .film-program-container {
-  padding-left: 120px;
-  padding-right: 120px;
+  padding: var(--space-section);
+
   margin-bottom: 3rem;
 }
 
