@@ -15,6 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
+   <Header />
     <section>
       <!-- Sektion 1 med tekst og billede -->
       <div class="section-boks-1-container">
@@ -63,6 +64,8 @@ onMounted(async () => {
       </router-link>
     </div>
   </section>
+
+   <Footer />
 
   </template>
   

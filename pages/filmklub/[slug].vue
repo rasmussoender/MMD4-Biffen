@@ -2,37 +2,29 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
-const slug = route.params.slug
-
+const slug = useRoute().params.slug
 const klub = ref(null)
 const filmProgram = ref([])
 const backdropImage = ref('')
 
 onMounted(async () => {
   try {
-    // 1. Hent filmklub ud fra slug
-    const klubRes = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`)
-    const klubData = await klubRes.json()
+    const klubData = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`).then(res => res.json())
     klub.value = klubData[0]
+    backdropImage.value = klub.value?.acf?.['filmklub-billede']?.url || ''
 
-    if (!klub.value) {
-      console.warn('Filmklub ikke fundet for slug:', slug)
-      return
-    }
+    const kategorier = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub-kategori?per_page=100`).then(res => res.json())
+    const kategori = kategorier.find(k => k.slug === slug)
 
-    // 2. Brug filmklubbens billede som hero
-    const bg = klub.value?.acf?.['filmklub-billede']?.url
-    if (bg) backdropImage.value = bg
-
-    // 3. Hent film i testkategori: filmklub-kategori ID 13 (hardcoded)
-    const filmRes = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?filmklub-kategori=13&per_page=100&_embed`)
-    filmProgram.value = await filmRes.json()
-  } catch (error) {
-    console.error('Fejl ved hentning:', error)
+    filmProgram.value = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?filmklub-kategori=${kategori?.id}&per_page=100&_embed`).then(res => res.json())
+  } catch (err) {
+    console.error('Fejl:', err)
   }
 })
 </script>
+
+
+
 
 <template>
     <main v-if="klub" class="movieDetailsPage">
@@ -124,9 +116,12 @@ onMounted(async () => {
                       <p>{{ film.acf?.filmklub_film_beskrivelse || 'Beskrivelse mangler.' }}</p>
                     </div>
                   </div>
-                  <div class="read-more-button-container">
-                    <button class="read-more-btn">Mere info</button>
-                  </div>
+<div class="read-more-button-container">
+  <NuxtLink :to="`/film/${film.slug}`" class="read-more-btn">
+    Mere info
+  </NuxtLink>
+</div>
+
                 </div>
               </div>
             </div>
@@ -465,10 +460,12 @@ onMounted(async () => {
   border: none;
   border-radius: var(--radius-button);
   cursor: pointer;
-  display: flex;
+  display: inline-flex; 
   gap: 10px;
   width: auto;
   transition: background 0.3s;
+  text-decoration: none;
+  align-items: center;   
 }
 
 .read-more-btn:hover {
