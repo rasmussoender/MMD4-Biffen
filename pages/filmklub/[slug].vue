@@ -1,173 +1,148 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
-const klub = ref(null);
-const route = useRoute();
-const slug = route.params.slug;
-const backdropImage = ref('');
-const filmProgram = ref([]);
+const route = useRoute()
+const slug = route.params.slug
+
+const klub = ref(null)
+const filmProgram = ref([])
+const backdropImage = ref('')
 
 onMounted(async () => {
   try {
-    // Hent filmklub-data baseret på slug
-    const res = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`);
-    const data = await res.json();
-    klub.value = data[0];
+    // 1. Hent filmklub ud fra slug
+    const klubRes = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`)
+    const klubData = await klubRes.json()
+    klub.value = klubData[0]
 
-    // Baggrundsbillede
-    const bg = klub.value?.acf?.['filmklub-billede']?.url;
-    if (bg) backdropImage.value = bg;
+    if (!klub.value) {
+      console.warn('Filmklub ikke fundet for slug:', slug)
+      return
+    }
 
-    // Hent alle film
-    const moviesRes = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
-    const moviesData = await moviesRes.json();
+    // 2. Brug filmklubbens billede som hero
+    const bg = klub.value?.acf?.['filmklub-billede']?.url
+    if (bg) backdropImage.value = bg
 
-    // Filtrér film hvor class_list indeholder filmklub slug
-    const klubSlug = `filmklub-kategori-${klub.value.slug}`;
-    filmProgram.value = moviesData.filter(movie =>
-      movie.class_list?.includes(klubSlug)
-    );
-
-    console.log('Filmklub slug:', klubSlug);
-    console.log('Film fundet:', filmProgram.value);
-  } catch (err) {
-    console.error('Fejl ved hentning af filmklub eller film:', err);
+    // 3. Hent film i testkategori: filmklub-kategori ID 13 (hardcoded)
+    const filmRes = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?filmklub-kategori=13&per_page=100&_embed`)
+    filmProgram.value = await filmRes.json()
+  } catch (error) {
+    console.error('Fejl ved hentning:', error)
   }
-});
+})
 </script>
 
-
-
 <template>
-  <main v-if="klub" class="movieDetailsPage">
-    <section
-      class="movieHeroWrapper"
-      :style="{
-        background: `
-          linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
-          radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
-          url(${backdropImage})
-        `,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }"
-    >
-      <HeaderImageBackground />
-
-      <div class="backButton">
-        <NuxtLink to="/filmklub" class="backbtn">
-          <i class="fa fa-arrow-left"></i> Tilbage
-        </NuxtLink>
-      </div>
-
-      <div class="hero">
-  <div class="movieInfoBox">
-    <h2 class="overskrift-boks-1"><span v-html="klub.title.rendered" /></h2>
-    
-    <div class="movie-description-container">
-
-      <div v-if="klub.acf['filmklub-gruppe1']">
-        <h3>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-title'] }}</h3>
-        <p>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-tekst'] }}</p>
-      </div>
-
-      <div v-if="klub.acf['filmklub-gruppe2']">
-        <h3>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-title'] }}</h3>
-        <p>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-tekst'] }}</p>
-      </div>
-
-      <div v-if="klub.acf['filmklub-gruppe3']">
-        <h3>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-title'] }}</h3>
-        <p>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-tekst'] }}</p>
-      </div>
-
-    </div>
-  </div>
-</div>
-    </section>
-    <section>
-    <h2 class="overskrift-med-streg"><span>Program 2025 – Testkategori</span></h2>
-
-    <div class="film-program-container">
-      <div
-        v-if="filmProgram.length > 0"
-        class="film-program"
-        v-for="film in filmProgram"
-        :key="film.id"
+    <main v-if="klub" class="movieDetailsPage">
+      <section
+        class="movieHeroWrapper"
+        :style="{
+          background: `
+            linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
+            radial-gradient(circle at 80% center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.75) 100%),
+            url(${backdropImage})
+          `,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }"
       >
-        <div class="film-program-content">
-          <div class="program-film-poster">
-            <img
-              :src="film.acf?.poster?.url || '../assets/img/placeholder.jpg'"
-              :alt="film.acf?.title || film.title.rendered"
-            />
-          </div>
-          <div class="film-program-detaljer">
-            <div class="film-program-titel-og-info">
-              <h3 v-html="film.acf?.title || film.title.rendered" />
-              <ul>
-                <li>
-                  <i class="fas fa-clock"></i>{{ film.acf?.varighed || 'Ukendt tid' }}
-                </li>
-                <li>
-                  <i class="fas fa-child-reaching"></i>{{ film.acf?.age?.[0]?.aldersgraense || 'Aldersmærke mangler' }}
-                </li>
-              </ul>
-            </div>
-
-            <hr class="film-program-hr" />
-
-            <div class="film-information-container">
-              <div class="film-program-dato-beskrivelse">
-                <div class="film-program-dato">
-                  <p>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    {{ film.acf?.udgivelsesdato || 'Udgivelsesdato ukendt' }}
-                  </p>
-                </div>
-                <div class="film-program-beskrivelse">
-                  <p>{{ film.acf?.filmklub_film_beskrivelse || 'Beskrivelse mangler.' }}</p>
-                </div>
+        <HeaderImageBackground />
+  
+        <div class="backButton">
+          <NuxtLink to="/filmklub" class="backbtn">
+            <i class="fa fa-arrow-left"></i> Tilbage
+          </NuxtLink>
+        </div>
+  
+        <div class="hero">
+          <div class="movieInfoBox">
+            <h2 class="overskrift-boks-1"><span v-html="klub.title.rendered" /></h2>
+  
+            <div class="movie-description-container">
+              <div v-if="klub.acf['filmklub-gruppe1']">
+                <h3>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-title'] }}</h3>
+                <p>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-tekst'] }}</p>
               </div>
-              <div class="read-more-button-container">
-                <button class="read-more-btn">Mere info</button>
+  
+              <div v-if="klub.acf['filmklub-gruppe2']">
+                <h3>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-title'] }}</h3>
+                <p>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-tekst'] }}</p>
+              </div>
+  
+              <div v-if="klub.acf['filmklub-gruppe3']">
+                <h3>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-title'] }}</h3>
+                <p>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-tekst'] }}</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div v-else style="color: white; margin-top: 2rem;">
-        Ingen film fundet i kategori 13.
-      </div>
-    </div>
-
-    <div class="film-program-container-mobile">
-  <div class="film-program-mobile">
-    <div class="film-program-content-mobile">
-      <div class="program-film-poster-mobile">
-        <img src="../../assets/img/queer-poster.jpg" alt="">
-      </div>
-      <div class="film-program-detaljer-mobile">
-        <div class="film-program-titel-og-info-mobile">
-          <h3>Queer</h3>
-          <ul>
-            <li><i class="fas fa-clock"></i>2:36 t</li>
-            <li><i class="fas fa-child-reaching"></i>7 år+</li>
-          </ul>
+      </section>
+  
+      <section>
+        <h2 class="overskrift-med-streg"><span>Program 2025 – {{ klub.title.rendered }}</span></h2>
+  
+        <div class="film-program-container">
+          <div
+            v-if="filmProgram.length > 0"
+            class="film-program"
+            v-for="film in filmProgram"
+            :key="film.id"
+          >
+            <div class="film-program-content">
+              <div class="program-film-poster">
+                <img
+                  :src="film.acf?.poster?.url || '../assets/img/placeholder.jpg'"
+                  :alt="film.acf?.title || film.title.rendered"
+                />
+              </div>
+              <div class="film-program-detaljer">
+                <div class="film-program-titel-og-info">
+                  <h3>{{ film.acf?.title || film.title.rendered }}</h3>
+                  <ul>
+                    <li>
+                      <i class="fas fa-clock"></i>{{ film.acf?.varighed || 'Ukendt tid' }}
+                    </li>
+                    <li>
+                      <i class="fas fa-child-reaching"></i>{{ film.acf?.age?.[0]?.aldersgraense || 'Aldersmærke mangler' }}
+                    </li>
+                  </ul>
+                </div>
+  
+                <hr class="film-program-hr" />
+  
+                <div class="film-information-container">
+                  <div class="film-program-dato-beskrivelse">
+                    <div class="film-program-dato">
+                      <p>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        {{ film.acf?.udgivelsesdato || 'Udgivelsesdato ukendt' }}
+                      </p>
+                    </div>
+                    <div class="film-program-beskrivelse">
+                      <p>{{ film.acf?.filmklub_film_beskrivelse || 'Beskrivelse mangler.' }}</p>
+                    </div>
+                  </div>
+                  <div class="read-more-button-container">
+                    <button class="read-more-btn">Mere info</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div v-else style="color: white; margin-top: 2rem;">
+            Ingen film fundet i kategori 13.
+          </div>
         </div>
-      </div>
-      <hr class="film-program-hr-mobile">
-    </div>
-  </div>
-</div>
-    </section>
-  </main>
-
-  <div v-else>Indlæser filmklub...</div>
-  <Footer />
-</template>
+      </section>
+    </main>
+  
+    <div v-else>Indlæser filmklub...</div>
+    <Footer />
+  </template>
+  
 
 <style scoped>
 .movieDetailsPage {
