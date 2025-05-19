@@ -174,12 +174,13 @@ const handleSendClick = () => {
 
 
 <template>
+  
   <section class="forside-hero">
     <div v-if="previousIndex !== null" class="forside-hero-background-layer forside-hero-fade-out" :style="{ backgroundImage: `url(${movies[previousIndex].background_image})` }"></div>
     <div class="forside-hero-background-layer" :class="{ 'forside-hero-fade-in': isFading }" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
     <div v-if="!hasMounted" class="forside-hero-background-layer" :style="{ backgroundImage: `url(${movies[currentIndex].background_image})` }"></div>
-
-
+    
+    
     <div class="forside-hero-overlay">
       <HeaderImageBackground />
       <div class="forside-hero-info">
@@ -189,16 +190,16 @@ const handleSendClick = () => {
             <span v-if="i < movies[currentIndex].genre.length - 1" class="forside-hero-genre-separator">|</span>
           </template>
         </p>
-
+        
         <h1 class="forside-hero-title">{{ movies[currentIndex].title }}</h1>
-
+        
         <ul class="forside-hero-details">
           <li class="forside-hero-detail forside-hero-rating"><i class="fas fa-star forside-hero-icon-detail"></i><span>{{ movies[currentIndex].rating }}</span></li>
           <li class="forside-hero-detail forside-hero-date"><i class="fas fa-film forside-hero-icon-detail"></i><span>{{ movies[currentIndex].release_date }}</span></li>
           <li class="forside-hero-detail forside-hero-time"><i class="fas fa-clock forside-hero-icon-detail"></i><span>{{ movies[currentIndex].duration }}</span></li>
           <li class="forside-hero-detail forside-hero-age"><i class="fas fa-child-reaching forside-hero-icon-detail"></i><span>{{ movies[currentIndex].age_rating }}</span></li>
         </ul>
-
+        
         <div class="forside-hero-description-container">
           <p ref="descriptionEl" class="forside-hero-description" :class="{ 'forside-hero-collapsed': !expanded }">{{ movies[currentIndex].description }}</p>
           <div v-if="showReadMore && !expanded" class="forside-hero-read-more-container">
@@ -208,7 +209,7 @@ const handleSendClick = () => {
             <a href="#" class="forside-hero-read-more" @click.prevent="toggleDescription">Vis mindre</a>
           </div>
         </div>
-
+        
         <div class="forside-hero-buttons">
           <button class="forside-hero-btn forside-hero-btn-primary">
             <span class="material-symbols-outlined">local_activity</span>
@@ -220,15 +221,15 @@ const handleSendClick = () => {
           </button>
         </div>
       </div>
-
+      
       <div class="forside-hero-slider-mobile-arrows">
-  <button @click="prevMovie" class="forside-hero-arrow">
-    <span class="material-icons forside-hero-icon-arrow">chevron_left</span>
-  </button>
-  <button @click="nextMovie" class="forside-hero-arrow">
-    <span class="material-icons forside-hero-icon-arrow">chevron_right</span>
-  </button>
-</div>
+        <button @click="prevMovie" class="forside-hero-arrow">
+          <span class="material-icons forside-hero-icon-arrow">chevron_left</span>
+        </button>
+        <button @click="nextMovie" class="forside-hero-arrow">
+          <span class="material-icons forside-hero-icon-arrow">chevron_right</span>
+        </button>
+      </div>
       <div class="forside-hero-slider-controls">
         <button @click="prevMovie" class="forside-hero-arrow">
           <span class="material-icons forside-hero-icon-arrow">chevron_left</span>
@@ -240,185 +241,187 @@ const handleSendClick = () => {
           <span class="material-icons forside-hero-icon-arrow">chevron_right</span>
         </button>
       </div>
-
+      
     </div>
   </section>
-  <section>
-    <div class="section-boks-1-container">
-    <div class="section-boks-1">
-      <div class="section-boks-1-content">
-        <div class="section-boks-1-text">
-          <h4 class="subtitle-boks-1">Velkommen til</h4>
-          <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
-          <p class="section-boks-1-beskrivelse">Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.</p>
-        </div>
-        <div class="section-boks-1-video">
-          <video autoplay muted loop>
-            <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4">
-            Din browser understøtter ikke videoafspilning.
-          </video>
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
-  <section>
-    <h2 class="overskrift-med-streg"><span>Program</span></h2>
-    <div class="film-program-container">
-      <div class="film-program">
-        <div class="film-program-content">
-        <div class="program-film-poster">
-          <img src="../assets/img/queer-poster.jpg" alt="">
-        </div>
-        <div class="film-program-detaljer">
-          <div class="film-program-titel-og-info">
-            <h3>Queer</h3>
-            <ul>
-              <li><i class="fas fa-clock"></i>2:36 t</li>
-              <li><i class="fas fa-child-reaching"></i>7 år+</li>
-            </ul>
+  <main>
+    <section>
+      <div class="section-boks-1-container">
+        <div class="section-boks-1">
+          <div class="section-boks-1-content">
+            <div class="section-boks-1-text">
+              <h4 class="subtitle-boks-1">Velkommen til</h4>
+              <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
+              <p class="section-boks-1-beskrivelse">Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.</p>
+            </div>
+            <div class="section-boks-1-video">
+              <video autoplay muted loop>
+                <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4">
+                Din browser understøtter ikke videoafspilning.
+              </video>
+            </div>
           </div>
-          <hr class="film-program-hr">
-          <!-- Indsæt tider her -->
         </div>
-        </div>
-        <div class="film-program-content">
-        <div class="program-film-poster">
-          <img src="../assets/img/queer-poster.jpg" alt="">
-        </div>
-        <div class="film-program-detaljer">
-          <div class="film-program-titel-og-info">
-            <h3>Queer</h3>
-            <ul>
-              <li><i class="fas fa-clock"></i>2:36 t</li>
-              <li><i class="fas fa-child-reaching"></i>7 år+</li>
-            </ul>
+      </div>
+    </section>
+    <section>
+      <h2 class="overskrift-med-streg"><span>Program</span></h2>
+      <div class="film-program-container">
+        <div class="film-program">
+          <div class="film-program-content">
+            <div class="program-film-poster">
+              <img src="../assets/img/queer-poster.jpg" alt="">
+            </div>
+            <div class="film-program-detaljer">
+              <div class="film-program-titel-og-info">
+                <h3>Queer</h3>
+                <ul>
+                  <li><i class="fas fa-clock"></i>2:36 t</li>
+                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
+                </ul>
+              </div>
+              <hr class="film-program-hr">
+              <!-- Indsæt tider her -->
+            </div>
           </div>
-          <hr class="film-program-hr">
-          <!-- Indsæt tider her -->
-        </div>
-        </div>
-      </div>
-    </div>
-    <div class="film-program-container-mobile">
-  <div class="film-program-mobile">
-
-    <div class="film-program-content-mobile">
-      <div class="program-film-poster-mobile">
-        <img src="../assets/img/queer-poster.jpg" alt="">
-      </div>
-      <div class="film-program-detaljer-mobile">
-        <div class="film-program-titel-og-info-mobile">
-          <h3>Queer</h3>
-          <ul>
-            <li><i class="fas fa-clock"></i>2:36 t</li>
-            <li><i class="fas fa-child-reaching"></i>7 år+</li>
-          </ul>
+          <div class="film-program-content">
+            <div class="program-film-poster">
+              <img src="../assets/img/queer-poster.jpg" alt="">
+            </div>
+            <div class="film-program-detaljer">
+              <div class="film-program-titel-og-info">
+                <h3>Queer</h3>
+                <ul>
+                  <li><i class="fas fa-clock"></i>2:36 t</li>
+                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
+                </ul>
+              </div>
+              <hr class="film-program-hr">
+              <!-- Indsæt tider her -->
+            </div>
+          </div>
         </div>
       </div>
-      <hr class="film-program-hr-mobile">
-    </div>
-
-    <div class="film-program-content-mobile">
-      <div class="program-film-poster-mobile">
-        <img src="../assets/img/queer-poster.jpg" alt="">
-      </div>
-      <div class="film-program-detaljer-mobile">
-        <div class="film-program-titel-og-info-mobile">
-          <h3>Queer</h3>
-          <ul>
-            <li><i class="fas fa-clock"></i>2:36 t</li>
-            <li><i class="fas fa-child-reaching"></i>7 år+</li>
-          </ul>
+      <div class="film-program-container-mobile">
+        <div class="film-program-mobile">
+          
+          <div class="film-program-content-mobile">
+            <div class="program-film-poster-mobile">
+              <img src="../assets/img/queer-poster.jpg" alt="">
+            </div>
+            <div class="film-program-detaljer-mobile">
+              <div class="film-program-titel-og-info-mobile">
+                <h3>Queer</h3>
+                <ul>
+                  <li><i class="fas fa-clock"></i>2:36 t</li>
+                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
+                </ul>
+              </div>
+            </div>
+            <hr class="film-program-hr-mobile">
+          </div>
+          
+          <div class="film-program-content-mobile">
+            <div class="program-film-poster-mobile">
+              <img src="../assets/img/queer-poster.jpg" alt="">
+            </div>
+            <div class="film-program-detaljer-mobile">
+              <div class="film-program-titel-og-info-mobile">
+                <h3>Queer</h3>
+                <ul>
+                  <li><i class="fas fa-clock"></i>2:36 t</li>
+                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
+                </ul>
+              </div>
+            </div>
+            <hr class="film-program-hr-mobile">
+          </div>
+          
         </div>
       </div>
-      <hr class="film-program-hr-mobile">
-    </div>
-
-  </div>
-</div>
-
-<div class="vis-flere-film-cta">
-  <a href="#">
-    Vis flere film
-    <span class="material-symbols-outlined">arrow_circle_right</span>
-  </a>
-</div>
-  </section>
-  <section class="forside-entry-section">
-  <div class="forside-entry-grid">
-    <div class="forside-entry-card forside-entry-card--white-bg">
-      <img src="../assets/img/cinemateket-entry.png" alt="Card 1">
-      <hr>
-      <h3>Cinemateket</h3>
-      <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/filmklubben-entry.png" alt="Card 2">
-      <hr>
-      <h3>Filmklubber</h3>
-      <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/events-entry.png" alt="Card 3">
-      <hr>
-      <h3>Events</h3>
-      <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/gavekort-entry.png" alt="Card 4">
-      <hr>
-      <h3>Gavekort</h3>
-      <p>Et gavekort til Biffen er mere end bare en gave – det er en oplevelse. Se også vores øvrige billetter.</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/a-salen_lille.jpg" alt="Card 5">
-      <hr>
-      <h3>Book en biografsal</h3>
-      <p>Book en af vores sale. Perfekt til skoler, virksomhedsarrangementer, børnefødselsdage mm.</p>
-    </div>
-    <div class="forside-entry-card">
-      <img src="../assets/img/kontakt-entry.jpg" alt="Card 6">
-      <hr>
-      <h3>Kontakt os</h3>
-    </div>
-  </div>
-</section>
-<section>
-  <h2 class="overskrift-med-streg"><span>Vi elsker vores samarbejde med</span></h2>
-  <div class="samarbejde-container">
-    <img src="../assets/img/dansk-film-insti.png" alt="Logo 1">
-    <img src="../assets/img/eu-cinema.png" alt="Logo 2">
-    <img src="../assets/img/aalborg-kommune.png" alt="Logo 3">
-  </div>
-</section>
-<section>
-  <div class="nyhedsbrev-wrapper">
-    <div class="icon-wrapper">
-      <span class="material-symbols-outlined">mail</span>
-    </div>
-
-    <div class="nyhedsbrev-card">
-      <h2 class="nyhedsbrev-overskrift">Nyhedsbrev</h2>
-      <p class="nyhedsbrev-underoverskrift">Sidste nyt om film og events</p>
-
-      <div class="nyhedsbrev-form">
-        <input
-          ref="emailInput"
-          type="email"
-          placeholder="Indtast mail her..."
-          id="email-input"
-        />
-        <button @click="handleSendClick">Send</button>
+      
+      <div class="vis-flere-film-cta">
+        <a href="#">
+          Vis flere film
+          <span class="material-symbols-outlined">arrow_circle_right</span>
+        </a>
       </div>
-
-      <p ref="thankYouMsg" id="thank-you" class="nyhedsbrev-tak">
-        Tak for din tilmelding - det betyder noget for os!
-      </p>
-    </div>
-  </div>
-</section>
-
+    </section>
+    <section class="forside-entry-section">
+      <div class="forside-entry-grid">
+        <div class="forside-entry-card forside-entry-card--white-bg">
+          <img src="../assets/img/cinemateket-entry.png" alt="Card 1">
+          <hr>
+          <h3>Cinemateket</h3>
+          <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
+        </div>
+        <div class="forside-entry-card">
+          <img src="../assets/img/filmklubben-entry.png" alt="Card 2">
+          <hr>
+          <h3>Filmklubber</h3>
+          <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
+        </div>
+        <div class="forside-entry-card">
+          <img src="../assets/img/events-entry.png" alt="Card 3">
+          <hr>
+          <h3>Events</h3>
+          <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
+        </div>
+        <div class="forside-entry-card">
+          <img src="../assets/img/gavekort-entry.png" alt="Card 4">
+          <hr>
+          <h3>Gavekort</h3>
+          <p>Et gavekort til Biffen er mere end bare en gave – det er en oplevelse. Se også vores øvrige billetter.</p>
+        </div>
+        <div class="forside-entry-card">
+          <img src="../assets/img/a-salen_lille.jpg" alt="Card 5">
+          <hr>
+          <h3>Book en biografsal</h3>
+          <p>Book en af vores sale. Perfekt til skoler, virksomhedsarrangementer, børnefødselsdage mm.</p>
+        </div>
+        <div class="forside-entry-card">
+          <img src="../assets/img/kontakt-entry.jpg" alt="Card 6">
+          <hr>
+          <h3>Kontakt os</h3>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2 class="overskrift-med-streg"><span>Vi elsker vores samarbejde med</span></h2>
+      <div class="samarbejde-container">
+        <img src="../assets/img/dansk-film-insti.png" alt="Logo 1">
+        <img src="../assets/img/eu-cinema.png" alt="Logo 2">
+        <img src="../assets/img/aalborg-kommune.png" alt="Logo 3">
+      </div>
+    </section>
+    <section>
+      <div class="nyhedsbrev-wrapper">
+        <div class="icon-wrapper">
+          <span class="material-symbols-outlined">mail</span>
+        </div>
+        
+        <div class="nyhedsbrev-card">
+          <h2 class="nyhedsbrev-overskrift">Nyhedsbrev</h2>
+          <p class="nyhedsbrev-underoverskrift">Sidste nyt om film og events</p>
+          
+          <div class="nyhedsbrev-form">
+            <input
+            ref="emailInput"
+            type="email"
+            placeholder="Indtast mail her..."
+            id="email-input"
+            />
+            <button @click="handleSendClick">Send</button>
+          </div>
+          
+          <p ref="thankYouMsg" id="thank-you" class="nyhedsbrev-tak">
+            Tak for din tilmelding - det betyder noget for os!
+          </p>
+        </div>
+      </div>
+    </section>
+    
+  </main>
  <Footer />
 
 </template>
@@ -489,7 +492,7 @@ const handleSendClick = () => {
 
 .forside-hero-info {
   max-width: 700px;
-  padding: 8rem 2rem 2rem 120px;
+  padding: 8rem 2rem 2rem var(--space-container);
 }
 
 .forside-hero-genre {
@@ -735,10 +738,9 @@ const handleSendClick = () => {
 }
 
 .section-boks-1-container {
-  padding-left: 120px;
-  padding-right: 120px;
+
   margin-top: 8rem;
-  margin-bottom: 12rem;
+  margin-bottom: var(--space-section);
 }
 
 .section-boks-1 {
@@ -800,119 +802,13 @@ const handleSendClick = () => {
   margin-top: 40px;
 }
 
-.overskrift-med-streg {
-  font-size: 55px;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  padding-left: 120px;
-  max-width: 550px;
-}
 
-.overskrift-med-streg span {
-  position: relative;
-  display: inline-block;
-}
 
-.overskrift-med-streg span::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 50%;
-  height: 4px;
-  background-color: #F63758;
-}
-
-.film-program-container {
-  padding-left: 120px;
-  padding-right: 120px;
-  margin-bottom: 3rem;
-}
-
-.film-program-container-mobile {
-  display: none;
-}
-
-.film-program {
-  background: #202F4D;
-  padding: 50px;
-  border-radius: 20px;
-  margin-top: 4rem;
-}
-
-.film-program-content {
-  display: flex;
-  gap: 4rem;
-  align-items: flex-start;
-  padding-bottom: 6rem;
-}
-
-.film-program-content:last-child {
-  padding-bottom: 0;
-}
-
-.program-film-poster img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-}
-
-.film-program-detaljer {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.film-program-titel-og-info {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.film-program-titel-og-info h3 {
-  font-size: 36px;
-  color: white;
-  font-weight: 700;
-}
-
-.film-program-titel-og-info ul {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.film-program-titel-og-info li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #131C31;
-  color: white;
-}
-
-.film-program-titel-og-info i {
-  color: #F63758;
-}
-
-.film-program-hr {
-  border: none;
-  height: 1px;
-  background-color: white;
-  margin-top: 12px;
-}
 
 .vis-flere-film-cta {
   display: flex;
   justify-content: flex-end;
-  padding-right: 120px;
-  margin-bottom: 12rem;
+  margin-bottom: var(--space-section) ;
 }
 
 .vis-flere-film-cta a {
@@ -933,8 +829,7 @@ const handleSendClick = () => {
 }
 
 .forside-entry-section {
-  padding: 0 120px;
-  margin-bottom: 12rem;
+  margin-bottom: 4rem;
 }
 
 .forside-entry-grid {
@@ -1019,9 +914,8 @@ const handleSendClick = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 140px;
-  padding: 0 120px;
-  margin-top: 10rem;
+  gap: 7rem;
+  margin-top: var(--space-section);
   max-width: 100%;
   box-sizing: border-box;
   flex-wrap: wrap;
@@ -1038,7 +932,7 @@ const handleSendClick = () => {
   position: relative;
   max-width: 700px;
   margin: 120px auto 0;
-  margin-top: 16rem;
+  margin-top: var(--space-section);
 }
 
 .icon-wrapper {
