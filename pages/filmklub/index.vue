@@ -15,6 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
+   <Header />
     <section>
       <!-- Sektion 1 med tekst og billede -->
       <div class="section-boks-1-container">
@@ -64,15 +65,16 @@ onMounted(async () => {
     </div>
   </section>
 
+   <Footer />
+
   </template>
   
 
 <style scoped>
 .section-boks-1-container {
-  padding-left: 120px;
-  padding-right: 120px;
-  margin-top: 8rem;
-  margin-bottom: 8rem;
+  padding: var(--space-container);
+
+
 }
 
 .section-boks-1 {
@@ -129,8 +131,8 @@ onMounted(async () => {
 }
 
 .forside-entry-section {
-  padding: 0 120px;
   margin-bottom: 12rem;
+  padding: var(--space-container);
 }
 
 .forside-entry-grid {
