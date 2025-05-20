@@ -71,38 +71,38 @@ function closeMenu() {
         </div>
 
         <div class="fullscreenFooter">
-          <div class="footerInfo">
-            <div class="footerItem">
-              <i class="fas fa-phone"></i>
-              <div>
-                <strong>Telefon</strong><br />
-                <a href="tel:+4598169977">+45 98 16 99 77</a>
-              </div>
-            </div>
-            <div class="footerItem">
-              <i class="fas fa-envelope"></i>
-              <div>
-                <strong>E-mail</strong><br />
-                <a href="mailto:info@biffen.eu">info@biffen.eu</a>
-              </div>
-            </div>
-            <div class="footerItem">
-              <i class="fas fa-map-marker-alt"></i>
-              <div>
-                <strong>Adresse</strong><br />
-                <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
-                  Biffen Nordkraft<br />
-                  Teglgårds Plads 1, 9000 Aalborg
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="footerSocials">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          </div>
-        </div>
+  <div class="footerInfo">
+    <div class="footerItem">
+      <i class="fas fa-phone"></i>
+      <div class="footerText">
+        <strong>Telefon</strong>
+        <a href="tel:+4598169977">+45 98 16 99 77</a>
+      </div>
+    </div>
+    <div class="footerItem">
+      <i class="fas fa-envelope"></i>
+      <div class="footerText">
+        <strong>E-mail</strong>
+        <a href="mailto:info@biffen.eu">info@biffen.eu</a>
+      </div>
+    </div>
+    <div class="footerItem">
+      <i class="fas fa-map-marker-alt"></i>
+      <div class="footerText">
+        <strong>Adresse</strong>
+        <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
+          Biffen Nordkraft<br />
+          Teglgårds Plads 1, 9000 Aalborg
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footerSocials">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
       </div>
     </div>
   </div>
@@ -140,6 +140,7 @@ function closeMenu() {
   display: flex;
   gap: 30px;
   margin-right: 30px;
+  z-index: 10;
 }
 
 .mainNav a {
@@ -166,8 +167,8 @@ function closeMenu() {
 
 .menuCircleOverlay {
   position: fixed;
-  top: 30px;
-  right: 60px;
+  top: 10px;
+  right: 50px;
   width: 100px;
   height: 100px;
   background: #121212;
@@ -240,8 +241,10 @@ function closeMenu() {
 .fullscreenInner {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 
 .menuLayout {
@@ -252,7 +255,7 @@ function closeMenu() {
   width: 100%;
   padding: 0 5rem;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 10rem auto;
 }
 
 .menuColumn {
@@ -286,15 +289,24 @@ function closeMenu() {
   color: #517BEA;
 }
 
+.fullscreenInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .fullscreenFooter {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 2rem;
   padding: 3rem 5rem 2rem;
   width: 100%;
   flex-wrap: wrap;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
 }
 
 .footerInfo {
@@ -308,23 +320,29 @@ function closeMenu() {
   gap: 1rem;
   color: white;
   font-size: 14px;
+  align-items: flex-start;
 }
 
 .footerItem i {
   color: #ff4c64;
   font-size: 20px;
-  margin-top: 3px;
 }
 
-.footerItem a {
-  color: white;
-  text-decoration: underline;
+.footerText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
 }
 
-.footerItem strong {
+.footerText strong {
   font-weight: 600;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+}
+
+.footerText a {
+  color: white;
+  text-decoration: underline;
 }
 
 .footerSocials {
@@ -350,4 +368,5 @@ function closeMenu() {
 .footerSocials a:hover {
   background-color: #ff6b7d;
 }
+
 </style>
