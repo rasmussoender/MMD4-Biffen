@@ -27,7 +27,8 @@ onMounted(async () => {
       :modules="[Autoplay, Navigation, Pagination]"
       :slides-per-view="1"
       :loop="true"
-      :autoplay="{ delay: 7000 }"
+      :speed="1000"
+      :autoplay="{ delay: 4000, pauseOnMouseEnter: true }"
       :pagination="{ clickable: true, el: '.custom-pagination' }"
       :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
     >
@@ -150,7 +151,7 @@ onMounted(async () => {
 .custom-next {
   background: rgba(24, 31, 47, 0.7);
   border: none;
-  color: var(--interactive-red);
+  color: white;
   font-size: 2rem;
   width: 40px;
   height: 40px;
@@ -159,8 +160,13 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.3s ease;
   margin: 0;
+  transition: color 0.5s;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+  color: var(--interactive-red);
 }
 
 .custom-pagination {
@@ -172,21 +178,6 @@ onMounted(async () => {
   align-items: center;
 }
 
-.custom-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-  border-radius: 50%;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.custom-pagination .swiper-pagination-bullet-active {
-  background: white;
-}
 
 .forside-hero-genre {
   font-size: 1rem;

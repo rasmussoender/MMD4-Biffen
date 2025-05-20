@@ -46,7 +46,7 @@ onMounted(async () => {
           <div class="film-program-content">
             <div class="program-film-poster">
               <img
-                :src="film.acf?.poster?.url || '../assets/img/placeholder.jpg'"
+                :src="film.acf?.poster?.url"
                 :alt="film.acf?.title || film.title.rendered"
               />
             </div>
@@ -55,10 +55,10 @@ onMounted(async () => {
                 <h3>{{ film.acf?.title || film.title.rendered }}</h3>
                 <ul>
                   <li>
-                    <i class="fas fa-clock"></i>{{ film.acf?.varighed || 'Ukendt tid' }}
+                    <i class="fas fa-clock"></i>{{ film.acf?.varighed }}
                   </li>
                   <li>
-                    <i class="fas fa-child-reaching"></i>{{ film.acf?.age?.[0]?.aldersgraense || 'Aldersmærke mangler' }}
+                    <i class="fas fa-child-reaching"></i>{{ film.acf?.age?.[0]?.aldersgraense }}
                   </li>
                 </ul>
               </div>
@@ -70,11 +70,12 @@ onMounted(async () => {
                   <div class="film-program-dato">
                     <p>
                       <i class="fa-solid fa-calendar-days"></i>
-                      {{ film.acf?.udgivelsesdato || 'Udgivelsesdato ukendt' }}
+                      {{ film.acf?.udgivelsesdato }}
                     </p>
                   </div>
                   <div class="film-program-beskrivelse">
-                    <p>{{ film.acf?.filmklub_film_beskrivelse || 'Beskrivelse mangler.' }}</p>
+                  <p>{{ film.acf.description.length > 200 ? film.acf.description.slice(0, 200) + '...' : film.acf.description }}</p>
+
                   </div>
                 </div>
                 <div class="read-more-button-container">

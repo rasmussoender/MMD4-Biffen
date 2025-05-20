@@ -1,6 +1,5 @@
 <script setup>
-
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // Nyhedsbrev funktionalitet
 const emailInput = ref(null)
@@ -17,6 +16,17 @@ const handleSendClick = () => {
     alert("Indtast en gyldig e-mailadresse")
   }
 }
+
+// Filmprogram
+const moviesProgram = ref([])
+onMounted(async () => {
+  try {
+    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-program=18&_embed')
+    moviesProgram.value = await res.json()
+  } catch (e) {
+    console.error('Fejl ved hentning af film:', e)
+  }
+})
 </script>
 
 
@@ -47,80 +57,78 @@ const handleSendClick = () => {
       </div>
     </section>
     <section>
-      <h2 class="overskrift-med-streg"><span>Program</span></h2>
-      <div class="film-program-container">
-        <div class="film-program">
-          <div class="film-program-content">
-            <div class="program-film-poster">
-              <img src="../assets/img/queer-poster.jpg" alt="">
-            </div>
-            <div class="film-program-detaljer">
-              <div class="film-program-titel-og-info">
-                <h3>Queer</h3>
-                <ul>
-                  <li><i class="fas fa-clock"></i>2:36 t</li>
-                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
-                </ul>
+      <h2 class="overskrift-med-streg"><span>Populære film (program?)</span></h2>
+
+<div class="film-program-container">
+  <div class="film-program">
+    <div 
+      class="film-program-content" 
+      v-for="movie in moviesProgram" 
+      :key="movie.id"
+    >
+<div class="program-film-poster">
+  <img 
+    v-if="movie.acf?.poster?.url" 
+    :src="movie.acf.poster.url" 
+    :alt="movie.title.rendered" 
+  />
+</div>
+
+      <div class="film-program-detaljer">
+        <div class="film-program-titel-og-info">
+          <h3 v-html="movie.title.rendered"></h3>
+          <ul>
+            <li><i class="fas fa-clock"></i> {{ movie.acf?.varighed }}</li>
+            <li><i class="fas fa-child-reaching"></i> {{ movie.acf.age?.[0]?.aldersgraense }}</li>
+
+          </ul>
+        </div>
+        <hr class="film-program-hr">
+        <!-- Eventuelt program -->
+                <div class="film-information-container">
+                <div class="film-program-dato-beskrivelse">
+
+                  <div class="film-program-beskrivelse">
+                    <p>{{ movie.acf.description.length > 300 ? movie.acf.description.slice(0, 300) + '...' : movie.acf.description }}</p>
+                  </div>
+                </div>
+                <div class="read-more-button-container">
+                  <NuxtLink :to="`/film/${movie.slug}`" class="read-more-btn">
+                    Mere info
+                  </NuxtLink>
+                </div>
               </div>
-              <hr class="film-program-hr">
-              <!-- Indsæt tider her -->
-            </div>
-          </div>
-          <div class="film-program-content">
-            <div class="program-film-poster">
-              <img src="../assets/img/queer-poster.jpg" alt="">
-            </div>
-            <div class="film-program-detaljer">
-              <div class="film-program-titel-og-info">
-                <h3>Queer</h3>
-                <ul>
-                  <li><i class="fas fa-clock"></i>2:36 t</li>
-                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
-                </ul>
-              </div>
-              <hr class="film-program-hr">
-              <!-- Indsæt tider her -->
-            </div>
-          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="film-program-container-mobile">
+  <div class="film-program-mobile">
+    <div 
+      class="film-program-content-mobile" 
+      v-for="movie in movies" 
+      :key="movie.id + '-mobile'"
+    >
+      <div class="program-film-poster-mobile">
+        <img :src="movie._embedded['wp:featuredmedia'][0].source_url" :alt="movie.title.rendered" />
+      </div>
+      <div class="film-program-detaljer-mobile">
+        <div class="film-program-titel-og-info-mobile">
+          <h3 v-html="movie.title.rendered" />
+          <ul>
+            <li><i class="fas fa-clock"></i> {{ movie.acf.varighed }}</li>
+            <li><i class="fas fa-child-reaching"></i> {{ movie.acf.aldersgrænse }}</li>
+          </ul>
         </div>
       </div>
-      <div class="film-program-container-mobile">
-        <div class="film-program-mobile">
-          
-          <div class="film-program-content-mobile">
-            <div class="program-film-poster-mobile">
-              <img src="../assets/img/queer-poster.jpg" alt="">
-            </div>
-            <div class="film-program-detaljer-mobile">
-              <div class="film-program-titel-og-info-mobile">
-                <h3>Queer</h3>
-                <ul>
-                  <li><i class="fas fa-clock"></i>2:36 t</li>
-                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
-                </ul>
-              </div>
-            </div>
-            <hr class="film-program-hr-mobile">
-          </div>
-          
-          <div class="film-program-content-mobile">
-            <div class="program-film-poster-mobile">
-              <img src="../assets/img/queer-poster.jpg" alt="">
-            </div>
-            <div class="film-program-detaljer-mobile">
-              <div class="film-program-titel-og-info-mobile">
-                <h3>Queer</h3>
-                <ul>
-                  <li><i class="fas fa-clock"></i>2:36 t</li>
-                  <li><i class="fas fa-child-reaching"></i>7 år+</li>
-                </ul>
-              </div>
-            </div>
-            <hr class="film-program-hr-mobile">
-          </div>
-          
-        </div>
-      </div>
+      <hr class="film-program-hr-mobile">
+    </div>
+  </div>
+</div> -->
+
+
       
       <div class="vis-flere-film-cta">
         <a href="#">

@@ -87,8 +87,12 @@ const visibleSessions = computed(() => {
 }">
 <HeaderImageBackground />
 
-    <div class="backButton underlineAnimationLinks">
-      <NuxtLink to="/film" class="backbtn">
+        <div class="backButton underlineAnimationLinks">
+      <NuxtLink
+        to="#"
+        class="backbtn"
+        @click.prevent="$router.back()"
+      >
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
     </div>
