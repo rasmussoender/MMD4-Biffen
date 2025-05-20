@@ -35,10 +35,29 @@ import Header from '@/components/Header.vue';
     </div>
   </section>
 
-  <section>
+  <section class="birthday">
     <article>
-    <img src="../assets/img/ArrangementMobil.png" alt="" class="mobilbillede">
-    <img src="../assets/img/ArrangementDesktop.png" alt="" class="pcbillede">
+    <img src="../assets/img/BirthdayMobile.png" alt="" class="mobilbillede">
+    <img src="../assets/img/BirthdayDesktop.png" alt="" class="pcbillede">
+    <h1>Børnefødselsdage</h1>
+    <div class="package">
+      <p>En fødselsdagspakke i Biffen koster kun 95 kr. pr. deltager og indeholder:</p>
+      <div class="packageWrapper">
+        <div>
+        <img src="../assets/img/Billetikon.png" alt="">
+        <h5>1 billet til den valgte film</h5>
+        </div>
+        <div>
+        <img src="../assets/img/Billetikon.png" alt="">
+        <h5>1 billet til den valgte film</h5>
+        </div>
+          <div>
+        <img src="../assets/img/Billetikon.png" alt="">
+        <h5>1 billet til den valgte film</h5>
+        </div>
+      </div>
+      <p>Minimum 10 deltagere</p>
+    </div>
     </article>
   </section>
   </main>
@@ -46,6 +65,38 @@ import Header from '@/components/Header.vue';
 </template>
 
 <style scoped>
+
+.package p {
+  text-align: center;
+}
+.packageWrapper{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.packageWrapper div{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.package{
+  border-radius: 20px;
+  background-color: #273A5F;
+}
+.birthday{
+  background-color: var(--secondary-blue);
+}
+
+.birthday{
+  padding: 20px 20px;
+}
+
+.birthday img{
+  border-radius: 20px;
+}
+
+
 main{
   padding: 0px 12px;
 }
