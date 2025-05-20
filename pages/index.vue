@@ -129,6 +129,22 @@ const handleSendClick = () => {
         </a>
       </div>
     </section>
+
+    <section class="kommendeFilmIndex">
+    <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
+
+      <KommendeFilm :limit="4" />
+
+        <div class="vis-flere-film-cta">
+        <a href="/kommende-film">
+          Se kommende film
+          <span class="material-symbols-outlined">arrow_circle_right</span>
+        </a>
+      </div>
+
+    </section>
+
+
     <section class="forside-entry-section">
       <div class="forside-entry-grid">
         <div class="forside-entry-card forside-entry-card--white-bg">
@@ -274,6 +290,11 @@ const handleSendClick = () => {
   font-size: 18px;
   line-height: 175%;
   margin-top: 40px;
+}
+
+
+.kommendeFilmIndex {
+  padding-bottom: var(--space-section);
 }
 
 

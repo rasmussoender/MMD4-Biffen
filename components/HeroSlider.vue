@@ -1,3 +1,4 @@
+<!-- brugt library: swiperjs:  https://swiperjs.com/ -->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -57,7 +58,7 @@ onMounted(async () => {
             
             <ul class="forside-hero-details">
               <li class="forside-hero-detail forside-hero-rating">
-                <i class="fas fa-star forside-hero-icon-detail"></i><span>{{ film.acf.hero_slider_film_rating }}</span>
+                <i class="fas fa-star forside-hero-icon-detail"></i><span>{{ film.acf.hero_slider_film_rating }}/10</span>
               </li>
               <li class="forside-hero-detail forside-hero-date">
                 <i class="fas fa-film forside-hero-icon-detail"></i><span>{{ film.acf.udgivelsesdato }}</span>
