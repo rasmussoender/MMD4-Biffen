@@ -35,7 +35,8 @@ const formatDate = (dateString) => {
   <Header />
   <main>
     <div class="movieContainer">
-      <h1>Alle Film</h1>
+      <h1 class="overskrift-med-streg"><span>Alle Film</span></h1>
+
       <div class="buttonContainer">
         <button class="calenderButton">
           <i class="fa-solid fa-calendar-days"></i> Kalender
