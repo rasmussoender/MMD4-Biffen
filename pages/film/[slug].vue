@@ -70,6 +70,22 @@ const prevDays = () => {
 const visibleSessions = computed(() => {
   return movie.value?.acf.spilletider.filmvisning.slice(visibleStart.value, visibleStart.value + visibleCount) || [];
 });
+
+// Formatering af dato (spilletider)
+const formattedDate = (str) => {
+  const [d, m] = str.split('/').map(Number);
+  const date = new Date(2000, m - 1, d);
+
+  return `
+    <div class="dateContent">
+      <div class="date-day">${d}</div>
+      <div class="date-month">${date.toLocaleString('da-DK', { month: 'long' })}</div>
+    </div>
+  `;
+};
+
+
+
 </script>
 
 <template>
@@ -146,7 +162,7 @@ const visibleSessions = computed(() => {
     <div class="days">
       <div class="showtimeDayCard" v-for="session in visibleSessions" :key="session.filmdato">
         <div class="dateCard">
-          <h4 class="date">{{ session.filmdato }}</h4>
+        <h4 class="date" v-html="formattedDate(session.filmdato)"></h4>
         </div>
         <div class="showtimeSlots">
           <router-link
@@ -164,10 +180,9 @@ const visibleSessions = computed(() => {
   </div>
 </section>
 
-
-
     <section class="actors">
-      <h2>Top skuespillere</h2>
+      <h2 class="overskrift-med-streg"><span>Top skuespillere</span></h2>
+
       <div class="actorSection">
         <a
           class="actorGroup"
@@ -198,6 +213,7 @@ const visibleSessions = computed(() => {
 
 
 <style scoped>
+
 .movieDetailsPage {
   padding: 0;
   margin: 0 auto;
@@ -368,6 +384,9 @@ const visibleSessions = computed(() => {
   padding: 1rem;
   position: relative;
   overflow: hidden;
+  height: 100%;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   margin: var(--space-container);
 }
 
@@ -383,22 +402,37 @@ const visibleSessions = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: .5rem;
+  width: 10rem;
   
 }
 
 .dateCard {
   background-color: var(--color-body);
-  padding: .5rem;
+  padding: 0.5rem;
   border-radius: var(--radius-button);
-  text-align: center;
-  color: white;
+  width: 100%;
+  height: 7rem;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
+
+.dateContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1;
+}
+
 .dateCard h4 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
+
 
 
 .showtimeSlots {
@@ -474,57 +508,12 @@ const visibleSessions = computed(() => {
   gap: 20px; 
 }
 
-@media (max-width: 768px) {
-  .actorSection {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .timesWrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .timesNav {
-    position: static;
-    transform: none;
-    margin: 0 0.5rem; 
-    width: auto;
-    display: flex;
-    justify-content: center;
-  }
-
-  .timesNav.left, 
-  .timesNav.right {
-    width: auto;  
-  }
-
-  .timesNav.left {
-    order: 1;
-  }
-
-  .timesNav.right {
-    order: 1;
-  }
-
-  .days {
-    order: 2;
-    padding: 1rem 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .timesWrapper > .timesNav.left,
-  .timesWrapper > .timesNav.right {
-    display: inline-flex;
-  }
-
-  .timesWrapper > .timesNav.left {
-    margin-right: 1rem;
-  }
+.arrowsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
+
 
 .actorImg {
   width: 100%;     
@@ -564,6 +553,10 @@ const visibleSessions = computed(() => {
 }
 
 @media (max-width: 1024px) {
+    .dateCard  {
+    width: 100%;
+  }
+
 
 
   .days {
@@ -577,6 +570,63 @@ const visibleSessions = computed(() => {
   }
 
 
+}
+
+
+@media (max-width: 768px) {
+  .arrowsWrapper {
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
+  }
+  .actorSection {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .timesWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timesNav {
+    position: static;
+    transform: none;
+    margin: 0 0.5rem; 
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .timesNav.left, 
+  .timesNav.right {
+    width: auto;  
+  }
+
+  .timesNav.left {
+    order: 1;
+  }
+
+  .timesNav.right {
+    order: 1;
+  }
+
+  .days {
+    order: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .timesWrapper > .timesNav.left,
+  .timesWrapper > .timesNav.right {
+    display: inline-flex;
+  }
+
+  .timesWrapper > .timesNav.left {
+    margin-right: 1rem;
+  }
 }
 
 @media (max-width: 600px) {
@@ -597,11 +647,6 @@ const visibleSessions = computed(() => {
 
 }
 
-.arrowsWrapper {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
 
 
 

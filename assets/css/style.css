@@ -40,6 +40,8 @@ a {
   max-width: 100%;
 }
 
+
+
 .overskrift-med-streg span {
   position: relative;
   display: inline-block;
@@ -342,4 +344,17 @@ border-radius: var(--radius-section);
 .film-program-content-mobile:last-of-type .film-program-hr-mobile {
   margin-bottom: 0;
 }
+}
+/* Dato styling til spilletider (enkel film) */
+
+.date-day {
+  color: var(--interactive-red);
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.date-month {
+  font-size: .9rem;
+  text-align: center;
 }
