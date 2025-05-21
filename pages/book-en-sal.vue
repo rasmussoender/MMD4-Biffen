@@ -21,9 +21,11 @@ import Header from '@/components/Header.vue';
   </section>
 
   <section class="introEvents">
+    <div class="imgwrapper">
     <img src="../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/SkoleDesktop.png" alt="" class="pcbillede">
-    <div class="introWrapper">
+    </div>
+    <div class="introWrapper column1">
     <div class="headingNdLine">
       <h1>Med skolen i biografen</h1>
       <div></div>
@@ -39,7 +41,10 @@ import Header from '@/components/Header.vue';
     <article>
     <img src="../assets/img/BirthdayMobile.png" alt="" class="mobilbillede">
     <img src="../assets/img/BirthdayDesktop.png" alt="" class="pcbillede">
-    <h1>Børnefødselsdage</h1>
+    <div class="headingNdLine notShow">
+      <h1>Børnefødselsdag</h1>
+      <div></div>
+    </div>
     <div class="package">
       <p>En fødselsdagspakke i Biffen koster kun 95 kr. pr. deltager og indeholder:</p>
       <div class="packageWrapper">
@@ -59,12 +64,31 @@ import Header from '@/components/Header.vue';
       <p>Minimum 10 deltagere</p>
     </div>
     </article>
+    <article class="text">
+    <div class="headingNdLine toShow">
+    <h1>Børnefødselsdag</h1>
+    <div></div>
+    </div>
+    <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden.</p>
+    <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden. Glem alt om oprydning - Vi tager os af det praktiske, så du kan fokusere på at nyde dagen sammen med fødselaren.</p>
+    <p>Samme pris for voksne (der skal mindst en voksen med ind i salen). Som udgangspunkt vil det være med filmstart kl. 10 alle ugens dage.</p>
+    <p>Book din næste børnefødselsdag i Biffen (gerne senest 14 dage før) på mail til stine@biffen.eu</p>
+    <p>Meget kan lade sig gøre - så tøv ikke med at kontakte os for at høre om andre muligheder.</p>
+    <p>Vi glæder os til at fejre dagen med jer!</p>
+    </article>
   </section>
   </main>
   <Footer />
 </template>
 
 <style scoped>
+
+.notShow{
+  display: block;
+}
+.toShow{
+  display: none;
+}
 
 .package p {
   text-align: center;
@@ -81,6 +105,7 @@ import Header from '@/components/Header.vue';
   align-items: center;
 }
 .package{
+  padding: 36px 10px;
   border-radius: 20px;
   background-color: #273A5F;
 }
@@ -138,11 +163,47 @@ h1,h2,h3,h4,h5,h6{
 }
 
 @media (min-width: 1000px){
+  main{
+    padding: 0 var(--space-container);
+  }
   .mobilbillede{
     display: none;
   }
   .pcbillede{
     display: inline;
+  }
+
+   .toShow{
+    display: inline-block;
+  }
+  .notShow{
+    display: none;
+  }
+
+   .introEvents{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    padding: 40px 100px;
+  }
+  .birthday{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    padding: 40px 100px;
+  }
+
+  
+
+ .package{
+  width: 508px;
+ }
+ 
+  .column1{
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .imgwrapper{
+    justify-self: end;
   }
 }
 </style>
