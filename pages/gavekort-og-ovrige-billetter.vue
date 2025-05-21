@@ -67,7 +67,7 @@ import Header from '@/components/Header.vue';
     </div>
     <p>Med vores firmaordning kan du nemt og billigt glæde dine medarbejdere og forretningsforbindelser med store filmoplevelser. </p>
     <p>En firmabillet koster 76 kr. inkl. moms (min. 10 stk.) og kan indløses til alle ordinære forestillinger i Biffen Nordkraft. Der opkræves tillæg for forlænget spilletid og events. Tilkøb af lækkerier fra caféen er muligt. Kontakt os for at høre mere om mulighederne og evt. tilbud. Det ønskede antal billetter fremsendes til din firmaadresse sammen med en faktura. I forbindelse med køb af firmabilletter skal virksomhedens CVR-nr. oplyses. </p>
-    <p>Firmabilletter kan bestilles hos Karin Fast på info@biffen.eu eller tlf. 31909977 hverdage kl. 9-13.</p>
+    <p>Firmabilletter kan bestilles hos Karin Fast på <span class="red">info@biffen.eu</span> eller tlf. <span class="red">31909977</span> hverdage kl. 9-13.</p>
     </div>
   </section>
   </main>
@@ -77,6 +77,9 @@ import Header from '@/components/Header.vue';
 
 
 <style scoped>
+.red{
+  color: var(--interactive-red);
+}
 .pcbillede{
     display: none;
   }
