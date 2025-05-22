@@ -81,7 +81,9 @@ import Header from '@/components/Header.vue';
 
 <style scoped>
 .udvalg .headingNdLine{
-  grid-column: 1 / span 3;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: start;
 }
 
 .introEvents{
