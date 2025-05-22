@@ -55,7 +55,7 @@ const sortedEvents = computed(() => {
         class="eventCardLink"
         >
         <article>
-            <div class="wrapper">
+            <div class="wrapper imageHoverEffect">
               <img class="eventImg" :src="event.acf?.event_billede?.url" :alt="event.title.rendered" />
               <div class="overlay"></div>
               <div class="calendar">
@@ -64,7 +64,6 @@ const sortedEvents = computed(() => {
               </div>
               <h4 v-html="event.title.rendered"></h4>
             </div>
-            <!-- <p class="eventBeskrivelse" v-html="event.acf?.event_beskrivelse"></p> -->
           </article>
         </NuxtLink>
       </section>
@@ -76,32 +75,24 @@ const sortedEvents = computed(() => {
         <div></div>
       </div>
 
-      <section>
-        <NuxtLink
-          v-for="category in categoryList"
-          :key="category.id"
-          :to="`/events/${category.slug}`"
-          class="eventCardLink"
-        >
-          <article>
-            <img
-              :src="category.acf?.event_taksonomi_billede?.url"
-              :alt="category.name"
-              class="mobilbillede"
-            />
-            <img
-              :src="category.acf?.event_taksonomi_billede?.url"
-              :alt="category.name"
-              class="pcbillede"
-            />
-            <div class="whiteLine">
-              <div class="redLine"></div>
-            </div>
-            <h3>{{ category.name }}</h3>
-            <p class="eventBeskrivelse">{{ category.description }}</p>
-          </article>
-        </NuxtLink>
-      </section>
+<section class="eventOverviewSection">
+  <NuxtLink
+    v-for="category in categoryList"
+    :key="category.id"
+    :to="`/events/${category.slug}`"
+    class="entryCardRedline"
+  >
+    <img
+      :src="category.acf?.event_taksonomi_billede?.url"
+      :alt="category.name"
+    />
+    <hr />
+    <h3>{{ category.name }}</h3>
+    <p>{{ category.description.length > 100 ? category.description.slice(0, 100) + '...' : category.description }}</p>
+
+  </NuxtLink>
+</section>
+
     </section>
  
     </main>
@@ -110,6 +101,12 @@ const sortedEvents = computed(() => {
 </template>
 
 <style scoped>
+.eventOverviewSection {
+  padding: 2rem;
+
+}
+
+
 a {
   text-decoration: none;
   color: white;
@@ -206,14 +203,7 @@ main {
 }
 
 
-.eventImg {
-  transition: transform 0.5s ease;
-  will-change: transform;
-}
 
-.wrapper:hover .eventImg {
-  transform: scale(1.10);
-}
 
 .overlay {
   position: absolute;
@@ -238,7 +228,6 @@ main {
   height: 300px; 
   object-fit: cover;
   border-radius: 15px;
-    transition: transform 0.5s ease;
 
 }
 
@@ -246,30 +235,7 @@ main {
   overflow: hidden;
 
 }
-.events section article img:hover, .upcomingEvents section article img:hover {
-  transform: scale(1.05);
 
-}
-
-
-.events section article {
-  position: relative;
-  
-}
-
-.events section article .redLine {
-  position: absolute;
-  bottom: 0; 
-  left: 0;
-  width: 0%; 
-  height: 2px;
-  background-color: var(--interactive-red);
-  transition: width 500ms ease;
-}
-
-.events section article:hover .redLine {
-  width: 100%; 
-}
 
 /* Desktop styling */
 @media (min-width: 1000px) {
@@ -299,18 +265,7 @@ main {
     cursor: pointer;
   }
 
-  .redLine {
-    transition: width 500ms ease;
-    position: absolute;
-    width: 0%; 
-    height: 1px;
-    background-color: var(--interactive-red);
-    bottom: 0;
-  }
 
-  .events section article:hover .redLine {
-    width: 100%; 
-  }
 }
 
 .mobilbillede {
@@ -363,17 +318,75 @@ main {
   grid-column: 2;
 }
 
-.whiteLine {
-  height: 1px;
-  background-color: white;
+
+
+.entryCardRedline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  text-decoration: none;
+
+  
+}
+
+
+
+
+.entryCardRedline img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.6s ease;
+  margin-bottom: 1rem;
+}
+
+.entryCardRedline:hover img {
+  transform: scale(1.03);
+  box-shadow: 0px 0px 20px 2px #4C90FF;
+}
+
+.entryCardRedline hr {
   position: relative;
-  margin: 16px 0px;
+  height: 2px;
+  background-color: white;
+  border: none;
+  width: 100%;
+  margin: 16px 0 8px;
+  overflow: hidden;
 }
 
-.redLine {
-  width: 0%;
+.entryCardRedline hr::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #F63758;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+  z-index: 2;
 }
 
+.entryCardRedline:hover hr::after {
+  transform: scaleX(1);
+}
+
+.entryCardRedline h3 {
+  margin-top: 1rem;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.entryCardRedline p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 300;
+}
 
 
 </style>

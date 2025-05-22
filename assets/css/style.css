@@ -57,6 +57,19 @@ a {
   background-color: #F63758;
 }
 
+/* billede hover effekt */
+.imageHoverEffect {
+  transition: transform 0.3s ease, box-shadow 0.6s ease;
+  display: block;
+  border-radius: 12px;
+}
+
+.imageHoverEffect:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px 2px #4C90FF;
+}
+
+
 
 /* link underlinje animation */
 .underlineAnimationLinks a {

@@ -228,7 +228,6 @@ const formattedDate = (str) => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 3rem;
   position: relative;
   background-size: cover;
   background-position: center;
@@ -388,6 +387,7 @@ const formattedDate = (str) => {
   padding-top: 5rem;
   padding-bottom: 5rem;
   margin: var(--space-container);
+  margin-top: 0 ;
 }
 
 

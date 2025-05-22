@@ -73,7 +73,7 @@ onMounted(async () => {
           class="eventCardLink"
         >
           <article>
-            <div class="wrapper">
+            <div class="wrapper imageHoverEffect">
               <img :src="event.acf?.event_billede?.url" :alt="event.title.rendered" />
               <div class="overlay"></div>
               <div class="calendar">
@@ -82,7 +82,6 @@ onMounted(async () => {
               </div>
               <h4 v-html="event.title.rendered"></h4>
             </div>
-            <!-- <p v-html="event.acf?.event_beskrivelse"></p> -->
           </article>
         </NuxtLink>
       </section>
