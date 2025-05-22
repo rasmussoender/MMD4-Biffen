@@ -7,6 +7,10 @@ import Header from '@/components/Header.vue';
   <Header />
   <main>
     <section class="udvalg">
+      <div class="headingNdLine">
+      <h1>Vores udvalg</h1>
+      <div></div>
+      </div>
       <article>
         <div class="udvalgCard">
           <img src="../assets/img/GavePakkeLogo.png" alt="" class="logo">
@@ -56,7 +60,6 @@ import Header from '@/components/Header.vue';
         </div>
       </article>
     </section>
-
      <section class="introEvents">
     <img src="../assets/img/FirmabilleterMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/FirmabilleterDesktop.png" alt="" class="pcbillede">
@@ -77,6 +80,13 @@ import Header from '@/components/Header.vue';
 
 
 <style scoped>
+.udvalg .headingNdLine{
+  grid-column: 1 / span 3;
+}
+
+.introEvents{
+  margin-top: var(--space-section);
+}
 .red{
   color: var(--interactive-red);
 }
