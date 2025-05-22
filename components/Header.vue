@@ -82,7 +82,7 @@ onUnmounted(() => {
       instantShow: isClosing
     }"
   >
-    <a class="logoWrapper" href="/">
+    <a class="logoWrapper" href="/" :class="{ hiddenLogo: isMenuOpen }">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
     </a>
     <div class="headerRight">
@@ -226,6 +226,12 @@ onUnmounted(() => {
 
 .logoWrapper {
   z-index: 1000;
+}
+
+/* Hide the header logo when fullscreen menu is open */
+.logoWrapper.hiddenLogo {
+  opacity: 0;
+  transition: none;
 }
 
 .headerRight {
