@@ -207,12 +207,23 @@ main{
   
 }
 
-@media (min-width: 1000px){
+@media (min-width: 768px) and (max-width:1024px){
+  .udvalg{
+     grid-template-columns: repeat(2,1fr);
+  }
+}
+
+
+
+@media (min-width: 1024px){
    main{
     padding: 0 var(--space-container);
+    box-sizing: border-box;
   }
   .udvalg{
     grid-template-columns: repeat(3,1fr);
+    max-width: 2000px;
+    width: 100%;
     justify-items: center;
     row-gap: 8rem;
   }
