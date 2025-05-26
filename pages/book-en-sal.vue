@@ -23,7 +23,7 @@ import Header from '@/components/Header.vue';
 
   <section class="introEvents">
     <div class="imgwrapper">
-    <img src="../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
+    <img src="../assets/img/SkoleMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/SkoleDesktop.png" alt="" class="pcbillede">
     </div>
     <div class="introWrapper column1">
@@ -40,12 +40,14 @@ import Header from '@/components/Header.vue';
 
   <section class="birthday">
     <article>
-    <img src="../assets/img/BirthdayMobile.png" alt="" class="mobilbillede">
-    <img src="../assets/img/BirthdayDesktop.png" alt="" class="pcbillede">
-    <div class="headingNdLine notShow">
+    <img src="../assets/img/BirthdayMobile.png" alt="" class="mobilbillede birthdayimg">
+    <img src="../assets/img/BirthdayDesktop.png" alt="" class="pcbillede birthdayimg">
+   <div class="notShow">
+     <div class="headingNdLine notShow">
       <h1>Børnefødselsdag</h1>
       <div></div>
     </div>
+   </div>
     <div class="package">
       <p>En fødselsdagspakke i Biffen koster kun 95 kr. pr. deltager og indeholder:</p>
       <div class="packageWrapper">
@@ -66,10 +68,12 @@ import Header from '@/components/Header.vue';
     </div>
     </article>
     <article class="text">
-    <div class="headingNdLine toShow">
+   <div class="toShow">
+    <div class="headingNdLine">
     <h1>Børnefødselsdag</h1>
     <div></div>
     </div>
+   </div>
     <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden.</p>
     <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden. Glem alt om oprydning - Vi tager os af det praktiske, så du kan fokusere på at nyde dagen sammen med fødselaren.</p>
     <p>Samme pris for voksne (der skal mindst en voksen med ind i salen). Som udgangspunkt vil det være med filmstart kl. 10 alle ugens dage.</p>
@@ -89,10 +93,10 @@ import Header from '@/components/Header.vue';
 }
 
 .notShow{
-  display: block;
+  display: block ;
 }
 .toShow{
-  display: none;
+  display: none !important;
 }
 
 .package p {
@@ -166,7 +170,7 @@ h1,h2,h3,h4,h5,h6{
   margin-bottom: var(--space-section);
 }
 
-@media (min-width: 1000px){
+@media (min-width: 1200px){
   main{
     padding: 0 var(--space-container);
   }
@@ -178,7 +182,7 @@ h1,h2,h3,h4,h5,h6{
   }
 
    .toShow{
-    display: inline-block;
+    display: inline-block !important;
   }
   .notShow{
     display: none;
@@ -209,5 +213,13 @@ h1,h2,h3,h4,h5,h6{
   .imgwrapper{
     justify-self: end;
   }
+}
+
+@media (min-width: 768px) and (max-width:1200px){
+  .introEvents img, .birthdayimg{
+    width: 60%;
+  }
+ 
+  
 }
 </style>
