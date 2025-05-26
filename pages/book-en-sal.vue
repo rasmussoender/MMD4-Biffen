@@ -17,6 +17,7 @@ import Header from '@/components/Header.vue';
     <p>Både private og virksomheder kan leje biografsal og café til arrangementer og events.</p>
     <p>Digitalt udstyr til film, billeder og lyd af enhver art og i bedste kvalitet forefindes, ligesom caféen kan benyttes til afholdelse af forskellige typer arrangementer. Salen kan også benyttes til forelæsninger, debat eller andet.</p>
     <p>Biffen tilbyder desuden samarbejder med virksomheder, der ønsker at benytte biografens hyggelige rammer til at kræse om medarbejdere, kunder og samarbejdspartnere.</p>
+    <p>Kontakt Karin Fast, <span class="red">info@biffen.eu</span></p>
     </div>
   </section>
 
@@ -33,7 +34,7 @@ import Header from '@/components/Header.vue';
     <p>Størstedelen af de nordjyske skoler booker hvert skoleår den lokale biograf som klasselokale, og ca. titusindvis af børn og unge går på udflugt ind i verdener, historiske perioder og konflikter, de kan spejle sig i og blive klogere på livet af at besøge. Intet rum i børns aktuelle virkelighed egner sig bedre hertil end netop biografens rum.</p>
     <p>Med Skolen I Biografen er ikke blot en udflugt ind i filmens magiske univers. Det er også anledning til at præsentere tidens børn og unge for film og filmnationer, de ikke selv kunne drømme om at besøge. Med Skolen I Biografen tilrettelægges og administreres af UCN, Center for Undervisningsmaterialer i Aalborg.</p>
     <h2>Gymnasier</h2>
-    <p>og VIDEREGÅENDE UDDANNELSER - skriv til Karin Fast, info@biffen.eu</p>
+    <p>og VIDEREGÅENDE UDDANNELSER - skriv til Karin Fast, <span class="red">info@biffen.eu</span></p>
     </div>
   </section>
 
@@ -72,7 +73,7 @@ import Header from '@/components/Header.vue';
     <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden.</p>
     <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden. Glem alt om oprydning - Vi tager os af det praktiske, så du kan fokusere på at nyde dagen sammen med fødselaren.</p>
     <p>Samme pris for voksne (der skal mindst en voksen med ind i salen). Som udgangspunkt vil det være med filmstart kl. 10 alle ugens dage.</p>
-    <p>Book din næste børnefødselsdag i Biffen (gerne senest 14 dage før) på mail til stine@biffen.eu</p>
+    <p>Book din næste børnefødselsdag i Biffen (gerne senest 14 dage før) på mail til <span class="red">stine@biffen.eu</span></p>
     <p>Meget kan lade sig gøre - så tøv ikke med at kontakte os for at høre om andre muligheder.</p>
     <p>Vi glæder os til at fejre dagen med jer!</p>
     </article>
@@ -82,6 +83,10 @@ import Header from '@/components/Header.vue';
 </template>
 
 <style scoped>
+
+.red{
+  color: var(--interactive-red);
+}
 
 .notShow{
   display: block;
@@ -185,6 +190,7 @@ h1,h2,h3,h4,h5,h6{
     grid-template-columns: repeat(2,1fr);
     align-items: center;
     padding: 40px 100px;
+
   }
   .birthday{
     display: grid;
