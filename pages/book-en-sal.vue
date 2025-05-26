@@ -154,7 +154,6 @@ h1,h2,h3,h4,h5,h6{
 
 .headingNdLine{
   display: inline-block;
-  margin-top: 40px;
 }
 
 .headingNdLine div{
@@ -185,18 +184,17 @@ h1,h2,h3,h4,h5,h6{
     display: none;
   }
 
-   .introEvents{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    align-items: center;
-    padding: 40px 100px;
+   .introEvents,.birthday{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 70px;
+  }
 
+  .introEvents:nth-of-type(2){
+    flex-direction: row-reverse;
   }
-  .birthday{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    padding: 40px 100px;
-  }
+ 
 
   
 
