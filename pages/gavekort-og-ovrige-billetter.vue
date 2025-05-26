@@ -206,8 +206,11 @@ main{
   font-size: 14px;
   
 }
+.introEvents img{
+  width: 100%;
+}
 
-@media (min-width: 768px) and (max-width:1024px){
+@media (min-width: 768px) and (max-width:1275px){
   .udvalg{
      grid-template-columns: repeat(2,1fr);
   }
@@ -215,10 +218,14 @@ main{
 
 
 
-@media (min-width: 1024px){
+
+@media (min-width: 1275px){
    main{
     padding: 0 var(--space-container);
     box-sizing: border-box;
+  }
+  .introEvents img{
+    width: auto;
   }
   .udvalg{
     grid-template-columns: repeat(3,1fr);
@@ -242,9 +249,9 @@ main{
     grid-template-columns: repeat(2,1fr);
     align-items: center;
     padding: 40px 100px;
+    gap: 2rem;
   }
   .introEvents .introWrapper{
-    grid-template-columns: 1;
     grid-row: 1;
     justify-self: end;
   }
