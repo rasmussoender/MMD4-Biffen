@@ -1,165 +1,195 @@
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, onMounted, computed } from 'vue';
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
+import { useRoute } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
 
-import ledigIcon from '@/assets/img/ledig.svg?raw';
-import valgtIcon from '@/assets/img/dit-valg.svg?raw';
-import optagetIcon from '@/assets/img/optaget.svg?raw';
-import hoverIcon from '@/assets/img/hover-seat.svg?raw';
+import ledigIcon from '@/assets/img/ledig.svg?raw'
+import valgtIcon from '@/assets/img/dit-valg.svg?raw'
+import optagetIcon from '@/assets/img/optaget.svg?raw'
+import hoverIcon from '@/assets/img/hover-seat.svg?raw'
 
-const { slug, date, time } = useRoute().params;
-const visning = ref(null);
-const selectedSeats = ref([]);
-const hoverPreviewSeats = ref([]);
+const { slug, date, time } = useRoute().params
+const visning = ref(null)
+
+const selectedSeats = ref([])
+const hoverPreviewSeats = ref([])
 
 const prices = {
   normal: 100,
   senior: 85,
   student: 85,
-};
+}
 
-const ticketCounts = ref({ normal: 0, senior: 0, student: 0 });
+const ticketCounts = ref({ normal: 0, senior: 0, student: 0 })
 
 const seats = ref(
   Array.from({ length: 6 }, (_, row) => {
-    if (row === 2) {
-      return Array.from({ length: 13 }, (_, col) => ({
-        id: `${row}-${col + 1}`,
-        taken: false,
-        selected: false
-      }));
-    } else {
-      return Array.from({ length: 14 }, (_, col) => ({
-        id: `${row}-${col}`,
-        taken: false,
-        selected: false
-      }));
-    }
+    const cols = row === 2 ? 13 : 14
+    return Array.from({ length: cols }, (_, col) => ({
+      id: `${row}-${col}`,
+      taken: false,
+      selected: false
+    }))
   })
-);
+)
 
 const totalTicketsSelected = computed(() =>
   ticketCounts.value.normal + ticketCounts.value.senior + ticketCounts.value.student
-);
+)
 
 function resetSelectedSeats() {
   seats.value.forEach(row => {
-    row.forEach(seat => (seat.selected = false));
-  });
-  selectedSeats.value = [];
+    row.forEach(seat => seat.selected = false)
+  })
+  selectedSeats.value = []
 }
 
 function updateTicketCount(type, delta) {
-  const newCount = Math.max(ticketCounts.value[type] + delta, 0);
+  const newCount = Math.max(ticketCounts.value[type] + delta, 0)
   if (ticketCounts.value[type] !== newCount) {
-    ticketCounts.value[type] = newCount;
-    resetSelectedSeats();
+    ticketCounts.value[type] = newCount
+    resetSelectedSeats()
   }
 }
 
 function getSeatIcon(seat) {
-  if (seat.taken) return optagetIcon;
-  if (seat.selected) return valgtIcon;
-  if (hoverPreviewSeats.value.includes(seat.id)) return hoverIcon;
-  return ledigIcon;
+  if (seat.taken) return optagetIcon
+  if (seat.selected) return valgtIcon
+  if (hoverPreviewSeats.value.includes(seat.id)) return hoverIcon
+  return ledigIcon
+}
+
+function toggleSeat() {
+  const count = totalTicketsSelected.value
+  if (count === 0 || hoverPreviewSeats.value.length !== count) return
+
+  const ids = hoverPreviewSeats.value.map(id => id.split('-').map(Number))
+  const rowIndex = ids[0][0]
+  const startIndex = ids[0][1]
+  const endIndex = ids[ids.length - 1][1]
+  const row = seats.value[rowIndex]
+
+  // Forhindre tom plads før
+  const before = startIndex - 1
+  if (
+    before >= 0 &&
+    !row[before].taken &&
+    !row[before].selected &&
+    (before === 0 || row[before - 1]?.taken)
+  ) {
+    alert('Du kan ikke efterlade et enkelt tomt sæde i starten af rækken.')
+    return
+  }
+
+  // Forhindre tom plads efter
+  const after = endIndex + 1
+  if (
+    after < row.length &&
+    !row[after].taken &&
+    !row[after].selected &&
+    (after === row.length - 1 || row[after + 1]?.taken)
+  ) {
+    alert('Du kan ikke efterlade et enkelt tomt sæde i slutningen af rækken.')
+    return
+  }
+
+  const valid = ids.every(([r, i]) => {
+    const s = seats.value[r]?.[i]
+    return s && !s.taken && !s.selected
+  })
+
+  if (!valid) return
+
+  resetSelectedSeats()
+  ids.forEach(([r, i]) => {
+    const s = seats.value[r][i]
+    s.selected = true
+    selectedSeats.value.push(s.id)
+  })
 }
 
 function handleSeatHover(rowIndex, seatIndex) {
-  const row = seats.value[rowIndex];
-  const preview = [];
+  const row = seats.value[rowIndex]
+  const count = totalTicketsSelected.value
+  let preview = []
 
-  for (let i = seatIndex; i < row.length && preview.length < totalTicketsSelected.value; i++) {
-    const seat = row[i];
-    if (!seat.taken && !seat.selected) {
-      preview.push(seat.id);
-    } else {
-      break;
+  if (count === 0) {
+    hoverPreviewSeats.value = []
+    return
+  }
+
+  const rowLength = row.length
+
+  // Fremad (højre)
+  if (seatIndex + count <= rowLength) {
+    const group = row.slice(seatIndex, seatIndex + count)
+    if (group.every(s => !s.taken && !s.selected)) {
+      preview = group.map(s => s.id)
     }
   }
 
-  hoverPreviewSeats.value = preview;
+  // Bagud (venstre)
+  if (preview.length < count && seatIndex - count + 1 >= 0) {
+    const group = row.slice(seatIndex - count + 1, seatIndex + 1)
+    if (group.every(s => !s.taken && !s.selected)) {
+      preview = group.map(s => s.id)
+    }
+  }
+
+  hoverPreviewSeats.value = preview
 }
 
 function clearHoverPreview() {
-  hoverPreviewSeats.value = [];
+  hoverPreviewSeats.value = []
 }
 
-function toggleSeat(seat, rowIndex, seatIndex) {
-  if (seat.taken) return;
-
-  if (seat.selected) {
-    seat.selected = false;
-    selectedSeats.value = selectedSeats.value.filter(id => id !== seat.id);
-    return;
-  }
-
-  if (selectedSeats.value.length >= totalTicketsSelected.value) return;
-
-  const row = seats.value[rowIndex];
-  const seatsToSelect = [];
-
-  for (let i = seatIndex; i < row.length && seatsToSelect.length < totalTicketsSelected.value - selectedSeats.value.length; i++) {
-    const s = row[i];
-    if (!s.taken && !s.selected) {
-      seatsToSelect.push(s);
-    } else {
-      break;
-    }
-  }
-
-  seatsToSelect.forEach(s => {
-    s.selected = true;
-    selectedSeats.value.push(s.id);
-  });
-}
+const billetOversigt = computed(() => {
+  const typer = []
+  if (ticketCounts.value.normal > 0)
+    typer.push(`${ticketCounts.value.normal} x normal billet`)
+  if (ticketCounts.value.senior > 0)
+    typer.push(`${ticketCounts.value.senior} x Senior +65 billet`)
+  if (ticketCounts.value.student > 0)
+    typer.push(`${ticketCounts.value.student} x Studerende`)
+  return typer.join(', ')
+})
 
 const total = computed(() =>
   ticketCounts.value.normal * prices.normal +
   ticketCounts.value.senior * prices.senior +
   ticketCounts.value.student * prices.student
-);
+)
 
 const sluttidspunkt = computed(() => {
-  if (!visning.value?.time || !visning.value?.duration) return '';
-
-  const [startHour, startMinute] = visning.value.time.split(':').map(Number);
-  let hours = 0;
-  let minutes = 0;
-
+  if (!visning.value?.time || !visning.value?.duration) return ''
+  const [startHour, startMinute] = visning.value.time.split(':').map(Number)
+  let hours = 0, minutes = 0
   if (visning.value.duration.includes(':')) {
-    [hours, minutes] = visning.value.duration.split(':').map(Number);
+    [hours, minutes] = visning.value.duration.split(':').map(Number)
   } else {
-    const floatDuration = parseFloat(visning.value.duration.replace(',', '.'));
-    hours = Math.floor(floatDuration);
-    minutes = Math.round((floatDuration - hours) * 60);
+    const floatDuration = parseFloat(visning.value.duration.replace(',', '.'))
+    hours = Math.floor(floatDuration)
+    minutes = Math.round((floatDuration - hours) * 60)
   }
-
-  const totalMinutes = hours * 60 + minutes + 20;
-
-  const endDate = new Date();
-  endDate.setHours(startHour);
-  endDate.setMinutes(startMinute + totalMinutes);
-
-  const endHours = String(endDate.getHours()).padStart(2, '0');
-  const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
-  return `${endHours}:${endMinutes}`;
-});
+  const totalMinutes = hours * 60 + minutes + 20
+  const endDate = new Date()
+  endDate.setHours(startHour)
+  endDate.setMinutes(startMinute + totalMinutes)
+  const endHours = String(endDate.getHours()).padStart(2, '0')
+  const endMinutes = String(endDate.getMinutes()).padStart(2, '0')
+  return `${endHours}:${endMinutes}`
+})
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
-    const movies = await res.json();
-
-    const movie = movies.find(m => m.slug === slug);
+    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100')
+    const movies = await res.json()
+    const movie = movies.find(m => m.slug === slug)
     const session = movie?.acf?.spilletider?.filmvisning?.find(s =>
       s.filmdato.replaceAll('/', '-') === date
-    );
+    )
     const timeSlot = session?.spilletid?.find(t =>
       t.spilletidspunkt.replace(':', '-') === time
-    );
-
+    )
     if (movie && session && timeSlot) {
       visning.value = {
         title: movie.title.rendered,
@@ -169,13 +199,14 @@ onMounted(async () => {
         sal: timeSlot.sal,
         duration: movie.acf.varighed,
         age: movie.acf.age?.[0]?.aldersgraense
-      };
+      }
     }
   } catch (e) {
-    console.error('Fejl ved hentning:', e);
+    console.error('Fejl ved hentning:', e)
   }
-});
+})
 </script>
+
 
 <template>
   <Header />
@@ -247,7 +278,7 @@ onMounted(async () => {
     </div>
 
     <div class="summary">
-      <p>{{ ticketCounts.normal }} x normal billet, {{ ticketCounts.senior }} x Senior +65 billet, {{ ticketCounts.student }} x Studerende</p>
+      <p>{{ billetOversigt }}</p>
       <p>Pris i alt: {{ total }} kr</p>
       <button class="buy-button">Køb billet(er)</button>
     </div>
@@ -384,7 +415,7 @@ onMounted(async () => {
   align-items: center;
 }
 .screen {
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
   padding: 0.5rem;
   background: #1f2a3f;
   color: #fff;
