@@ -1,35 +1,118 @@
 <script setup>
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+
+import ledigIcon from '@/assets/img/ledig.svg?raw';
+import valgtIcon from '@/assets/img/dit-valg.svg?raw';
+import optagetIcon from '@/assets/img/optaget.svg?raw';
+import hoverIcon from '@/assets/img/hover-seat.svg?raw';
 
 const { slug, date, time } = useRoute().params;
 const visning = ref(null);
 const selectedSeats = ref([]);
+const hoverPreviewSeats = ref([]);
+
 const prices = {
   normal: 100,
   senior: 85,
   student: 85,
 };
+
 const ticketCounts = ref({ normal: 0, senior: 0, student: 0 });
 
 const seats = ref(
-  Array.from({ length: 6 }, (_, row) =>
-    Array.from({ length: 14 }, (_, col) => ({
-      id: `${row}-${col}`,
-      taken: false,
-      selected: false
-    }))
-  )
+  Array.from({ length: 6 }, (_, row) => {
+    if (row === 2) {
+      return Array.from({ length: 13 }, (_, col) => ({
+        id: `${row}-${col + 1}`,
+        taken: false,
+        selected: false
+      }));
+    } else {
+      return Array.from({ length: 14 }, (_, col) => ({
+        id: `${row}-${col}`,
+        taken: false,
+        selected: false
+      }));
+    }
+  })
 );
 
-function toggleSeat(seat) {
-  if (!seat.taken) {
-    seat.selected = !seat.selected;
-    if (seat.selected) selectedSeats.value.push(seat.id);
-    else selectedSeats.value = selectedSeats.value.filter(id => id !== seat.id);
+const totalTicketsSelected = computed(() =>
+  ticketCounts.value.normal + ticketCounts.value.senior + ticketCounts.value.student
+);
+
+function resetSelectedSeats() {
+  seats.value.forEach(row => {
+    row.forEach(seat => (seat.selected = false));
+  });
+  selectedSeats.value = [];
+}
+
+function updateTicketCount(type, delta) {
+  const newCount = Math.max(ticketCounts.value[type] + delta, 0);
+  if (ticketCounts.value[type] !== newCount) {
+    ticketCounts.value[type] = newCount;
+    resetSelectedSeats();
   }
+}
+
+function getSeatIcon(seat) {
+  if (seat.taken) return optagetIcon;
+  if (seat.selected) return valgtIcon;
+  if (hoverPreviewSeats.value.includes(seat.id)) return hoverIcon;
+  return ledigIcon;
+}
+
+function handleSeatHover(rowIndex, seatIndex) {
+  const row = seats.value[rowIndex];
+  const preview = [];
+
+  for (let i = seatIndex; i < row.length && preview.length < totalTicketsSelected.value; i++) {
+    const seat = row[i];
+    if (!seat.taken && !seat.selected) {
+      preview.push(seat.id);
+    } else {
+      break;
+    }
+  }
+
+  hoverPreviewSeats.value = preview;
+}
+
+function clearHoverPreview() {
+  hoverPreviewSeats.value = [];
+}
+
+function toggleSeat(seat, rowIndex, seatIndex) {
+  if (seat.taken) return;
+
+  if (seat.selected) {
+    seat.selected = false;
+    selectedSeats.value = selectedSeats.value.filter(id => id !== seat.id);
+    return;
+  }
+
+  if (selectedSeats.value.length >= totalTicketsSelected.value) return;
+
+  const row = seats.value[rowIndex];
+  const seatsToSelect = [];
+
+  for (let i = seatIndex; i < row.length && seatsToSelect.length < totalTicketsSelected.value - selectedSeats.value.length; i++) {
+    const s = row[i];
+    if (!s.taken && !s.selected) {
+      seatsToSelect.push(s);
+    } else {
+      break;
+    }
+  }
+
+  seatsToSelect.forEach(s => {
+    s.selected = true;
+    selectedSeats.value.push(s.id);
+  });
 }
 
 const total = computed(() =>
@@ -37,6 +120,32 @@ const total = computed(() =>
   ticketCounts.value.senior * prices.senior +
   ticketCounts.value.student * prices.student
 );
+
+const sluttidspunkt = computed(() => {
+  if (!visning.value?.time || !visning.value?.duration) return '';
+
+  const [startHour, startMinute] = visning.value.time.split(':').map(Number);
+  let hours = 0;
+  let minutes = 0;
+
+  if (visning.value.duration.includes(':')) {
+    [hours, minutes] = visning.value.duration.split(':').map(Number);
+  } else {
+    const floatDuration = parseFloat(visning.value.duration.replace(',', '.'));
+    hours = Math.floor(floatDuration);
+    minutes = Math.round((floatDuration - hours) * 60);
+  }
+
+  const totalMinutes = hours * 60 + minutes + 20;
+
+  const endDate = new Date();
+  endDate.setHours(startHour);
+  endDate.setMinutes(startMinute + totalMinutes);
+
+  const endHours = String(endDate.getHours()).padStart(2, '0');
+  const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+  return `${endHours}:${endMinutes}`;
+});
 
 onMounted(async () => {
   try {
@@ -76,31 +185,28 @@ onMounted(async () => {
         <img :src="visning.posterUrl" :alt="visning.title" class="poster" />
         <h1>{{ visning.title }}</h1>
 
-        <div class="badges">
-          <div class="badge">
-            <i class="fa-solid fa-clock"></i>
-            {{ visning.duration }}
+        <div class="film-program-titel-og-info">
+          <ul>
+            <li><i class="fas fa-clock"></i>{{ visning.duration }} t</li>
+            <li><i class="fas fa-child-reaching"></i>{{ visning.age }}</li>
+          </ul>
+          <div class="show-info-bar">
+            <p>Sal A</p>
+            <p>{{ visning.date }}</p>
+            <p>{{ visning.time }} – {{ sluttidspunkt }}</p>
           </div>
-          <div class="badge">
-            <i class="fa-solid fa-child-reaching"></i>
-            {{ visning.age }} år+
-          </div>
-        </div>
-
-        <div class="show-info">
-          <span>Sal {{ visning.sal }}</span>
-          <span>{{ visning.date }}</span>
-          <span>{{ visning.time }}</span>
         </div>
 
         <div class="ticket-types">
           <div v-for="(price, type) in prices" :key="type" class="ticket-type">
-            <label>{{ type === 'normal' ? 'Normal billettype' : type === 'senior' ? 'Senior +65' : 'Studerende' }}</label>
-            <span>{{ price }} kr.</span>
+            <div class="ticket-info">
+              <strong>{{ type === 'normal' ? 'Normal billettype' : type === 'senior' ? 'Senior +65' : 'Studerende' }}</strong>
+              <span>{{ price }} kr.</span>
+            </div>
             <div class="counter">
-              <button @click="ticketCounts[type] = Math.max(ticketCounts[type] - 1, 0)">-</button>
+              <button class="decrement" @click="updateTicketCount(type, -1)">-</button>
               <span>{{ ticketCounts[type] }}</span>
-              <button @click="ticketCounts[type]++">+</button>
+              <button class="increment" @click="updateTicketCount(type, 1)">+</button>
             </div>
           </div>
         </div>
@@ -110,12 +216,19 @@ onMounted(async () => {
         <div class="screen">Lærred</div>
         <div v-for="(row, rowIndex) in seats" :key="rowIndex" class="seat-row">
           <span>{{ rowIndex + 1 }}</span>
-          <div class="seat" v-for="seat in row" :key="seat.id"
+          <div v-if="rowIndex === 2" class="seat-spacer"></div>
+          <div
+            class="seat"
+            v-for="(seat, seatIndex) in row"
+            :key="seat.id"
             :class="{ taken: seat.taken, selected: seat.selected }"
-            @click="toggleSeat(seat)"
+            @mouseenter="handleSeatHover(rowIndex, seatIndex)"
+            @mouseleave="clearHoverPreview"
+            @click="toggleSeat(seat, rowIndex, seatIndex)"
             v-html="getSeatIcon(seat)"
           ></div>
         </div>
+
         <div class="seat-legend">
           <div class="legend-item">
             <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: false })"></div>
@@ -142,21 +255,9 @@ onMounted(async () => {
   <Footer />
 </template>
 
-<script>
-import ledigIcon from '@/assets/img/ledig.svg?raw';
-import valgtIcon from '@/assets/img/dit-valg.svg?raw';
-import optagetIcon from '@/assets/img/optaget.svg?raw';
-
-export function getSeatIcon(seat) {
-  if (seat.taken) return optagetIcon;
-  if (seat.selected) return valgtIcon;
-  return ledigIcon;
-}
-</script>
-
 <style scoped>
 .booking-wrapper {
-  padding: 2rem;
+  padding: 5rem;
   color: white;
   min-height: 100vh;
 }
@@ -169,65 +270,110 @@ export function getSeatIcon(seat) {
 .movie-info {
   flex: 1;
   min-width: 280px;
-  background: #162138;
-  padding: 2rem;
+  background: #202F4D;
+  padding: 50px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 .poster {
   width: 100%;
   max-width: 200px;
   border-radius: 12px;
   margin-bottom: 1rem;
+  box-shadow: 0px 0px 20px 2px #4C90FF;
 }
-.badges {
+.movie-info h1 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+.film-program-titel-og-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.film-program-titel-og-info ul {
   display: flex;
   gap: 1rem;
-  margin: 1rem 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-.badge {
-  background: #1e2b4a;
-  padding: 0.4rem 0.8rem;
-  border-radius: 12px;
+.film-program-titel-og-info li {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #131C31;
+  color: white;
 }
-.show-info {
+.film-program-titel-og-info i {
+  color: #F63758;
+}
+.show-info-bar {
   display: flex;
   justify-content: space-between;
-  margin: 1rem 0;
-  border-top: 1px solid #2e3d59;
-  border-bottom: 1px solid #2e3d59;
-  padding: 0.5rem 0;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  border-top: 1px solid #ffffff40;
+  border-bottom: 1px solid #ffffff40;
+}
+.ticket-types {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 }
 .ticket-type {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  background: #1a2740;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #fff;
 }
-.ticket-type label {
-  flex: 1;
-  font-weight: 600;
+.ticket-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: left;
+}
+.ticket-info strong {
+  font-weight: 700;
+  font-size: 18px;
+}
+.ticket-info span {
+  font-size: 16px;
+  color: #fff;
 }
 .counter {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 .counter button {
-  background: #ff3b6b;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
   border: none;
-  color: white;
+  border-radius: 10px;
   font-weight: bold;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+  color: white;
   cursor: pointer;
+}
+.counter .decrement {
+  background: #0B1326;
+}
+.counter .increment {
+  background: #FF3B6B;
 }
 .seat-map {
   flex: 2;
@@ -238,7 +384,7 @@ export function getSeatIcon(seat) {
   align-items: center;
 }
 .screen {
-  margin-bottom: 1rem;
+  margin-bottom: 5rem;
   padding: 0.5rem;
   background: #1f2a3f;
   color: #fff;
@@ -249,17 +395,24 @@ export function getSeatIcon(seat) {
 .seat-row {
   display: flex;
   align-items: center;
-  margin: 0.3rem 0;
-  gap: 0.5rem;
+  margin: 0.75rem 0;
+  gap: 1rem;
 }
 .seat-row span {
   width: 1.5rem;
   margin-right: 0.5rem;
 }
+.seat-spacer {
+  width: 32px;
+  height: 32px;
+  margin: 0.1rem;
+}
 .seat {
   margin: 0.1rem;
   cursor: pointer;
   transition: transform 0.2s;
+  width: 32px;
+  height: 32px;
 }
 .seat.selected {
   transform: scale(1.1);
