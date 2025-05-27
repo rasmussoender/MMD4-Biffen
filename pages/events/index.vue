@@ -219,7 +219,8 @@ main {
 /* EVENTS GRID LAYOUT */
 .events section, .upcomingEvents section {
   display: grid;
-  row-gap: 30px;
+  column-gap: 2rem;
+  row-gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
 }
 
@@ -276,12 +277,7 @@ main {
   display: block;
 }
 
-main {
-  padding: 0 var(--space-container);
-}
-
 .upcomingEvents section {
-  grid-template-columns: repeat(3, 1fr);
   column-gap: 2rem;
   row-gap: 2rem;
 }
@@ -386,6 +382,23 @@ main {
   margin: 0;
   font-size: 18px;
   font-weight: 300;
+}
+
+
+.introEvents img{
+  display: none !important;
+}
+
+@media (min-width: 1000px){
+  main {
+  padding: 0 var(--space-container);
+}
+}
+
+@media(min-width: 430px) and (max-width: 767px){
+  .introEvents{
+    grid-template-columns: unset;
+  }
 }
 
 
