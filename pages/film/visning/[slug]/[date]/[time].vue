@@ -368,15 +368,25 @@ onMounted(async () => {
 
 .show-info-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  row-gap: 0.5rem;
+  column-gap: 1.5rem;
   padding: 1rem;
   font-size: 18px;
   font-weight: 700;
   color: white;
   border-top: 1px solid #ffffff40;
   border-bottom: 1px solid #ffffff40;
+  width: 100%;
+  text-align: center;
+}
+
+.show-info-bar p {
+  margin: 0;
+  white-space: nowrap;
+  flex: 1 1 auto;
+  text-align: center;
 }
 
 .ticket-types {
@@ -459,21 +469,61 @@ onMounted(async () => {
     transform: scale(0.9);
   }
 }
+
 @media (max-width: 1200px) {
   .seat-map {
     transform: scale(0.8);
   }
 }
+
 @media (max-width: 1024px) {
+  .booking-container {
+    gap: 2rem;
+  }
+
+  .seat-scale-wrapper {
+    margin-top: 4rem;
+    margin-bottom: 0;
+    transform-origin: center top;
+  }
+  
   .seat-map {
     transform: scale(0.75);
+    margin: 0;
+    transform-origin: center top;
+  }
+  
+  .screen {
+    margin-bottom: 2rem;
+  }
+  
+  .seat-legend {
+    margin-top: 1rem;
   }
 }
+
+@media (max-width: 1252px) {
+  .movie-info {
+    max-width: 600px;
+  }
+}
+
 @media (max-width: 900px) {
+  .seat-scale-wrapper {
+    margin-top: 4rem;
+  }
+  
   .seat-map {
     transform: scale(0.65);
+    transform-origin: center top;
+    margin: 0;
+  }
+  
+  .screen {
+    margin-bottom: 1.5rem;
   }
 }
+
 @media (max-width: 768px) {
   .booking-wrapper {
     padding: 2rem 20px;
@@ -484,32 +534,35 @@ onMounted(async () => {
     padding: 0 20px;
     box-sizing: border-box;
     width: 100%;
+    gap: 1rem;
   }
 
   .movie-info {
     width: 100%;
     padding: 2rem;
     box-sizing: border-box;
+    margin-top: 4rem;
   }
 
   .seat-scale-wrapper {
     padding: 0 20px;
     box-sizing: border-box;
-    margin-top: 1rem; /* ↓ mindsk spildplads */
-    margin-bottom: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 0;
+    transform-origin: center top;
   }
 
   .seat-map {
     transform: scale(0.55);
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
     align-self: center;
+    transform-origin: center top;
   }
 
   .screen {
     font-size: 0.9rem;
     padding: 0.4rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     margin-top: 0;
   }
 
@@ -517,7 +570,7 @@ onMounted(async () => {
     flex-wrap: wrap;
     justify-content: center;
     font-size: 0.8rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 
   .summary-bar {
@@ -539,21 +592,98 @@ onMounted(async () => {
     padding: 1rem;
     font-size: 1.1rem;
   }
+
+  .ticket-type {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .ticket-info {
+    width: 100%;
+  }
+
+  .counter {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
 
 @media (max-width: 600px) {
+  .seat-scale-wrapper {
+    padding: 0 10px;
+    margin-top: 4rem;
+    margin-bottom: 0;
+  }
+  
   .seat-map {
     transform: scale(0.45);
+    transform-origin: center top;
+    margin: 0;
+  }
+  
+  .screen {
+    margin-bottom: 0.8rem;
+  }
+  
+  .seat-legend {
+    margin-top: 0.3rem;
   }
 }
+
 @media (max-width: 480px) {
+  .booking-wrapper {
+    padding: 1.5rem 15px;
+  }
+  
+  .booking-container {
+    gap: 0.5rem;
+  }
+  
+  .seat-scale-wrapper {
+    padding: 0 5px;
+    margin-top: 4rem;
+    margin-bottom: 0;
+  }
+  
   .seat-map {
     transform: scale(0.4);
+    transform-origin: center top;
+    margin: 0;
+  }
+  
+  .screen {
+    margin-bottom: 0.6rem;
+  }
+  
+  .seat-legend {
+    margin-top: 0.2rem;
   }
 }
+
 @media (max-width: 375px) {
+  .booking-wrapper {
+    padding: 1rem 10px;
+  }
+  
+  .seat-scale-wrapper {
+    padding: 0;
+    margin: 0;
+    margin-top: 4rem;
+  }
+  
   .seat-map {
     transform: scale(0.35);
+    transform-origin: center top;
+    margin: 0;
+  }
+  
+  .screen {
+    margin-bottom: 0.5rem;
+  }
+  
+  .seat-legend {
+    margin-top: 0.1rem;
   }
 }
 
@@ -654,5 +784,6 @@ onMounted(async () => {
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
+  width: fit-content;
 }
 </style>
