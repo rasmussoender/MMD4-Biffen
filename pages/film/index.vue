@@ -1,7 +1,22 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-
+import { useHead } from '#app'
 const movies = ref([]);
+
+// Seo/meta
+useHead({
+  title: 'Alle Film',
+  meta: [
+    {
+      name: 'description',
+      content: 'Biffens film'
+    },
+    {
+      name: 'keywords',
+      content: 'biograf, alle, film, vintage, aalborg, biograftur'
+    }
+  ]
+})
 
 
 onMounted(async () => {

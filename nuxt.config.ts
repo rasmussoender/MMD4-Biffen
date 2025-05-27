@@ -8,6 +8,10 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'da' 
+      },
+      titleTemplate: '%s | Biffen Nordkraft',
       link: [
         {
           rel: 'stylesheet',

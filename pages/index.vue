@@ -2,9 +2,9 @@
 import { ref, onMounted } from 'vue'
 import { useHead } from '#app'
 
-// SEO meta tags setup
+// Seo/meta
 useHead({
-  title: 'Biffen - Nordkraft',
+  title: 'Forside',
   meta: [
     {
       name: 'description',
