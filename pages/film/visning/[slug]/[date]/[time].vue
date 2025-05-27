@@ -243,38 +243,40 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="seat-map">
-        <div class="screen">Lærred</div>
-        <div v-for="(row, rowIndex) in seats" :key="rowIndex" class="seat-row">
-          <span>{{ rowIndex + 1 }}</span>
-          <div v-if="rowIndex === 2" class="seat-spacer"></div>
-          <div
-            class="seat"
-            v-for="(seat, seatIndex) in row"
-            :key="seat.id"
-            :class="{ taken: seat.taken, selected: seat.selected }"
-            @mouseenter="handleSeatHover(rowIndex, seatIndex)"
-            @mouseleave="clearHoverPreview"
-            @click="toggleSeat(seat, rowIndex, seatIndex)"
-            v-html="getSeatIcon(seat)"
-          ></div>
-        </div>
+      <div class="seat-scale-wrapper">
+  <div class="seat-map">
+    <div class="screen">Lærred</div>
+    <div v-for="(row, rowIndex) in seats" :key="rowIndex" class="seat-row">
+      <span>{{ rowIndex + 1 }}</span>
+      <div v-if="rowIndex === 2" class="seat-spacer"></div>
+      <div
+        class="seat"
+        v-for="(seat, seatIndex) in row"
+        :key="seat.id"
+        :class="{ taken: seat.taken, selected: seat.selected }"
+        @mouseenter="handleSeatHover(rowIndex, seatIndex)"
+        @mouseleave="clearHoverPreview"
+        @click="toggleSeat(seat, rowIndex, seatIndex)"
+        v-html="getSeatIcon(seat)"
+      ></div>
+    </div>
 
-        <div class="seat-legend">
-          <div class="legend-item">
-            <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: false })"></div>
-            <span>Ledige sæder</span>
-          </div>
-          <div class="legend-item">
-            <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: true })"></div>
-            <span>Dit valg</span>
-          </div>
-          <div class="legend-item">
-            <div class="seat-icon" v-html="getSeatIcon({ taken: true, selected: false })"></div>
-            <span>Optaget</span>
-          </div>
-        </div>
+    <div class="seat-legend">
+      <div class="legend-item">
+        <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: false })"></div>
+        <span>Ledige sæder</span>
       </div>
+      <div class="legend-item">
+        <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: true })"></div>
+        <span>Dit valg</span>
+      </div>
+      <div class="legend-item">
+        <div class="seat-icon" v-html="getSeatIcon({ taken: true, selected: false })"></div>
+        <span>Optaget</span>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 
     <div class="summary-bar">
@@ -297,6 +299,7 @@ onMounted(async () => {
   color: white;
   min-height: 100vh;
 }
+
 .booking-container {
   display: flex;
   flex-wrap: wrap;
@@ -304,6 +307,7 @@ onMounted(async () => {
   max-width: 1400px;
   margin: 0 auto;
   justify-content: center;
+  flex-direction: row;
 }
 
 .movie-info {
@@ -315,6 +319,7 @@ onMounted(async () => {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
+
 .poster {
   width: 100%;
   max-width: 200px;
@@ -322,10 +327,12 @@ onMounted(async () => {
   margin-bottom: 1rem;
   box-shadow: 0px 0px 20px 2px #4C90FF;
 }
+
 .movie-info h1 {
   font-size: 24px;
   margin-bottom: 1rem;
 }
+
 .film-program-titel-og-info {
   display: flex;
   align-items: center;
@@ -334,6 +341,7 @@ onMounted(async () => {
   flex-wrap: wrap;
   margin-bottom: 1rem;
 }
+
 .film-program-titel-og-info ul {
   display: flex;
   gap: 1rem;
@@ -341,6 +349,7 @@ onMounted(async () => {
   padding: 0;
   margin: 0;
 }
+
 .film-program-titel-og-info li {
   display: flex;
   align-items: center;
@@ -352,9 +361,11 @@ onMounted(async () => {
   background-color: #131C31;
   color: white;
 }
+
 .film-program-titel-og-info i {
   color: #F63758;
 }
+
 .show-info-bar {
   display: flex;
   justify-content: space-between;
@@ -367,11 +378,13 @@ onMounted(async () => {
   border-top: 1px solid #ffffff40;
   border-bottom: 1px solid #ffffff40;
 }
+
 .ticket-types {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
 }
+
 .ticket-type {
   display: flex;
   justify-content: space-between;
@@ -379,25 +392,30 @@ onMounted(async () => {
   padding: 1.2rem 0;
   border-bottom: 1px solid #fff;
 }
+
 .ticket-info {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
   text-align: left;
 }
+
 .ticket-info strong {
   font-weight: 700;
   font-size: 18px;
 }
+
 .ticket-info span {
   font-size: 16px;
   color: #fff;
 }
+
 .counter {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+
 .counter button {
   width: 40px;
   height: 40px;
@@ -408,14 +426,25 @@ onMounted(async () => {
   color: white;
   cursor: pointer;
 }
+
 .counter .decrement {
   background: #131C31;
 }
+
 .counter .increment {
   background: #F63758;
 }
-.seat-map {
+
+.seat-scale-wrapper {
   flex: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.seat-map {
   min-width: 300px;
   text-align: center;
   display: flex;
@@ -428,23 +457,106 @@ onMounted(async () => {
 @media (max-width: 1400px) {
   .seat-map {
     transform: scale(0.9);
-    transform-origin: top center;
   }
 }
-
 @media (max-width: 1200px) {
   .seat-map {
     transform: scale(0.8);
-    transform-origin: top center;
+  }
+}
+@media (max-width: 1024px) {
+  .seat-map {
+    transform: scale(0.75);
+  }
+}
+@media (max-width: 900px) {
+  .seat-map {
+    transform: scale(0.65);
+  }
+}
+@media (max-width: 768px) {
+  .booking-wrapper {
+    padding: 2rem 20px;
+  }
+
+  .booking-container {
+    flex-direction: column;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .movie-info {
+    width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  .seat-scale-wrapper {
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-top: 1rem; /* ↓ mindsk spildplads */
+    margin-bottom: 1rem;
+  }
+
+  .seat-map {
+    transform: scale(0.55);
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+  }
+
+  .screen {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+  }
+
+  .seat-legend {
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .summary-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .summary-right {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .summary-bar .buy-button {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.1rem;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 600px) {
   .seat-map {
-    transform: scale(0.7);
-    transform-origin: top center;
+    transform: scale(0.45);
   }
 }
+@media (max-width: 480px) {
+  .seat-map {
+    transform: scale(0.4);
+  }
+}
+@media (max-width: 375px) {
+  .seat-map {
+    transform: scale(0.35);
+  }
+}
+
 .screen {
   margin-bottom: 4rem;
   padding: 0.5rem;
@@ -454,21 +566,25 @@ onMounted(async () => {
   width: 100%;
   max-width: 600px;
 }
+
 .seat-row {
   display: flex;
   align-items: center;
   margin: 0.75rem 0;
   gap: 1rem;
 }
+
 .seat-row span {
   width: 1.5rem;
   margin-right: 0.5rem;
 }
+
 .seat-spacer {
   width: 32px;
   height: 32px;
   margin: 0.1rem;
 }
+
 .seat {
   margin: 0.1rem;
   cursor: pointer;
@@ -476,14 +592,17 @@ onMounted(async () => {
   width: 32px;
   height: 32px;
 }
+
 .seat.selected {
   transform: scale(1.1);
 }
+
 .seat-legend {
   display: flex;
   gap: 2rem;
   margin-top: 2rem;
 }
+
 .legend-item {
   display: flex;
   flex-direction: column;
@@ -492,6 +611,7 @@ onMounted(async () => {
   color: #ccc;
   margin-top: 1rem;
 }
+
 .legend-item .seat-icon {
   width: 32px;
   height: 32px;
@@ -535,5 +655,4 @@ onMounted(async () => {
   font-size: 1rem;
   cursor: pointer;
 }
-
 </style>
