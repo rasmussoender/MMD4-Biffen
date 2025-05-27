@@ -1,5 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useHead } from '#app'
+
+// SEO meta tags setup
+useHead({
+  title: 'Biffen - Nordkraft',
+  meta: [
+    {
+      name: 'description',
+      content: 'Biffen Nordkraft i Aalborg'
+    },
+    {
+      name: 'keywords',
+      content: 'biograf, aalborg, film, vintage'
+    }
+  ]
+})
 
 // Nyhedsbrev funktionalitet
 const emailInput = ref(null)
