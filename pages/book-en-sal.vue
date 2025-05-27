@@ -216,8 +216,11 @@ h1,h2,h3,h4,h5,h6{
 }
 
 @media (min-width: 768px) and (max-width:1200px){
+  main{
+    padding: 0 var(--space-container);
+  }
   .introEvents img, .birthdayimg{
-    width: 60%;
+    width: 75%;
   }
  
   
