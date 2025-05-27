@@ -150,7 +150,7 @@ const billetOversigt = computed(() => {
     typer.push(`${ticketCounts.value.senior} x Senior +65 billet`)
   if (ticketCounts.value.student > 0)
     typer.push(`${ticketCounts.value.student} x Studerende`)
-  return typer.join(', ')
+  return typer.length > 0 ? typer.join(', ') : 'Vælg billetter'
 })
 
 const total = computed(() =>
@@ -277,11 +277,16 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="summary">
-      <p>{{ billetOversigt }}</p>
-      <p>Pris i alt: {{ total }} kr</p>
-      <button class="buy-button">Køb billet(er)</button>
-    </div>
+    <div class="summary-bar">
+  <div class="summary-left">
+    <strong>{{ billetOversigt }}</strong>
+  </div>
+  <div class="summary-right">
+    <strong>Pris i alt: {{ total }} kr</strong>
+    <button class="buy-button">Køb billet(er)</button>
+  </div>
+</div>
+
   </main>
   <Footer />
 </template>
@@ -294,10 +299,13 @@ onMounted(async () => {
 }
 .booking-container {
   display: flex;
-  gap: 3rem;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  justify-content: center;
 }
+
 .movie-info {
   flex: 1;
   min-width: 280px;
@@ -401,10 +409,10 @@ onMounted(async () => {
   cursor: pointer;
 }
 .counter .decrement {
-  background: #0B1326;
+  background: #131C31;
 }
 .counter .increment {
-  background: #FF3B6B;
+  background: #F63758;
 }
 .seat-map {
   flex: 2;
@@ -413,11 +421,34 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s ease;
+  max-width: 100%;
+}
+
+@media (max-width: 1400px) {
+  .seat-map {
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 1200px) {
+  .seat-map {
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .seat-map {
+    transform: scale(0.7);
+    transform-origin: top center;
+  }
 }
 .screen {
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
   padding: 0.5rem;
-  background: #1f2a3f;
+  background: #202F4D;
   color: #fff;
   border-radius: 4px;
   width: 100%;
@@ -459,24 +490,50 @@ onMounted(async () => {
   align-items: center;
   font-size: 0.9rem;
   color: #ccc;
+  margin-top: 1rem;
 }
 .legend-item .seat-icon {
   width: 32px;
   height: 32px;
   margin-bottom: 0.5rem;
 }
-.summary {
-  text-align: center;
-  margin-top: 2rem;
-}
-.buy-button {
+
+.summary-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #202F4D;
+  color: white;
   padding: 1rem 2rem;
-  background: #ff3b6b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.summary-left {
+  font-size: 1rem;
+}
+
+.summary-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 1rem;
+}
+
+.summary-bar .buy-button {
+  margin: 0;
+  padding: 0.8rem 1.6rem;
+  background: #F63758;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   color: white;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 1rem;
 }
+
 </style>
