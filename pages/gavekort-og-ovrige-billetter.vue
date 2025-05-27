@@ -7,6 +7,10 @@ import Header from '@/components/Header.vue';
   <Header />
   <main>
     <section class="udvalg">
+      <div class="headingNdLine">
+      <h1>Vores udvalg</h1>
+      <div></div>
+      </div>
       <article>
         <div class="udvalgCard">
           <img src="/public/img/GavepakkeLogo.png" alt="" class="logo">
@@ -56,7 +60,6 @@ import Header from '@/components/Header.vue';
         </div>
       </article>
     </section>
-
      <section class="introEvents">
     <img src="../assets/img/FirmabilleterMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/FirmabilleterDesktop.png" alt="" class="pcbillede">
@@ -67,7 +70,7 @@ import Header from '@/components/Header.vue';
     </div>
     <p>Med vores firmaordning kan du nemt og billigt glæde dine medarbejdere og forretningsforbindelser med store filmoplevelser. </p>
     <p>En firmabillet koster 76 kr. inkl. moms (min. 10 stk.) og kan indløses til alle ordinære forestillinger i Biffen Nordkraft. Der opkræves tillæg for forlænget spilletid og events. Tilkøb af lækkerier fra caféen er muligt. Kontakt os for at høre mere om mulighederne og evt. tilbud. Det ønskede antal billetter fremsendes til din firmaadresse sammen med en faktura. I forbindelse med køb af firmabilletter skal virksomhedens CVR-nr. oplyses. </p>
-    <p>Firmabilletter kan bestilles hos Karin Fast på info@biffen.eu eller tlf. 31909977 hverdage kl. 9-13.</p>
+    <p>Firmabilletter kan bestilles hos Karin Fast på <span class="red">info@biffen.eu</span> eller tlf. <span class="red">31909977</span> hverdage kl. 9-13.</p>
     </div>
   </section>
   </main>
@@ -77,6 +80,18 @@ import Header from '@/components/Header.vue';
 
 
 <style scoped>
+.udvalg .headingNdLine{
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.introEvents{
+  margin-top: var(--space-section);
+}
+.red{
+  color: var(--interactive-red);
+}
 .pcbillede{
     display: none;
   }
@@ -191,13 +206,31 @@ main{
   font-size: 14px;
   
 }
+.introEvents img{
+  width: 100%;
+}
 
-@media (min-width: 1000px){
+@media (min-width: 768px) and (max-width:1275px){
+  .udvalg{
+     grid-template-columns: repeat(2,1fr);
+  }
+}
+
+
+
+
+@media (min-width: 1275px){
    main{
     padding: 0 var(--space-container);
+    box-sizing: border-box;
+  }
+  .introEvents img{
+    width: auto;
   }
   .udvalg{
     grid-template-columns: repeat(3,1fr);
+    max-width: 2000px;
+    width: 100%;
     justify-items: center;
     row-gap: 8rem;
   }
@@ -216,9 +249,9 @@ main{
     grid-template-columns: repeat(2,1fr);
     align-items: center;
     padding: 40px 100px;
+    gap: 2rem;
   }
   .introEvents .introWrapper{
-    grid-template-columns: 1;
     grid-row: 1;
     justify-self: end;
   }
