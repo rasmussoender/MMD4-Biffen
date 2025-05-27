@@ -1,4 +1,19 @@
 <script setup>
+import { useHead } from '#app'
+
+useHead({
+  title: 'Kommende Film',
+  meta: [
+    {
+      name: 'description',
+      content: 'Biffens kommende film'
+    },
+    {
+      name: 'keywords',
+      content: 'biograf, kommende, film, vintage, aalborg, biograftur'
+    }
+  ]
+})
 
 </script>
 
