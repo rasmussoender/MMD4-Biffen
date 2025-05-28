@@ -1,12 +1,37 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onUnmounted, onMounted } from 'vue'
 
 const isMenuOpen = ref(false)
 const isClosing = ref(false)
 const contentVisible = ref(false)
+const isScrolled = ref(false)
+const lastScrollY = ref(0)
+const showHeader = ref(true)
+
+function lockScroll() {
+  const scrollY = window.scrollY
+  document.body.style.position = 'fixed'
+  document.body.style.top = `-${scrollY}px`
+  document.body.style.left = '0'
+  document.body.style.right = '0'
+  document.body.style.overflow = 'hidden'
+  document.body.dataset.scrollY = scrollY
+}
+
+function unlockScroll() {
+  const scrollY = document.body.dataset.scrollY
+  document.body.style.position = ''
+  document.body.style.top = ''
+  document.body.style.left = ''
+  document.body.style.right = ''
+  document.body.style.overflow = ''
+  window.scrollTo(0, parseInt(scrollY || '0'))
+  delete document.body.dataset.scrollY
+}
 
 function openMenu() {
   isMenuOpen.value = true
+  lockScroll()
   setTimeout(() => {
     contentVisible.value = true
   }, 800)
@@ -19,17 +44,34 @@ function closeMenu() {
     setTimeout(() => {
       isMenuOpen.value = false
       isClosing.value = false
+      unlockScroll()
     }, 800)
   }, 400)
 }
+
+function handleScroll() {
+  const currentScroll = window.scrollY
+  isScrolled.value = currentScroll > 10
+  showHeader.value = currentScroll < lastScrollY.value || currentScroll < 10
+  lastScrollY.value = currentScroll
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  unlockScroll()
+})
 </script>
 
 <template>
-  <header class="siteHeader">
-    <a href="/" class="logoWrapper">
+  <header class="siteHeader" :class="{ 'scrolled': isScrolled, 'hiddenHeader': !showHeader }">
+    <a href="/" class="logoWrapper headerLogo" v-show="!isMenuOpen">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
     </a>
-    <div class="headerRight">
+    <div class="headerRight" :class="{ hidden: isMenuOpen }">
       <nav class="mainNav underlineAnimationLinks">
         <a href="/film">Alle film</a>
         <a href="/kommende-film">Kommende film</a>
@@ -42,8 +84,6 @@ function closeMenu() {
   </header>
 
   <div class="menuCircleOverlay" :class="{ active: isMenuOpen, closing: isClosing }"></div>
-
-  <!-- Motion baggrund med fade -->
   <div class="lavaLampBackground" v-show="isMenuOpen" :class="{ visible: contentVisible }">
     <div class="darkCenterOverlay"></div>
     <div class="blob blob1"></div>
@@ -53,13 +93,18 @@ function closeMenu() {
   </div>
 
   <div class="fullscreenMenu" v-if="isMenuOpen">
-
     <div class="fullscreenTopBar">
-      <a href="/" class="logoWrapper fullscreenLogo">
-        <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
-      </a>
-      <div class="closeIcon" @click="closeMenu">
-        <i class="fas fa-times"></i>
+      <div class="fullscreenTopBarInner">
+        <div class="fullscreenLeft">
+          <a href="/" class="logoWrapper fullscreenLogo">
+            <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
+          </a>
+        </div>
+        <div class="fullscreenRight">
+          <div class="closeIcon" @click="closeMenu">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -119,10 +164,9 @@ function closeMenu() {
 </template>
 
 
-
 <style scoped>
 .siteHeader {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -132,7 +176,24 @@ function closeMenu() {
   padding: 3rem 5rem;
   height: 70px;
   border-radius: 0 0 30px 30px;
-  z-index: 1001;
+  z-index: 9999;
+  transition: background-color 0.3s ease, border 0.3s ease, transform 0.4s ease;
+  background-color: transparent;
+  border: 2px solid transparent;
+}
+
+.siteHeader.scrolled {
+  background-color: var(--secondary-blue);
+  border: 2px solid var(--secondary-blue);
+  backdrop-filter: none;
+}
+
+.siteHeader.hiddenHeader {
+  transform: translateY(-100%);
+}
+
+.headerRight.hidden {
+  display: none;
 }
 
 .logoWrapper {
@@ -167,6 +228,14 @@ function closeMenu() {
   z-index: 1000;
   display: flex;
   align-items: center;
+}
+
+.headerLogo {
+  display: block;
+}
+
+.fullscreenMenu .headerLogo {
+  display: none;
 }
 
 .burgerIcon {
@@ -242,7 +311,6 @@ function closeMenu() {
   animation-fill-mode: both;
 }
 
-/* Mørkeblå blob */
 .blob1 {
   background: #1F2E4B;
   top: -15%;
@@ -251,7 +319,6 @@ function closeMenu() {
   animation: floatBlob1 55s infinite;
 }
 
-/* Mellemblå blob */
 .blob2 {
   background: #2C4B81;
   top: 20%;
@@ -260,7 +327,6 @@ function closeMenu() {
   animation: floatBlob2 50s infinite;
 }
 
-/* Gradient accentblob */
 .blobAccent {
   background: linear-gradient(45deg, #365FA5, #4C90FF);
   top: 75%;
@@ -269,7 +335,6 @@ function closeMenu() {
   animation: floatAccent 45s infinite;
 }
 
-/* Lys elektrisk blå blob – én synlig blob med ekstra liv */
 .blobElectric {
   background: #4C90FF;
   top: 30%;
@@ -279,40 +344,37 @@ function closeMenu() {
   z-index: 2;
 }
 
-/* === Animationer === */
 @keyframes floatBlob1 {
-  0%   { transform: translate(0, 0) scale(1); }
+  0%   { transform: translate(10px, -10px) scale(1); }
   25%  { transform: translate(200px, -220px) scale(1.4); }
   50%  { transform: translate(-180px, 200px) scale(1.6); }
   75%  { transform: translate(140px, 100px) scale(1.3); }
-  100% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -15px) scale(1.05); }
 }
 
 @keyframes floatBlob2 {
-  0%   { transform: translate(0, 0) scale(1); }
+  0%   { transform: translate(-15px, 5px) scale(1); }
   25%  { transform: translate(-180px, 180px) scale(1.5); }
   50%  { transform: translate(160px, 100px) scale(1.3); }
   75%  { transform: translate(-150px, -160px) scale(1.4); }
-  100% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-10px, 10px) scale(1.1); }
 }
 
 @keyframes floatAccent {
-  0%   { transform: translate(0, 0) scale(1); }
+  0%   { transform: translate(10px, 10px) scale(1); }
   25%  { transform: translate(160px, 160px) scale(1.5); }
   50%  { transform: translate(-140px, -100px) scale(1.2); }
   75%  { transform: translate(80px, 50px) scale(1.4); }
-  100% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(15px, 5px) scale(1.05); }
 }
 
 @keyframes floatElectric {
-  0%   { transform: translate(0, 0) scale(1); }
-  25%  { transform: translate(-120px, -60px) scale(1.3); }
-  50%  { transform: translate(-200px, 60px) scale(1.5); }
-  75%  { transform: translate(-100px, -100px) scale(1.2); }
-  100% { transform: translate(0, 0) scale(1); }
+  0%   { transform: translate(-10px, -10px) scale(1) rotate(0deg); }
+  25%  { transform: translate(-120px, -60px) scale(1.3) rotate(10deg); }
+  50%  { transform: translate(-200px, 60px) scale(1.5) rotate(-5deg); }
+  75%  { transform: translate(-100px, -100px) scale(1.2) rotate(8deg); }
+  100% { transform: translate(-20px, -5px) scale(1.05) rotate(2deg); }
 }
-
-
 
 .fullscreenMenu {
   position: fixed;
@@ -335,6 +397,25 @@ function closeMenu() {
   width: 100%;
 }
 
+.fullscreenTopBarInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.fullscreenLeft {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.fullscreenRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .fullscreenLogo {
   z-index: 10000;
 }
@@ -349,7 +430,7 @@ function closeMenu() {
 
 .fullscreenContent {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow: hidden;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
@@ -366,6 +447,8 @@ function closeMenu() {
   height: 100%;
   padding: 0 5rem;
   box-sizing: border-box;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 .menuLayout {
@@ -388,6 +471,7 @@ function closeMenu() {
 .menuItem {
   display: flex;
   align-items: center;
+  font-weight: 200;
 }
 
 .menuNumber {
@@ -396,7 +480,7 @@ function closeMenu() {
   margin-right: 2rem;
   width: 40px;
   text-align: right;
-  font-weight: 600;
+  font-weight: 200;
 }
 
 .menuLink {
@@ -404,6 +488,7 @@ function closeMenu() {
   color: white;
   text-decoration: none;
   transition: color 0.3s ease;
+  font-weight: 200;
 }
 
 .fullscreenFooter {
@@ -432,7 +517,7 @@ function closeMenu() {
 }
 
 .footerItem i {
-  color: #ff4c64;
+  color: #F63758;
   font-size: 20px;
 }
 
@@ -460,7 +545,7 @@ function closeMenu() {
 }
 
 .footerSocials a {
-  background-color: #ff4c64;
+  background-color: #F63758;
   color: white;
   font-size: 20px;
   width: 42px;
@@ -474,37 +559,141 @@ function closeMenu() {
 }
 
 .footerSocials a:hover {
-  background-color: #ff6b7d;
+  background-color: #F63758;
 }
 
-/* Responsiv */
-@media (max-height: 800px) {
-  .menuLink {
-    font-size: 28px;
+/* MEDIA QUERIES */
+@media (max-width: 767px) {
+  .siteHeader {
+    padding: 3rem 20px;
   }
 
-  .menuNumber {
-    font-size: 22px;
+  .mainNav {
+    display: none;
+  }
+
+  .burgerMenuWrapper {
+    border-left: none;
+  }
+
+  .closeIcon {
+    padding-right: 0;
   }
 
   .fullscreenTopBar {
-    padding: 1rem 2rem;
+    padding: 1rem 20px;
   }
 
   .fullscreenInner {
-    padding: 0 2rem;
+    padding: 4rem 20px;
+    justify-content: flex-start;
   }
 
   .menuLayout {
-    gap: 8rem;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 0;
+    flex-grow: 0;
+  }
+
+  .menuColumn {
+    width: 100%;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .menuItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .menuLink {
+    font-size: 26px;
+    padding-right: 3.5rem;
+    flex: 1;
+  }
+
+  .menuNumber {
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    color: #517BEA;
+    margin-right: 0;
   }
 
   .fullscreenFooter {
-    gap: 1.5rem;
+    display: none;
   }
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  .siteHeader {
+    padding: 3rem 50px;
+  }
 
+  .burgerMenuWrapper {
+    border-left: none;
+  }
 
+  .mainNav {
+    display: none;
+  }
+
+  .closeIcon {
+    padding-right: 0;
+  }
+
+  .fullscreenTopBar {
+    padding: 1rem 50px;
+  }
+
+  .fullscreenInner {
+    padding: 4rem 50px;
+    justify-content: flex-start;
+  }
+
+  .menuLayout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 0;
+    flex-grow: 0;
+  }
+
+  .menuColumn {
+    width: 100%;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .menuItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .menuLink {
+    font-size: 28px;
+    padding-right: 4rem;
+    flex: 1;
+  }
+
+  .menuNumber {
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    color: #517BEA;
+    margin-right: 0;
+  }
+
+  .fullscreenFooter {
+    display: none;
+  }
+}
 </style>
