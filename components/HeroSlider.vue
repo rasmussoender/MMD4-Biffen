@@ -74,15 +74,15 @@ onMounted(async () => {
             
             <div class="forside-hero-description-container">
             <p class="forside-hero-description">
-            {{ film.acf.description.length > 350 ? film.acf.description.slice(0, 350) + '...' : film.acf.description }}
+            {{ film.acf.description.length > 200 ? film.acf.description.slice(0, 200) + '...' : film.acf.description }}
             </p>
             </div>
 
-            <div class="forside-hero-buttons">
+            <div class="generalButtons">
 
                 <router-link 
                 :to="`/film/${film.slug}`" 
-                class="forside-hero-btn forside-hero-btn-primary"
+                class="generalbtn btn-primary"
                 >
                 <span class="material-symbols-outlined">local_activity</span>
                 Bestil billetter
@@ -91,7 +91,7 @@ onMounted(async () => {
                 <a 
                 :href="film.acf.trailer" 
                 target="_blank" 
-                class="forside-hero-btn forside-hero-btn-secondary"
+                class="generalbtn btn-secondary"
                 >
                 <i class="fab fa-youtube"></i>
                 Se trailer
@@ -115,6 +115,7 @@ onMounted(async () => {
 
 
 <style scoped>
+
 .hero-slider {
   position: relative; 
   height: 90vh;      
@@ -239,7 +240,7 @@ onMounted(async () => {
 }
 
 .forside-hero-description-container {
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   margin-top: 3rem;
   width: 60vw;
 }
@@ -250,54 +251,41 @@ onMounted(async () => {
   overflow: hidden;
 }
 
-.forside-hero-buttons {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
+/* Media queries */
+@media (max-width: 767px) {
+  .slide {
+    height: 100vh;
+  }
+  .hero-slider {
+    height: 100vh;
+  }
+  .forside-hero-title {
+    font-size: 2rem;
+  }
+  .forside-hero-description-container {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
-.forside-hero-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-family: 'Readex Pro', sans-serif;
-  font-size: 1rem;
-  border-radius: 10px;
-  padding: 10px 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  white-space: nowrap;
-  text-decoration: none;
-}
+  }
 
-.forside-hero-btn .material-icons,
-.forside-hero-btn .material-symbols-outlined {
-  font-size: 34px;
-}
+  .forside-hero-description {
+    font-size: 15px;
+  }
 
-.forside-hero-btn-primary {
-  background-color: #d63d4a;
-  color: white;
-  border: none;
-}
+  .forside-hero-detail  {
+    font-size: 16px;
+  }
 
-.forside-hero-btn-primary:hover {
-  background-color: #b7313d;
-}
+  .generalButtons {
+    justify-content: center;
+  }
 
-.forside-hero-btn-secondary {
-  background-color: transparent;
-  color: white;
-  border: 2px solid white;
-}
+  .forside-hero-details {
+    margin-bottom: 0;
+    gap: 0.5rem;
+  }
 
-.forside-hero-btn-secondary i {
-  font-size: 28px;
-}
-
-.forside-hero-btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 </style>

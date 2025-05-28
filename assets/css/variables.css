@@ -33,7 +33,20 @@
 
 }
 
+/* Afstande */
+@media (max-width: 767px) {
+  :root {
+    --space-container: 2rem;
+    --font-standard: 15px;
+  }
+}
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --space-container: 3rem;
+    --font-standard: 17px;
 
+  }
 
-
+  
+}
