@@ -574,61 +574,145 @@ const formattedDate = (str) => {
 
 
 @media (max-width: 768px) {
-  .arrowsWrapper {
-    justify-content: space-between;
-    padding: 1rem;
-    width: 100%;
+  .movieHeroWrapper {
+    padding: 0;
+    padding-top: 100px;
   }
-  .actorSection {
-    grid-template-columns: repeat(3, 1fr);
+
+  .hero {
+    padding: 0 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .moviePoster {
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-section);
+    box-shadow: 0px 0px 20px 2px #4C90FF;
+  }
+
+  .movieInfoBox {
+    padding: 1.5rem 20px;
+    width: 100%;
+    max-width: unset;
+    margin: 0 auto;
+  }
+
+  .showtimesSection {
+    width: 100%;
+    padding: 5rem 20px;
+    border-radius: 12px;
+    background: var(--secondary-blue);
+    box-sizing: border-box;
+  }
+
+  .actors {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .timesWrapper {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .arrowsWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    width: 100%;
   }
 
   .timesNav {
     position: static;
     transform: none;
-    margin: 0 0.5rem; 
     width: auto;
     display: flex;
     justify-content: center;
   }
 
-  .timesNav.left, 
+  .timesNav.left,
   .timesNav.right {
-    width: auto;  
-  }
-
-  .timesNav.left {
-    order: 1;
-  }
-
-  .timesNav.right {
-    order: 1;
+    width: auto;
   }
 
   .days {
-    order: 2;
-    width: 100%;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.6rem;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  .timesWrapper > .timesNav.left,
-  .timesWrapper > .timesNav.right {
-    display: inline-flex;
+  .showtimeDayCard {
+    flex: 0 0 calc((100% - (2 * 0.6rem)) / 3); /* 3 kort og 2 gaps */
+    max-width: calc((100% - (2 * 0.6rem)) / 3);
+    box-sizing: border-box;
   }
 
-  .timesWrapper > .timesNav.left {
-    margin-right: 1rem;
+  .dateCard {
+    height: 6rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .date-day {
+    font-size: 1.2rem;
+  }
+
+  .date-month {
+    font-size: 0.8rem;
+  }
+
+  .showtimeSlots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .time {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .backButton {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    position: relative;
+    top: -30px;
+  }
+
+  .actorSection {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Fjern scrollbars */
+  .days::-webkit-scrollbar {
+    display: none;
+  }
+
+  .days {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
+
+
+
+
+/*
 @media (max-width: 600px) {
   .days {
     padding: 1.5rem 1rem;
@@ -646,6 +730,7 @@ const formattedDate = (str) => {
   }
 
 }
+*/
 
 
 
