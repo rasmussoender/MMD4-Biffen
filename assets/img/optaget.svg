@@ -1,0 +1,13 @@
+<svg width="34" height="25" viewBox="0 0 34 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 25">
+<rect id="Rectangle 498" x="6" width="22" height="19" rx="5" fill="#FF6B6B"/>
+<rect id="Rectangle 499" x="29" width="5" height="17" rx="2.5" fill="#FF6B6B"/>
+<rect id="Rectangle 500" width="5" height="17" rx="2.5" fill="#FF6B6B"/>
+<rect id="Rectangle 501" x="28" y="20" width="5" height="22" rx="2.5" transform="rotate(90 28 20)" fill="#FF6B6B"/>
+<rect id="Rectangle 502" x="6" width="22" height="19" rx="5" fill="#FF6B6B"/>
+<rect id="Rectangle 503" x="29" width="5" height="17" rx="2.5" fill="#FF6B6B"/>
+<rect id="Rectangle 504" width="5" height="17" rx="2.5" fill="#FF6B6B"/>
+<rect id="Rectangle 505" x="28" y="20" width="5" height="22" rx="2.5" transform="rotate(90 28 20)" fill="#FF6B6B"/>
+<path id="Vector" d="M17 9C17.7578 9 18.4845 8.68393 19.0203 8.12132C19.5561 7.55871 19.8571 6.79565 19.8571 6C19.8571 5.20435 19.5561 4.44129 19.0203 3.87868C18.4845 3.31607 17.7578 3 17 3C16.2422 3 15.5155 3.31607 14.9797 3.87868C14.4439 4.44129 14.1429 5.20435 14.1429 6C14.1429 6.79565 14.4439 7.55871 14.9797 8.12132C15.5155 8.68393 16.2422 9 17 9ZM15.9799 10.125C13.7813 10.125 12 11.9953 12 14.3039C12 14.6883 12.2969 15 12.6629 15H21.3371C21.7031 15 22 14.6883 22 14.3039C22 11.9953 20.2188 10.125 18.0201 10.125H15.9799Z" fill="white"/>
+</g>
+</svg>
