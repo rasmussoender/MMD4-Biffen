@@ -537,6 +537,10 @@ onMounted(async () => {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
+  .section-boks-1 {
+    padding: var(--space-container);
+  }
   .section-boks-1-content {
     flex-direction: column;
     gap: 40px;
@@ -557,6 +561,10 @@ onMounted(async () => {
   .nyhedsbrev-form input {
     width: 100%;
     max-width: 100%;
+  }
+
+  .vis-flere-film-cta {
+    justify-content: center;
   }
 
 }

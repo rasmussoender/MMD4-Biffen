@@ -75,6 +75,7 @@ a {
 }
 
 
+
 /* Generelle knapper */
 .generalButtons {
   margin-top: 1rem;
@@ -88,7 +89,7 @@ a {
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   color: white;
   border-radius: 5px;
   display: flex;

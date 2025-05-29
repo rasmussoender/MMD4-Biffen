@@ -242,7 +242,7 @@ onMounted(async () => {
 .forside-hero-description-container {
   margin-bottom: 3rem;
   margin-top: 3rem;
-  width: 60vw;
+  width: 50vw;
 }
 
 .forside-hero-description {
@@ -261,6 +261,7 @@ onMounted(async () => {
   }
   .forside-hero-title {
     font-size: 2rem;
+    margin-bottom: 0;
   }
   .forside-hero-description-container {
     width: 100%;
@@ -273,9 +274,14 @@ onMounted(async () => {
     font-size: 15px;
   }
 
-  .forside-hero-detail  {
-    font-size: 16px;
+    .forside-hero-details  {
+    margin-top: 1rem;
   }
+
+  .forside-hero-detail  {
+    font-size: 12px;
+  }
+
 
   .generalButtons {
     justify-content: center;
@@ -284,6 +290,10 @@ onMounted(async () => {
   .forside-hero-details {
     margin-bottom: 0;
     gap: 0.5rem;
+  }
+
+  .forside-hero-genre {
+    display: none;
   }
 
 }

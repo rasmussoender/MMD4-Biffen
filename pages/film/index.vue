@@ -68,7 +68,7 @@ const formatDate = (dateString) => {
       <div v-else class="movieCards">
         <div v-for="movie in movies" :key="movie.id" class="movieCard">
           <router-link :to="`/film/${movie.slug}`" class="movieLink">
-            <div class="moviePosterWrapper">
+            <div class="moviePosterWrapper imageHoverEffect">
               <img
                 :src="movie.acf.poster.url"
                 :alt="movie.title.rendered"
@@ -156,7 +156,6 @@ const formatDate = (dateString) => {
 
 .movieCard {
   border-radius: var(--radius-card);
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -180,12 +179,9 @@ const formatDate = (dateString) => {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
 }
 
-.movieCard:hover .movieImage {
-  transform: scale(1.15);
-}
+
 
 .movieOverlay {
   position: absolute;
