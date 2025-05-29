@@ -40,8 +40,6 @@ a {
   max-width: 100%;
 }
 
-
-
 .overskrift-med-streg span {
   position: relative;
   display: inline-block;
@@ -57,6 +55,13 @@ a {
   background-color: #F63758;
 }
 
+@media (max-width: 767px)  {
+  .overskrift-med-streg {
+    font-size: 35px;
+  }
+
+}
+
 /* billede hover effekt */
 .imageHoverEffect {
   transition: transform 0.3s ease, box-shadow 0.6s ease;
@@ -67,6 +72,63 @@ a {
 .imageHoverEffect:hover {
   transform: scale(1.03);
   box-shadow: 0 0 20px 2px #4C90FF;
+}
+
+
+/* Generelle knapper */
+.generalButtons {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.generalbtn {
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.5rem;
+}
+
+
+.generalbtn .material-icons,
+.generalbtn .material-symbols-outlined {
+  font-size: 30px;
+}
+
+.btn-primary {
+  background-color: var(--interactive-red);
+  color: white;
+   transition: background-color 0.3s ease;
+
+}
+
+.btn-primary:hover {
+  background-color: #f41a3e;
+}
+
+.btn-secondary {
+  border: 2px solid white;
+  color: white;
+  background: transparent;
+  transition: background-color 0.3s ease;
+
+}
+
+.btn-secondary i {
+  font-size: 30px;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(187, 186, 186, 0.1);
 }
 
 
@@ -104,9 +166,6 @@ border-radius: var(--radius-section);
   margin-top: 2rem;
 }
 
-.film-program-container-mobile {
-  display: none;
-}
 
 .film-program {
   padding: 50px;
@@ -237,6 +296,8 @@ border-radius: var(--radius-section);
 
 .read-more-button-container {
   margin-top: auto;
+  padding-top: 1rem;
+
 }
 
 .read-more-btn {
@@ -261,105 +322,61 @@ border-radius: var(--radius-section);
 }
 
 
-@media (max-width: 768px) {
-.film-program-container {
-  display: none;
+@media (max-width: 767px) {
+  .film-program-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .program-film-poster {
+    justify-content: center;
+  }
+
+  .program-film-poster img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .film-program-titel-og-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .film-program-titel-og-info h3 {
+    font-size: 1.5rem;
+  }
+
+  .film-program-titel-og-info ul {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .film-program-beskrivelse p {
+    font-size: 1rem;
+  }
+
+  .film-program {
+    padding: 20px;
+  }
+  .film-program-hr {
+    margin-bottom: 12px;
+  }
+
+  .read-more-button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .read-more-btn {
+    width: auto;
+  }
 }
 
-.film-program-container-mobile {
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-bottom: 4rem;
-}
 
-.film-program-mobile {
-  padding: 30px;
-  border-radius: 20px;
-  margin-top: 4rem;
-  background: #202F4D;
-}
-
-.film-program-content-mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.5rem;
-  padding-bottom: 2rem;
-}
-
-.program-film-poster-mobile img {
-  width: 100%;
-  max-width: 200px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-  display: block;
-  margin: 0 auto;
-}
-
-.film-program-detaljer-mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.film-program-titel-og-info-mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.film-program-titel-og-info-mobile h3 {
-  font-size: 28px;
-  color: white;
-  font-weight: 700;
-  margin: 0;
-}
-
-.film-program-titel-og-info-mobile ul {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;  
-  justify-content: center;
-  gap: 0.75rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.film-program-titel-og-info-mobile li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #131C31;
-  color: white;
-  margin-bottom: 0.7rem;
-}
-
-.film-program-titel-og-info-mobile i {
-  color: #F63758;
-}
-
-.film-program-hr-mobile {
-  width: 100%;
-  height: 1px;
-  background-color: white;
-  border: none;
-  margin-top: 2rem;
-  margin-bottom: 6rem;
-}
-
-.film-program-content-mobile:last-of-type .film-program-hr-mobile {
-  margin-bottom: 0;
-}
-}
 /* Dato styling til spilletider (enkel film) */
-
 .date-day {
   color: var(--interactive-red);
   font-size: 1.7rem;

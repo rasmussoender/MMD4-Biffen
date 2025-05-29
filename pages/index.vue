@@ -73,7 +73,7 @@ onMounted(async () => {
       </div>
     </section>
     <section>
-      <h2 class="overskrift-med-streg"><span>Populære film (program?)</span></h2>
+      <h2 class="overskrift-med-streg"><span>Populære film</span></h2>
 
 <div class="film-program-container">
   <div class="film-program">
@@ -120,29 +120,6 @@ onMounted(async () => {
 </div>
 
 
-<!-- <div class="film-program-container-mobile">
-  <div class="film-program-mobile">
-    <div 
-      class="film-program-content-mobile" 
-      v-for="movie in movies" 
-      :key="movie.id + '-mobile'"
-    >
-      <div class="program-film-poster-mobile">
-        <img :src="movie._embedded['wp:featuredmedia'][0].source_url" :alt="movie.title.rendered" />
-      </div>
-      <div class="film-program-detaljer-mobile">
-        <div class="film-program-titel-og-info-mobile">
-          <h3 v-html="movie.title.rendered" />
-          <ul>
-            <li><i class="fas fa-clock"></i> {{ movie.acf.varighed }}</li>
-            <li><i class="fas fa-child-reaching"></i> {{ movie.acf.aldersgrænse }}</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="film-program-hr-mobile">
-    </div>
-  </div>
-</div> -->
 
 
       
@@ -554,104 +531,6 @@ onMounted(async () => {
 
 /* Mobile: max-width 768px */
 @media (max-width: 768px) {
-
-
-  .film-program-container {
-  display: none;
-}
-
-.film-program-container-mobile {
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-bottom: 4rem;
-}
-
-.film-program-mobile {
-  padding: 30px;
-  border-radius: 20px;
-  margin-top: 4rem;
-  background: #202F4D;
-}
-
-.film-program-content-mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.5rem;
-  padding-bottom: 2rem;
-}
-
-.program-film-poster-mobile img {
-  width: 100%;
-  max-width: 200px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-  display: block;
-  margin: 0 auto;
-}
-
-.film-program-detaljer-mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.film-program-titel-og-info-mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.film-program-titel-og-info-mobile h3 {
-  font-size: 28px;
-  color: white;
-  font-weight: 700;
-  margin: 0;
-}
-
-.film-program-titel-og-info-mobile ul {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;  
-  justify-content: center;
-  gap: 0.75rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.film-program-titel-og-info-mobile li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #131C31;
-  color: white;
-  margin-bottom: 0.7rem;
-}
-
-.film-program-titel-og-info-mobile i {
-  color: #F63758;
-}
-
-.film-program-hr-mobile {
-  width: 100%;
-  height: 1px;
-  background-color: white;
-  border: none;
-  margin-top: 2rem;
-  margin-bottom: 6rem;
-}
-
-.film-program-content-mobile:last-of-type .film-program-hr-mobile {
-  margin-bottom: 0;
-}
-
 
 
   .forside-entry-grid {
