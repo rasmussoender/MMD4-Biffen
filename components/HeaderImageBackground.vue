@@ -112,17 +112,18 @@ onUnmounted(() => {
       <div class="fullscreenInner">
         <div class="menuLayout">
           <div class="menuColumn">
-            <div class="menuItem"><span class="menuNumber">01</span><a href="/film" class="menuLink">Alle film</a></div>
-            <div class="menuItem"><span class="menuNumber">02</span><a href="/kommende-film" class="menuLink">Kommende film</a></div>
-            <div class="menuItem"><span class="menuNumber">03</span><a href="/events" class="menuLink">Events</a></div>
-            <div class="menuItem"><span class="menuNumber">04</span><a href="/cinemateket" class="menuLink">Cinemateket</a></div>
-          </div>
-          <div class="menuColumn">
-            <div class="menuItem"><span class="menuNumber">05</span><a href="/filmklubber" class="menuLink">Filmklubber</a></div>
-            <div class="menuItem"><span class="menuNumber">06</span><a href="/gavekort" class="menuLink">Gavekort & øvrige billetter</a></div>
-            <div class="menuItem"><span class="menuNumber">07</span><a href="/book" class="menuLink">Book en sal</a></div>
-            <div class="menuItem"><span class="menuNumber">08</span><a href="/info" class="menuLink">Praktisk info</a></div>
-          </div>
+  <div class="menuItem"><span class="menuNumber">01</span><NuxtLink to="/film" class="menuLink">Alle film</NuxtLink></div>
+  <div class="menuItem"><span class="menuNumber">02</span><NuxtLink to="/kommende-film" class="menuLink">Kommende film</NuxtLink></div>
+  <div class="menuItem"><span class="menuNumber">03</span><NuxtLink to="/events" class="menuLink">Events</NuxtLink></div>
+  <div class="menuItem"><span class="menuNumber">04</span><NuxtLink to="/cinemateket" class="menuLink">Cinemateket</NuxtLink></div>
+</div>
+<div class="menuColumn">
+  <div class="menuItem"><span class="menuNumber">05</span><NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink></div>
+  <div class="menuItem"><span class="menuNumber">06</span><NuxtLink to="/gavekort-og-ovrige-billetter" class="menuLink">Gavekort & øvrige billetter</NuxtLink></div>
+  <div class="menuItem"><span class="menuNumber">07</span><NuxtLink to="/book-en-sal" class="menuLink">Book en sal</NuxtLink></div>
+  <div class="menuItem"><span class="menuNumber">08</span><NuxtLink to="/praktisk-information" class="menuLink">Praktisk info</NuxtLink></div>
+</div>
+
         </div>
 
         <div class="fullscreenFooter">
@@ -696,4 +697,59 @@ onUnmounted(() => {
     display: none;
   }
 }
+
+@media (max-height: 800px) {
+  .menuLayout {
+    gap: 1.5rem;
+  }
+
+  .menuColumn {
+    gap: 1.5rem;
+  }
+
+  .menuItem {
+    gap: 1rem;
+  }
+
+  .menuLink {
+    font-size: 22px;
+  }
+
+  .menuNumber {
+    font-size: 16px;
+    width: 30px;
+  }
+
+  .fullscreenTopBar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .footerSocials a {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1025px) and (max-height: 800px) {
+  .menuLink {
+    font-size: 28px;
+  }
+
+  .menuNumber {
+    font-size: 20px;
+    width: 35px;
+  }
+
+  .menuColumn {
+    gap: 2rem;
+  }
+
+  .menuLayout {
+    gap: 12rem;
+}
+}
+
+
 </style>
