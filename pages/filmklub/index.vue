@@ -40,7 +40,7 @@ onMounted(async () => {
          <div class="section-boks-1">
            <div class="section-boks-1-content">
              <div class="section-boks-1-text">
-               <h2 class="overskrift-boks-1"><span>Filmklubber</span></h2>
+                <h2 class="overskrift-med-streg"><span>Filmklubber</span></h2>
                <div class="section-boks-1-beskrivelse">
                  <p>
                    Meld dig ind i én filmklub, og se udvalgte film til reduceret pris!
@@ -94,7 +94,7 @@ onMounted(async () => {
 
 .section-boks-1 {
   background: #202F4D;
-  padding: 50px;
+  padding: 2rem;
   border-radius: 20px;
 }
 
@@ -228,5 +228,37 @@ onMounted(async () => {
 .forside-entry-card--white-bg:hover img {
   transform: scale(1.03);
   box-shadow: 0px 0px 20px 2px #4C90FF;
+}
+
+
+/* Mobile: max-width 768px */
+@media (max-width: 768px) {
+    .forside-entry-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+
+
+  .section-boks-1 {
+    padding: var(--space-container);
+  }
+  .section-boks-1-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .section-boks-1-text,
+  .section-boks-1-billede {
+    max-width: 100%;
+  }
+
+  .section-boks-1-beskrivelse {
+    margin-top: 0;
+  }
+
+
+  
+
+
 }
 </style>

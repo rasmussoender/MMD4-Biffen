@@ -139,11 +139,12 @@ const formattedDate = (str) => {
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="moviePoster" />
 
         <div class="movieInfoBox">
-          <div class="genreTags">
-            <span v-for="(g, index) in movie.acf.genre" :key="index" class="genreItem">
-              {{ g.filmgenre }}
-            </span>
-          </div>
+            <p class="forside-hero-genre">
+            <template v-for="(g, i) in movie.acf.genre" :key="i">
+                <span>{{ g.filmgenre }}</span>
+                <span v-if="i < movie.acf.genre.length - 1" class="forside-hero-genre-separator">|</span>
+            </template>
+            </p>
 
           <h1>{{ movie.title.rendered }}</h1>
 
@@ -239,6 +240,22 @@ const formattedDate = (str) => {
 
 
 <style scoped>
+.forside-hero-genre {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  font-weight: 400;
+
+}
+
+
+.forside-hero-genre-separator {
+  padding: 0 0.5rem;
+  color: white;
+}
 
 .movieDetailsPage {
   padding: 0;
@@ -325,26 +342,6 @@ const formattedDate = (str) => {
   font-size: 1.5rem;
 }
 
-.genreTags {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 15px;
-}
-
-.genreItem {
-  position: relative;
-  padding: 0 0.5rem;
-  font-weight: bold;
-}
-
-.genreItem:not(:last-child)::after {
-  content: '|';
-  position: absolute;
-  right: -0.5rem;
-  color: white;
-}
 
 .movieMetadata {
   display: flex;
