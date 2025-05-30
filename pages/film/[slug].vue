@@ -149,7 +149,9 @@ const formattedDate = (str) => {
 
           <div class="movieMetadata">
             <span id="ratingStyle">
-            <i class="fa-solid fa-star"></i> {{ movie.rating.toFixed(1) }}/10</span>
+              <i class="fa-solid fa-star"></i> {{ movie.rating ? movie.rating.toFixed(1) : 'Ukendt' }}/10
+            </span>
+
             <span><i class="fa-solid fa-calendar-days"></i> {{ movie.acf.udgivelsesdato }}</span>
             <span><i class="fa-solid fa-clock"></i> {{ movie.acf.varighed }} t</span>
             <span v-if="movie.acf.age.length"><i class="fa-solid fa-user-shield"></i> {{ movie.acf.age[0].aldersgraense }}</span>

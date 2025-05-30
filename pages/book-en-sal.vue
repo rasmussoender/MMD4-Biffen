@@ -54,7 +54,7 @@ useHead({
     </div>
   </section>
 
-  <section class="birthday">
+  <section class="birthday" id="birthdaySection">
     <article>
     <img src="../assets/img/BirthdayMobile.png" alt="" class="mobilbillede birthdayimg">
     <img src="../assets/img/BirthdayDesktop.png" alt="" class="pcbillede birthdayimg">

@@ -39,25 +39,25 @@
 
     <div class="footerLinks">
       <div class="footerColumn underlineAnimationLinks">
-        <h4>Biografen</h4>
+        <h3>Biografen</h3>
         <a href="/film">Alle film</a>
         <a href="/kommende-film">Kommende film</a>
         <a href="/cinemateket">Cinemateket</a>
-        <a href="/alle-filmklubber">Filmklubber</a>
+        <a href="/filmklub">Filmklubber</a>
         <a href="/events">Events</a>
       </div>
 
       <div class="footerColumn underlineAnimationLinks">
-        <h4>Praktisk</h4>
+        <h3>Praktisk</h3>
         <a href="/praktisk-information">Praktisk information</a>
         <a href="/book-en-sal">Skoler/virksomheder</a>
+        <a href="/book-en-sal#birthdaySection">Børnefødselsdag</a>
       </div>
 
       <div class="footerColumn underlineAnimationLinks">
-        <h4>Gavekort</h4>
+        <h3>Gavekort</h3>
         <a href="/gavekort-og-ovrige-billetter">Gavekort / Øvrige billetter</a>
-        <a href="/gavekort-og-ovrige-billetter">Børnefødselsdag</a>
-        <a href="/gavekort-og-ovrige-billetter">Firmabilletter</a>
+        <a href="/gavekort-og-ovrige-billetter#firmaSection">Firmabilletter</a>
       </div>
     </div>
   </div>
@@ -68,9 +68,16 @@
   <div class="footerBottom">
     <p>© 2025 Biffen Nordkraft. Alle rettigheder forbeholdes.</p>
     <div class="footerSocials">
-      <a href="https://www.facebook.com/BiffenNordkraft"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="https://www.linkedin.com/company/biffen-nordkraft/?originalSubdomain=dk"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="https://www.instagram.com/biffennordkraft/"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.facebook.com/BiffenNordkraft" aria-label="Facebook">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+    <a href="https://www.linkedin.com/company/biffen-nordkraft/?originalSubdomain=dk" aria-label="LinkedIn">
+      <i class="fa-brands fa-linkedin-in"></i>
+    </a>
+    <a href="https://www.instagram.com/biffennordkraft/" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+
     </div>
   </div>
 </div>

@@ -58,15 +58,16 @@ onMounted(async () => {
         <div class="section-boks-1">
           <div class="section-boks-1-content">
             <div class="section-boks-1-text">
-              <h4 class="subtitle-boks-1">Velkommen til</h4>
+              <h2 class="subtitle-boks-1">Velkommen til</h2>
               <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
               <p class="section-boks-1-beskrivelse">Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.</p>
             </div>
             <div class="section-boks-1-video">
-              <video autoplay muted loop>
-                <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4">
-                Din browser understøtter ikke videoafspilning.
+              <video autoplay muted loop aria-hidden="true">
+                  <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4" />
+                  Din browser understøtter ikke videoafspilning.
               </video>
+
             </div>
           </div>
         </div>
