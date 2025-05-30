@@ -1,6 +1,22 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Filmvisning',
+  meta: [
+    {
+      name: 'description',
+      content: 'Reserver sæde hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'sædereservation, film, biograf, biffen, sæder, bestil'
+    }
+  ]
+})
 
 import ledigIcon from '@/assets/img/ledig.svg?raw'
 import valgtIcon from '@/assets/img/dit-valg.svg?raw'
@@ -210,7 +226,7 @@ onMounted(async () => {
 
 <template>
   <Header />
-  <main class="booking-wrapper">
+  <main class="booking-wrapper widthContainer">
     <div v-if="visning" class="booking-container">
       <div class="movie-info">
         <img :src="visning.posterUrl" :alt="visning.title" class="poster" />
@@ -295,7 +311,6 @@ onMounted(async () => {
 
 <style scoped>
 .booking-wrapper {
-  padding: 5rem;
   color: white;
   min-height: 100vh;
 }
@@ -525,9 +540,7 @@ onMounted(async () => {
 }
 
 @media (max-width: 768px) {
-  .booking-wrapper {
-    padding: 2rem 20px;
-  }
+
 
   .booking-container {
     flex-direction: column;
@@ -541,7 +554,7 @@ onMounted(async () => {
     width: 100%;
     padding: 2rem;
     box-sizing: border-box;
-    margin-top: 4rem;
+    margin-top: 2rem;
   }
 
   .seat-scale-wrapper {
@@ -632,9 +645,7 @@ onMounted(async () => {
 }
 
 @media (max-width: 480px) {
-  .booking-wrapper {
-    padding: 1.5rem 15px;
-  }
+
   
   .booking-container {
     gap: 0.5rem;
@@ -662,10 +673,7 @@ onMounted(async () => {
 }
 
 @media (max-width: 375px) {
-  .booking-wrapper {
-    padding: 1rem 10px;
-  }
-  
+
   .seat-scale-wrapper {
     padding: 0;
     margin: 0;

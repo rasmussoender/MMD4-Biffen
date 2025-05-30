@@ -1,5 +1,21 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Events',
+  meta: [
+    {
+      name: 'description',
+      content: 'Alle events hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'events, event, oversigt, biffen, upcoming'
+    }
+  ]
+})
 
 const categoryList = ref([])
 const eventList = ref([])
@@ -28,25 +44,19 @@ const sortedEvents = computed(() => {
 
 <template>
     <Header />
-    <main>
+    <main class="widthContainer">
       <section class="introEvents">
         <img src="../../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
         <img src="../../assets/img/IntroEventDesktop.png" alt="" class="pcbillede">
         <div class="introWrapper">
-        <div class="headingNdLine">
-          <h1>Biffens event</h1>
-          <div></div>
-        </div>
+        <h1 class="overskrift-med-streg"><span>Biffens events</span></h1>
         <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
         <p>Vi får bl.a. besøg af aktuelle skuespillere og instruktører til Q&A’s, hvor publikum får mulighed for at stille spørgsmål og få et unikt indblik i filmens tilblivelse. Vi afholder både nationale og internationale filmfestivaler som CPH:DOX, Don't Fear the Weird og Cinematekets Musikfilmfestival, som giver plads til både nye stemmer og etablerede navne.</p>
         </div>
     </section>
 
       <section class="upcomingEvents upcoming">
-      <div class="headingNdLine">
-        <h2>Kommende events</h2>
-        <div></div>
-      </div>
+      <h2 class="overskrift-med-streg"><span>Kommende events</span></h2>
       <section>
         <NuxtLink
         v-for="event in sortedEvents"
@@ -70,10 +80,7 @@ const sortedEvents = computed(() => {
     </section>
 
       <section class="events">
-      <div class="headingNdLine">
-        <h2>Vores events</h2>
-        <div></div>
-      </div>
+<h2 class="overskrift-med-streg"><span>Vores events</span></h2>
 
 <section class="eventOverviewSection">
   <NuxtLink
@@ -101,10 +108,6 @@ const sortedEvents = computed(() => {
 </template>
 
 <style scoped>
-.eventOverviewSection {
-  padding: 2rem;
-
-}
 
 
 a {
@@ -155,7 +158,6 @@ h1, h2, h3, h4, h5, h6 {
 .introEvents {
   background-color: var(--secondary-blue);
   padding: 20px 20px;
-  margin-top: var(--space-section);
 
 }
 
@@ -177,9 +179,6 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 1rem;
 }
 
-main {
-  padding: 0px 12px;
-}
 
 .headingNdLine {
   display: inline-block;
@@ -232,10 +231,7 @@ main {
 
 }
 
-.events section {
-  overflow: hidden;
 
-}
 
 
 /* Desktop styling */
@@ -391,7 +387,7 @@ main {
 }
 }
 
-@media(min-width: 430px) and (max-width: 767px){
+@media(min-width: 100px) and (max-width: 1000px){
   .introEvents{
     grid-template-columns: unset;
   }
@@ -405,17 +401,6 @@ main {
   
 }
 
-@media (min-width: 768px) and (max-width:1024px){
-  .introEvents img{
-    width: 75%;
-     justify-self: unset;
-  }
-
-   .introEvents{
-    display: block;
-  }
-
-}
 
 
 </style>

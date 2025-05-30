@@ -1,5 +1,21 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Praktisk Information',
+  meta: [
+    {
+      name: 'description',
+      content: 'Praktisk information hos Biffen i Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'praktisk, info, information, praktisk information, aalborg, film, vintage, biograf, biffen'
+    }
+  ]
+})
 onMounted(()=>{
 
   const buttons = document.querySelectorAll(".buttons button");
@@ -31,7 +47,7 @@ onMounted(()=>{
 
 <template>
   <Header />
-  <main>
+  <main class="widthContainer">
     <section>
        <div class="info">
       <div class="headingNdLine">
@@ -483,7 +499,8 @@ onMounted(()=>{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
+  padding-bottom: 1rem;
 }
 .tabs i{
   font-size: 32px;
@@ -496,7 +513,7 @@ onMounted(()=>{
   gap: 10px;
 }
 .buttons button{
-  padding: 0px 6px;
+  padding: 10px 10px;
 }
 iframe{
   width: 100%;
