@@ -70,7 +70,7 @@ const sortedEvents = computed(() => {
               <div class="overlay"></div>
               <div class="calendar">
                 <i class="fa-solid fa-calendar-days" id="calendarIcon"></i>
-                <h6>{{ event.acf?.dato }}</h6>
+                <p>{{ event.acf?.dato }}</p>
               </div>
               <h4 v-html="event.title.rendered"></h4>
             </div>
@@ -131,7 +131,10 @@ a {
   top: 8px;
   left: 16px;
 }
-
+.calendar p {
+  font-size: 12px;
+  font-weight: bold;
+}
 .wrapper {
   position: relative;
   overflow: hidden; 

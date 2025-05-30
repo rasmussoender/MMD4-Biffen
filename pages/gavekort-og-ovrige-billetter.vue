@@ -74,7 +74,7 @@ useHead({
         </div>
       </article>
     </section>
-     <section class="introEvents">
+     <section class="introEvents" id="firmaSection">
     <img src="../assets/img/FirmabilleterMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/FirmabilleterDesktop.png" alt="" class="pcbillede">
     <div class="introWrapper">
