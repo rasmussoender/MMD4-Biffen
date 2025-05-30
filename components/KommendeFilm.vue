@@ -28,7 +28,7 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
     <i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...
   </div>
 
-  <div v-else class="movieCards">
+  <div v-else class="movieCards widthContainer">
     <div v-for="movie in displayedMovies" :key="movie.id" class="movieCard">
       <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
         <div class="moviePosterWrapper imageHoverEffect">

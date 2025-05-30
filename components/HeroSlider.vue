@@ -46,7 +46,7 @@ onMounted(async () => {
             backgroundPosition: 'center'
           }"
         >
-          <div class="slide-content">
+          <div class="slide-content widthContainer">
 
             <p class="forside-hero-genre">
             <template v-for="(g, i) in film.acf.genre" :key="i">
@@ -130,9 +130,12 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--space-container);
   color: white;
   background-color: black;
+}
+
+.slide-content {
+  padding: var(--space-container);
 }
 
 .custom-controls {

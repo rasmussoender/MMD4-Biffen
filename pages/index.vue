@@ -52,7 +52,7 @@ onMounted(async () => {
   <HeaderImageBackground />
   <HeroSlider />
   
-  <main>
+  <main class="widthContainer">
     <section>
       <div class="section-boks-1-container">
         <div class="section-boks-1">
@@ -596,51 +596,8 @@ onMounted(async () => {
   }
 }
 
-/* Laptop/Desktop: 1025px - 2199px */
-@media (min-width: 1025px) and (max-width: 2199px) {
-  .forside-entry-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .section-boks-1-content {
-    flex-direction: row;
-    gap: 70px;
-  }
-  .section-boks-1-text,
-  .section-boks-1-video {
-    max-width: 50%;
-  }
-}
 
-/* Ultra-wide: 2200px and up */
-@media (min-width: 2200px) {
-  .forside-entry-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
 
-  .section-boks-1-container,
-  .film-program-container,
-  .forside-entry-section,
-  .vis-flere-film-cta,
-  .overskrift-med-streg {
-    padding-left: 200px;
-    padding-right: 200px;
-  }
-  .samarbejde-container {
-    padding-left: 200px;
-    padding-right: 200px;
-    gap: 160px;
-  }
-  .nyhedsbrev-wrapper {
-    max-width: 900px;
-    padding-left: 200px;
-    padding-right: 200px;
-  }
-  .nyhedsbrev-form input {
-    width: 500px;
-  }
-  .nyhedsbrev-form button {
-    padding: 22px 36px;
-  }
-}
+
 
 </style>

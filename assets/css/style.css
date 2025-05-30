@@ -31,8 +31,17 @@ a {
     color: var(--interactive-red);
 }
 
-/* Overskift med rød linje */
+/* Container 1300px max width */
+@media (min-width: 1300px) {
+  .widthContainer {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  }
+}
 
+/* Overskift med rød linje */
 .overskrift-med-streg {
   font-size: 55px;
   font-weight: 700;

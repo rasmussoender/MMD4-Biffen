@@ -20,7 +20,7 @@ useHead({
 <template>
   <Header />
   <main>
-    <div class="movieContainer">
+    <div class="movieContainer widthContainer">
           <h1 class="overskrift-med-streg"><span>Nyheder på vej</span></h1>
 
       <div class="buttonContainer">
