@@ -1,6 +1,22 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Eventtype',
+  meta: [
+    {
+      name: 'description',
+      content: 'Alle events under eventtype hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'events, event, eventtype, biffen, kommende'
+    }
+  ]
+})
 
 const route = useRoute()
 const currentCategorySlug = route.params.category
@@ -39,16 +55,15 @@ onMounted(async () => {
 >
   <HeaderImageBackground />
 
-
-    
-    <div class="eventInfoBox">
-       <div class="imageWrapper">
+<div class="widthContainer">
+  <div class="eventInfoBox ">
+    <div class="imageWrapper">
       <img
-        :src="categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_billede?.url"
-        :alt="categoryList.find(cat => cat.slug === currentCategorySlug)?.name"
+      :src="categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_billede?.url"
+      :alt="categoryList.find(cat => cat.slug === currentCategorySlug)?.name"
       />
     </div>
-
+    
     <div class="textContent">
       <h1>{{ categoryList.find(cat => cat.slug === currentCategorySlug)?.name }}</h1>
       <p class="moviedescription">
@@ -56,14 +71,13 @@ onMounted(async () => {
       </p>
     </div>
   </div>
+</div>
 </section>
 
 
 
-    <section class="upcomingEvents upcoming">
-      <div class="headingNdLine">
-        <h2>Kommende events</h2>
-      </div>
+    <section class="upcomingEvents upcoming widthContainer">
+      <h2 class="overskrift-med-streg"><span>Kommende events</span></h2>
       <section>
         <NuxtLink
           v-for="event in eventsInCategory"
@@ -93,6 +107,8 @@ onMounted(async () => {
 <style scoped>
 .mainEvents {
   padding: 0;
+  margin: 0 auto;
+  width: 100%;
 }
 
 a {
@@ -139,10 +155,18 @@ a {
   width: 100%;
   height: 100%;
 }
-
 .upcomingEvents {
-  padding: var(--space-section);
-  padding-top: 0;
+  padding: var(--space-container);
+padding-top: 1rem;
+}
+@media (min-width: 1500px) {
+  .upcomingEvents {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0;
+  }
 }
 
 .upcomingEvents section {
@@ -175,6 +199,7 @@ a {
   justify-content: center;
   align-items: center;
   padding: var(--space-container);
+  padding-bottom: 1rem;
   background-size: cover;
   background-position: center;
   border-radius: var(--radius-section);
@@ -190,7 +215,7 @@ a {
   border-radius: var(--radius-section);
   width: 100%;
   box-sizing: border-box;
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 
 .eventInfoBox .textContent {
@@ -258,7 +283,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media(min-width: 430px) and (max-width: 767px){
+@media(min-width: 100px) and (max-width: 767px){
   .eventInfoBox{
     display: block;
   }

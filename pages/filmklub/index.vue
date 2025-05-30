@@ -1,5 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Filmklubber',
+  meta: [
+    {
+      name: 'description',
+      content: 'filmklubber hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'filmklub, biffen, film, klub, alle'
+    }
+  ]
+})
 
 const filmklubber = ref([]);
 
@@ -16,54 +32,57 @@ onMounted(async () => {
 
 <template>
    <Header />
-    <section>
-      <!-- Sektion 1 med tekst og billede -->
-      <div class="section-boks-1-container">
-        <div class="section-boks-1">
-          <div class="section-boks-1-content">
-            <div class="section-boks-1-text">
-              <h2 class="overskrift-boks-1"><span>Filmklubber</span></h2>
-              <div class="section-boks-1-beskrivelse">
-                <p>
-                    Meld dig ind i én filmklub, og se udvalgte film til reduceret pris!
-                </p>
-                <br>
-                <p>
+   <main class="widthContainer">
+
+     <section>
+       <!-- Sektion 1 med tekst og billede -->
+       <div class="section-boks-1-container">
+         <div class="section-boks-1">
+           <div class="section-boks-1-content">
+             <div class="section-boks-1-text">
+               <h2 class="overskrift-boks-1"><span>Filmklubber</span></h2>
+               <div class="section-boks-1-beskrivelse">
+                 <p>
+                   Meld dig ind i én filmklub, og se udvalgte film til reduceret pris!
+                  </p>
+                  <br>
+                  <p>
                     Udover Biffens egne filmklubber, 'De Smukke og Særlige' og 'SeniorBifffen', kan du også se filmene fra 'Filmporten' og 'Biografklub Danmark' i Biffen. 
-                </p>
-                <br>
-                <p>
+                  </p>
+                  <br>
+                  <p>
                     Du kan læse mere om de filmklubber  vi tilbyder nedenunder og find den filmklub dig passer dig og dine filmbehov bedst!
-                </p>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div class="section-boks-1-billede">
-              <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
+              <div class="section-boks-1-billede">
+                <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  
-    <!-- Entry kort -->
-    <section class="forside-entry-section">
-    <div class="forside-entry-grid">
-      <router-link
-        v-for="klub in filmklubber"
-        :key="klub.id"
-        :to="`/filmklub/${klub.slug}`"
-        class="forside-entry-card"
-      >
-        <img
+      </section>
+      
+      <!-- Entry kort -->
+      <section class="forside-entry-section">
+        <div class="forside-entry-grid">
+          <router-link
+          v-for="klub in filmklubber"
+          :key="klub.id"
+          :to="`/filmklub/${klub.slug}`"
+          class="forside-entry-card"
+          >
+          <img
           :src="klub.acf?.['filmklub-billede']?.url || '../assets/img/placeholder.jpg'"
           :alt="klub.title.rendered"
-        />
-        <hr />
-        <h3 v-html="klub.title.rendered"></h3>
-        <p>{{ klub.acf?.['filmklub-teaser-tekst'] || '' }}</p>
-      </router-link>
-    </div>
-  </section>
+          />
+          <hr />
+          <h3 v-html="klub.title.rendered"></h3>
+          <p>{{ klub.acf?.['filmklub-teaser-tekst'] || '' }}</p>
+        </router-link>
+      </div>
+    </section>
+  </main>
 
    <Footer />
 
@@ -71,11 +90,7 @@ onMounted(async () => {
   
 
 <style scoped>
-.section-boks-1-container {
-  padding: var(--space-container);
 
-
-}
 
 .section-boks-1 {
   background: #202F4D;
@@ -131,8 +146,8 @@ onMounted(async () => {
 }
 
 .forside-entry-section {
-  margin-bottom: 12rem;
-  padding: var(--space-container);
+  margin-bottom: var(--space-section);
+  padding-top: var(--space-section);
 }
 
 .forside-entry-grid {

@@ -1,6 +1,22 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Event',
+  meta: [
+    {
+      name: 'description',
+      content: 'Enkelt event hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'event, oversigt, information, enkelt'
+    }
+  ]
+})
 
 const route = useRoute()
 const eventSlug = route.params.event
@@ -31,12 +47,12 @@ onMounted(async () => {
   }"
 >
   <HeaderImageBackground />
+  <div class="eventHeroContent widthContainer">
       <div class="backButton">
       <NuxtLink to="/events" class="backbtn">
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
     </div>
-    <div class="eventHeroContent">
       <img
         :src="singleEvent.acf.event_billede.url"
         :alt="singleEvent.title.rendered"
@@ -89,14 +105,14 @@ onMounted(async () => {
 .eventHeroWrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem;
+  gap: 1rem;
   position: relative;
   background-size: cover;
   background-position: center;
-  padding: var(--space-container);
   border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
+  border-radius: 0;
 }
 
 .eventHeroContent {
@@ -106,7 +122,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: stretch;
   width: 100%;
-  padding-top: 1rem;
+    padding: var(--space-container);
 }
 
 .eventPoster {
@@ -209,12 +225,7 @@ onMounted(async () => {
   background: transparent;
 }
 
-@media (min-width: 1200px) {
-  .eventHeroContent,
-  .showtimesSection {
-    max-width: 1200px;
-  }
-}
+
 
 @media (min-width: 700px) {
   .eventInfoBox {
@@ -222,7 +233,7 @@ onMounted(async () => {
   }
 }
 
-@media (min-width: 400px) {
+@media (min-width: 100px) {
   .eventPoster {
     max-width: 400px;
   }

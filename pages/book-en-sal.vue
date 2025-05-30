@@ -1,11 +1,27 @@
 <script setup>
 import Header from '@/components/Header.vue';
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Book En Sal',
+  meta: [
+    {
+      name: 'description',
+      content: 'Book en sal hos Biffen i Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'book, sal, info, billetter, firma, fødselsdag, aalborg, film, biograf, biffen'
+    }
+  ]
+})
 
 </script>
 
 <template>
   <Header />
-  <main>
+  <main class="widthContainer">
     <section class="introEvents">
     <img src="../assets/img/ArrangementMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/ArrangementDesktop.png" alt="" class="pcbillede">

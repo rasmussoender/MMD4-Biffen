@@ -31,7 +31,7 @@ onMounted(async () => {
 </script>
 <template>
   <Header />
-  <main>
+  <main class="widthContainer">
         <div class="section-boks-1-container">
     <div class="section-boks-1">
       <div class="section-boks-1-content">
@@ -208,6 +208,30 @@ onMounted(async () => {
   height: 4px;
   background-color: #F63758;
 }
+
+
+/* Mobile: max-width 768px */
+@media (max-width: 768px) {
+
+
+  .section-boks-1 {
+    padding: var(--space-container);
+  }
+  .section-boks-1-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .section-boks-1-text,
+  .section-boks-1-video {
+    max-width: 100%;
+  }
+  .section-boks-1-video video {
+    height: auto;
+  }
+  
+}
+
+
 
 
 

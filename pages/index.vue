@@ -333,7 +333,7 @@ onMounted(async () => {
 }
 
 .forside-entry-section {
-  margin-bottom: 4rem;
+  margin-bottom: var(--space-section);
 }
 .forside-entry-card {
     text-decoration: none;
@@ -424,7 +424,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   gap: 7rem;
-  margin-top: var(--space-section);
+  padding: var(--space-section);
   max-width: 100%;
   box-sizing: border-box;
   flex-wrap: wrap;
@@ -570,7 +570,7 @@ onMounted(async () => {
 }
 
 /* Tablet: 769px - 1024px */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* @media (min-width: 769px) and (max-width: 1024px) {
   .forside-entry-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -594,7 +594,7 @@ onMounted(async () => {
     width: 100%;
     max-width: 400px;
   }
-}
+} */
 
 
 

@@ -1,16 +1,30 @@
 <script setup>
 import Header from '@/components/Header.vue';
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Gavekort & Øvrige billetter',
+  meta: [
+    {
+      name: 'description',
+      content: 'Køb gavekort og øvrige billetter hos Biffen i Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'gavekort, info, billetter, firma, aalborg, film, biograf, biffen'
+    }
+  ]
+})
 
 </script>
 
 <template>
   <Header />
-  <main>
+  <main class="widthContainer">
+    <h1 class="overskrift-med-streg"><span>Vores udvalg</span></h1>
     <section class="udvalg">
-      <div class="headingNdLine">
-      <h1>Vores udvalg</h1>
-      <div></div>
-      </div>
+
       <article>
         <div class="udvalgCard">
           <img src="/public/img/GavepakkeLogo.png" alt="" class="logo">
@@ -124,14 +138,12 @@ h1,h2,h3,h4,h5,h6{
 .introWrapper{
   padding-bottom: 20px;
 }
-main{
-  padding: 0px 12px;
-}
 
 .udvalg{
   display: grid;
   justify-items: center;
   row-gap: 6rem;
+  padding-top: 2rem;
 }
 
 .udvalgCard{

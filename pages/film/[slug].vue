@@ -1,6 +1,22 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Film',
+  meta: [
+    {
+      name: 'description',
+      content: 'Biograffilm hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'biograf, aalborg, film, vintage, se'
+    }
+  ]
+})
 
 const movie = ref(null);
 const route = useRoute();
@@ -109,17 +125,17 @@ const formattedDate = (str) => {
 }">
 <HeaderImageBackground />
 
-        <div class="backButton underlineAnimationLinks">
-      <NuxtLink
-        to="#"
-        class="backbtn"
-        @click.prevent="$router.back()"
-      >
-        <i class="fa fa-arrow-left"></i> Tilbage
-      </NuxtLink>
-    </div>
-    
-      <div class="hero">
+<div class="hero widthContainer">
+        
+                <div class="backButton underlineAnimationLinks ">
+              <NuxtLink
+                to="#"
+                class="backbtn"
+                @click.prevent="$router.back()"
+              >
+                <i class="fa fa-arrow-left"></i> Tilbage
+              </NuxtLink>
+            </div>
         <img :src="movie.acf.poster.url" :alt="movie.title.rendered" class="moviePoster" />
 
         <div class="movieInfoBox">
@@ -148,73 +164,75 @@ const formattedDate = (str) => {
         </div>
       </div>
     </section>
+<div class="widthContainer">
 
-<section class="showtimesSection">
-  <div class="timesWrapper">
-    <div class="arrowsWrapper">
-
-      <div class="timesNav left">
-        <button @click="prevDays" :disabled="visibleStart === 0">
-          <i class="fa-solid fa-caret-left"></i>
-        </button>
-      </div>
-      <div class="timesNav right">
-        <button @click="nextDays" :disabled="visibleStart + visibleCount >= movie.acf.spilletider.filmvisning.length">
-          <i class="fa-solid fa-caret-right"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="days">
-      <div class="showtimeDayCard" v-for="session in visibleSessions" :key="session.filmdato">
-        <div class="dateCard">
-        <h4 class="date" v-html="formattedDate(session.filmdato)"></h4>
+  <section class="showtimesSection">
+    <div class="timesWrapper">
+      <div class="arrowsWrapper">
+        
+        <div class="timesNav left">
+          <button @click="prevDays" :disabled="visibleStart === 0">
+            <i class="fa-solid fa-caret-left"></i>
+          </button>
         </div>
-        <div class="showtimeSlots">
-          <router-link
+        <div class="timesNav right">
+          <button @click="nextDays" :disabled="visibleStart + visibleCount >= movie.acf.spilletider.filmvisning.length">
+            <i class="fa-solid fa-caret-right"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="days">
+        <div class="showtimeDayCard" v-for="session in visibleSessions" :key="session.filmdato">
+          <div class="dateCard">
+            <h4 class="date" v-html="formattedDate(session.filmdato)"></h4>
+          </div>
+          <div class="showtimeSlots">
+            <router-link
             v-for="time in session.spilletid"
             :key="time.spilletidspunkt"
             class="time"
             :to="`/film/visning/${movie.slug}/${session.filmdato.replaceAll('/', '-')}/${time.spilletidspunkt.replace(':', '-')}`"
-          >
+            >
             {{ time.spilletidspunkt }}
           </router-link>
         </div>
       </div>
     </div>
-
+    
   </div>
 </section>
 
-    <section class="actors">
-      <h2 class="overskrift-med-streg"><span>Top skuespillere</span></h2>
+<section class="actors">
+  <h2 class="overskrift-med-streg"><span>Top skuespillere</span></h2>
+  
+  <div class="actorSection">
+    <a
+    class="actorGroup"
+    v-for="actor in cast"
+    :key="actor.id"
+    :href="`https://www.themoviedb.org/person/${actor.id}`"
+    target="_blank"
+    rel="noopener noreferrer"
+    >
+    <img
+    class="actorImg"
+    :src="actor.profile_path ? `https://image.tmdb.org/t/p/w300${actor.profile_path}` : '/img/actorPlaceholderIMG.jpg'"
+    :alt="actor.name"
+    />
+    <h3 class="actorName">{{ actor.name }}</h3>
+    <h4 class="actorRole">{{ actor.character }}</h4>
+  </a>
+</div>
+<div class="actorbutton">
+  <a :href="movie.acf.moviedb_actors" target="_blank" class="btn outline">Se alle skuespillere</a>
+</div>
+</section>
+</div>
+</main>
 
-      <div class="actorSection">
-        <a
-          class="actorGroup"
-          v-for="actor in cast"
-          :key="actor.id"
-          :href="`https://www.themoviedb.org/person/${actor.id}`"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            class="actorImg"
-            :src="actor.profile_path ? `https://image.tmdb.org/t/p/w300${actor.profile_path}` : '/img/actorPlaceholderIMG.jpg'"
-            :alt="actor.name"
-          />
-          <h3 class="actorName">{{ actor.name }}</h3>
-          <h4 class="actorRole">{{ actor.character }}</h4>
-        </a>
-      </div>
-      <div class="actorbutton">
-        <a :href="movie.acf.moviedb_actors" target="_blank" class="btn outline">Se alle skuespillere</a>
-      </div>
-    </section>
-  </main>
-
-  <div v-else><i class="fa fa-spinner fa-spin"> </i>Loader film detaljer...</div>
-  <Footer />
+<div v-else><i class="fa fa-spinner fa-spin"> </i>Loader film detaljer...</div>
+<Footer />
 </template>
 
 
@@ -237,7 +255,6 @@ const formattedDate = (str) => {
   position: relative;
   background-size: cover;
   background-position: center;
-  padding: var(--space-container);
   border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
@@ -247,10 +264,12 @@ const formattedDate = (str) => {
 .hero {
   display: flex;
   flex-wrap: wrap;
-  gap: 4rem;
+  gap: 0 4rem;
   justify-content: center;
   align-items: stretch;
   width: 100%;
+    padding: var(--space-container);
+
 }
 
 .backButton {
@@ -301,7 +320,7 @@ const formattedDate = (str) => {
 .movieInfoBox h1 {
   margin-top: 0;
   margin-bottom: 1rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .genreTags {
@@ -558,6 +577,7 @@ const formattedDate = (str) => {
     padding: 0 20px;
     flex-direction: column;
     align-items: center;
+    gap: 2rem;
   }
 
   .moviePoster {
@@ -681,10 +701,7 @@ const formattedDate = (str) => {
   }
 
   .backButton {
-    margin-top: 0.5rem;
-    padding-left: 20px;
     position: relative;
-    top: -30px;
   }
 
   .days::-webkit-scrollbar {

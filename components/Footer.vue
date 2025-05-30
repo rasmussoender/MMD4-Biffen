@@ -3,7 +3,7 @@
 
 <template>
 <footer>
-  <div class="footerContentWrapper">
+  <div class="footerContentWrapper widthContainer">
     <div class="footerLeft">
           <a class="logoWrapper" href="/">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="footerLogo" />
@@ -61,9 +61,10 @@
       </div>
     </div>
   </div>
+<div class="widthContainer">
 
   <hr class="footerDivider" />
-
+  
   <div class="footerBottom">
     <p>© 2025 Biffen Nordkraft. Alle rettigheder forbeholdes.</p>
     <div class="footerSocials">
@@ -72,6 +73,7 @@
       <a href="https://www.instagram.com/biffennordkraft/"><i class="fa-brands fa-instagram"></i></a>
     </div>
   </div>
+</div>
 </footer>
 
 </template>
@@ -94,8 +96,8 @@ footer {
   background-color: var(--secondary-blue);
   color: white;
   padding: var(--space-container);
-  margin-top: var(--space-section);
   padding-bottom: 2rem;
+  margin-top: var(--space-section);
 }
 
 .footerContentWrapper {

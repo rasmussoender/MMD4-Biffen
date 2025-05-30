@@ -1,6 +1,22 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useHead } from '#app'
+
+// Seo/meta
+useHead({
+  title: 'Filmklub',
+  meta: [
+    {
+      name: 'description',
+      content: 'Filmklub hos biffen Nordkraft'
+    },
+    {
+      name: 'keywords',
+      content: 'biograf, filmklub, film, klub, underholding'
+    }
+  ]
+})
 
 const slug = useRoute().params.slug
 const klub = ref(null)
@@ -40,13 +56,13 @@ onMounted(async () => {
   >
     <HeaderImageBackground />
 
-    <div class="backButton">
-      <NuxtLink to="/filmklub" class="backbtn">
-        <i class="fa fa-arrow-left"></i> Tilbage
-      </NuxtLink>
-    </div>
-
-    <div class="hero">
+    
+    <div class="hero widthContainer">
+      <div class="backButton">
+        <NuxtLink to="/filmklub" class="backbtn">
+          <i class="fa fa-arrow-left"></i> Tilbage
+        </NuxtLink>
+      </div>
       <div class="movieInfoBox">
         <h2 class="overskrift-boks-1">
           <span v-html="klub?.title?.rendered" />
@@ -72,7 +88,7 @@ onMounted(async () => {
     </div>
   </section>
 
-  <main v-if="klub" class="movieDetailsPage">
+  <main v-if="klub" class="movieDetailsPage widthContainer">
     <h2 class="overskrift-med-streg"><span>Program</span></h2>
     <section>
       <div class="film-program-container">
@@ -149,6 +165,17 @@ onMounted(async () => {
 
 .movieDetailsPage p {
   font-size: 15px;
+}
+
+
+@media (min-width: 1500px) {
+  .widthContainer {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0;
+  }
 }
 .movieHeroWrapper {
 
