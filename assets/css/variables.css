@@ -36,7 +36,7 @@
 /* Afstande */
 @media (max-width: 767px) {
   :root {
-    --space-container: 2rem;
+    --space-container: 1rem;
     --font-standard: 15px;
   }
 }

@@ -46,7 +46,7 @@ onMounted(async () => {
             backgroundPosition: 'center'
           }"
         >
-          <div class="slide-content">
+          <div class="slide-content widthContainer">
 
             <p class="forside-hero-genre">
             <template v-for="(g, i) in film.acf.genre" :key="i">
@@ -130,9 +130,12 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--space-container);
   color: white;
   background-color: black;
+}
+
+.slide-content {
+  padding: var(--space-container);
 }
 
 .custom-controls {
@@ -242,7 +245,7 @@ onMounted(async () => {
 .forside-hero-description-container {
   margin-bottom: 3rem;
   margin-top: 3rem;
-  width: 60vw;
+  width: 50vw;
 }
 
 .forside-hero-description {
@@ -261,6 +264,7 @@ onMounted(async () => {
   }
   .forside-hero-title {
     font-size: 2rem;
+    margin-bottom: 0;
   }
   .forside-hero-description-container {
     width: 100%;
@@ -273,9 +277,14 @@ onMounted(async () => {
     font-size: 15px;
   }
 
-  .forside-hero-detail  {
-    font-size: 16px;
+    .forside-hero-details  {
+    margin-top: 1rem;
   }
+
+  .forside-hero-detail  {
+    font-size: 12px;
+  }
+
 
   .generalButtons {
     justify-content: center;
@@ -284,6 +293,10 @@ onMounted(async () => {
   .forside-hero-details {
     margin-bottom: 0;
     gap: 0.5rem;
+  }
+
+  .forside-hero-genre {
+    display: none;
   }
 
 }

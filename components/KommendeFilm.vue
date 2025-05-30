@@ -28,10 +28,10 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
     <i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...
   </div>
 
-  <div v-else class="movieCards">
+  <div v-else class="movieCards widthContainer">
     <div v-for="movie in displayedMovies" :key="movie.id" class="movieCard">
       <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
-        <div class="moviePosterWrapper">
+        <div class="moviePosterWrapper imageHoverEffect">
           <img
             :src="movie.acf.poster.url"
             :alt="movie.title.rendered"
@@ -74,7 +74,6 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
 
 .movieCard {
   border-radius: var(--radius-card);
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -98,11 +97,6 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
-}
-
-.movieCard:hover .movieImage {
-  transform: scale(1.15);
 }
 
 .movieOverlay {
