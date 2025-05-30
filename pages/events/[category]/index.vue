@@ -42,19 +42,18 @@ onMounted(async () => {
 
     
     <div class="eventInfoBox">
+       <div class="imageWrapper">
+      <img
+        :src="categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_billede?.url"
+        :alt="categoryList.find(cat => cat.slug === currentCategorySlug)?.name"
+      />
+    </div>
 
     <div class="textContent">
       <h1>{{ categoryList.find(cat => cat.slug === currentCategorySlug)?.name }}</h1>
       <p class="moviedescription">
         {{ categoryList.find(cat => cat.slug === currentCategorySlug)?.description }}
       </p>
-    </div>
-
-    <div class="imageWrapper">
-      <img
-        :src="categoryList.find(cat => cat.slug === currentCategorySlug)?.acf?.event_taksonomi_billede?.url"
-        :alt="categoryList.find(cat => cat.slug === currentCategorySlug)?.name"
-      />
     </div>
   </div>
 </section>
@@ -183,6 +182,7 @@ a {
 }
 
 .eventInfoBox {
+  flex-direction: row-reverse;
   display: flex;
   gap: 1rem;
   background: rgba(32, 47, 77, 0.85);
@@ -258,7 +258,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-
+@media(min-width: 430px) and (max-width: 767px){
+  .eventInfoBox{
+    display: block;
+  }
+}
 
 </style>
 

@@ -30,8 +30,8 @@ const sortedEvents = computed(() => {
     <Header />
     <main>
       <section class="introEvents">
-        <img src="../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
-        <img src="/assets/img/IntroEventDesktop.png" alt="" class="pcbillede">
+        <img src="../../assets/img/IntroEventMobil.png" alt="" class="mobilbillede">
+        <img src="../../assets/img/IntroEventDesktop.png" alt="" class="pcbillede">
         <div class="introWrapper">
         <div class="headingNdLine">
           <h1>Biffens event</h1>
@@ -219,7 +219,8 @@ main {
 /* EVENTS GRID LAYOUT */
 .events section, .upcomingEvents section {
   display: grid;
-  row-gap: 30px;
+  column-gap: 2rem;
+  row-gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
 }
 
@@ -276,12 +277,7 @@ main {
   display: block;
 }
 
-main {
-  padding: 0 var(--space-container);
-}
-
 .upcomingEvents section {
-  grid-template-columns: repeat(3, 1fr);
   column-gap: 2rem;
   row-gap: 2rem;
 }
@@ -386,6 +382,39 @@ main {
   margin: 0;
   font-size: 18px;
   font-weight: 300;
+}
+
+
+@media (min-width: 1000px){
+  main {
+  padding: 0 var(--space-container);
+}
+}
+
+@media(min-width: 430px) and (max-width: 767px){
+  .introEvents{
+    grid-template-columns: unset;
+  }
+  .introEvents{
+    display: block;
+  }
+  .introEvents img {
+    justify-self: unset;
+    width: 100%;
+  }
+  
+}
+
+@media (min-width: 768px) and (max-width:1024px){
+  .introEvents img{
+    width: 75%;
+     justify-self: unset;
+  }
+
+   .introEvents{
+    display: block;
+  }
+
 }
 
 
