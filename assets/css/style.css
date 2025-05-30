@@ -74,6 +74,7 @@ a {
 @media (max-width: 500px)  {
   .overskrift-med-streg {
     font-size: 23px;
+    padding-bottom: 1rem;
   }
 
 }

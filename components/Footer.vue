@@ -68,13 +68,13 @@
   <div class="footerBottom">
     <p>© 2025 Biffen Nordkraft. Alle rettigheder forbeholdes.</p>
     <div class="footerSocials">
-      <a href="https://www.facebook.com/BiffenNordkraft" aria-label="Facebook">
+      <a href="https://www.facebook.com/BiffenNordkraft" aria-label="Facebook" target="_blank">
         <i class="fa-brands fa-facebook-f"></i>
     </a>
-    <a href="https://www.linkedin.com/company/biffen-nordkraft/?originalSubdomain=dk" aria-label="LinkedIn">
+    <a href="https://www.linkedin.com/company/biffen-nordkraft/?originalSubdomain=dk" aria-label="LinkedIn" target="_blank">
       <i class="fa-brands fa-linkedin-in"></i>
     </a>
-    <a href="https://www.instagram.com/biffennordkraft/" aria-label="Instagram">
+    <a href="https://www.instagram.com/biffennordkraft/" aria-label="Instagram" target="_blank">
       <i class="fa-brands fa-instagram"></i>
     </a>
 

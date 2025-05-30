@@ -703,6 +703,8 @@ onMounted(async () => {
   border-radius: 4px;
   width: 100%;
   max-width: 600px;
+    box-shadow: 0px 0px 20px 2px #4C90FF;
+
 }
 
 .seat-row {

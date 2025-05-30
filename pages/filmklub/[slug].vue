@@ -64,9 +64,9 @@ onMounted(async () => {
         </NuxtLink>
       </div>
       <div class="movieInfoBox">
-        <h2 class="overskrift-boks-1">
-          <span v-html="klub?.title?.rendered" />
-        </h2>
+
+
+        <h2 class="overskrift-med-streg"><span></span><span v-html="klub?.title?.rendered" /></h2>
 
         <div class="movie-description-container">
           <div v-if="klub?.acf?.['filmklub-gruppe1']">
@@ -195,7 +195,7 @@ onMounted(async () => {
 .hero {
   display: flex;
   flex-wrap: wrap;
-  gap: 4rem;
+  gap: 2rem;
   justify-content: center;
   align-items: stretch;
   width: 100%;
@@ -310,6 +310,25 @@ onMounted(async () => {
   width: 50%;
   height: 4px;
   background-color: #F63758;
+}
+
+@media (max-width: 1000px) {
+  .movie-description-container {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0;
+  }
+
+  .backButton {
+  padding-top: 5rem;
+}
+
+.hero {
+  gap: 1rem
+}
+
+
+
 }
 
 
