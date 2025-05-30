@@ -1,35 +1,45 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 
 const movie = ref(null);
 const route = useRoute();
 const slug = route.params.slug;
-
-// https://www.themoviedb.org/ API KEY
-const TMDB_API_KEY = 'b65594f1d77a7f9b07f9c713616d0cc8';
-// Skuespillere
 const cast = ref([]);
-// Backdrop billede
 const backdropImage = ref('');
 
+const TMDB_API_KEY = 'b65594f1d77a7f9b07f9c713616d0cc8';
+
+const visibleStart = ref(0);
+const visibleCount = ref(5);
+
+const updateVisibleCount = () => {
+  const width = window.innerWidth;
+  if (width <= 768) {
+    visibleCount.value = 3;
+  } else if (width <= 1024) {
+    visibleCount.value = 4;
+  } else {
+    visibleCount.value = 5;
+  }
+};
 
 onMounted(async () => {
+  updateVisibleCount();
+  window.addEventListener('resize', updateVisibleCount);
+
   try {
     const response = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?slug=${slug}`);
     const data = await response.json();
     movie.value = data[0];
 
-    // TMDB ID
     const tmdbId = movie.value?.acf?.moviedb_id;
 
     if (tmdbId) {
-      // Fetch cast
       const castResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=${TMDB_API_KEY}&language=da`);
       const castData = await castResponse.json();
       cast.value = castData.cast?.slice(0, 6) || [];
 
-      // Fetch background image (backdrop)
       const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=da`);
       const movieData = await movieResponse.json();
 
@@ -37,45 +47,44 @@ onMounted(async () => {
         backdropImage.value = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`;
       }
 
-      // Hent rating fra tmdb
       if (movieData.vote_average) {
         movie.value.rating = movieData.vote_average;
       }
-
     }
   } catch (error) {
     console.error('Der skete en fejl!', error);
   }
 });
 
-// Spilletid knapper
-const visibleStart = ref(0);
-const visibleCount = 5;
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateVisibleCount);
+});
 
 const nextDays = () => {
   if (movie.value) {
     const total = movie.value.acf.spilletider.filmvisning.length;
-    if (visibleStart.value + visibleCount < total) {
-      visibleStart.value += visibleCount;
+    if (visibleStart.value + visibleCount.value < total) {
+      visibleStart.value += visibleCount.value;
     }
   }
 };
 
 const prevDays = () => {
-  if (visibleStart.value - visibleCount >= 0) {
-    visibleStart.value -= visibleCount;
+  if (visibleStart.value - visibleCount.value >= 0) {
+    visibleStart.value -= visibleCount.value;
   }
 };
 
 const visibleSessions = computed(() => {
-  return movie.value?.acf.spilletider.filmvisning.slice(visibleStart.value, visibleStart.value + visibleCount) || [];
+  return movie.value?.acf.spilletider.filmvisning.slice(
+    visibleStart.value,
+    visibleStart.value + visibleCount.value
+  ) || [];
 });
 
-// Formatering af dato (spilletider)
 const formattedDate = (str) => {
   const [d, m] = str.split('/').map(Number);
   const date = new Date(2000, m - 1, d);
-
   return `
     <div class="dateContent">
       <div class="date-day">${d}</div>
@@ -83,9 +92,6 @@ const formattedDate = (str) => {
     </div>
   `;
 };
-
-
-
 </script>
 
 <template>
@@ -235,8 +241,7 @@ const formattedDate = (str) => {
   border-radius: var(--radius-section);
   justify-content: center;
   align-items: center;
-  
-
+  border-radius: 0;
 }
 
 .hero {
@@ -250,7 +255,8 @@ const formattedDate = (str) => {
 
 .backButton {
   width: 100%;
-  padding-top: 2rem;
+  padding-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .backbtn {
@@ -365,7 +371,6 @@ const formattedDate = (str) => {
   gap: 1rem;
 }
 
-
 .btn.red {
   background-color: #ff3b5c;
   color: white;
@@ -387,24 +392,23 @@ const formattedDate = (str) => {
   padding-top: 5rem;
   padding-bottom: 5rem;
   margin: var(--space-container);
-  margin-top: 0 ;
+  margin-top: 0;
 }
-
 
 .days {
   display: flex;
   flex-wrap: nowrap;
   gap: 1rem;
   overflow-x: auto;
-  padding: 1rem 3rem; 
+  padding: 1rem 3rem;
 }
+
 .showtimeDayCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: .5rem;
   width: 10rem;
-  
 }
 
 .dateCard {
@@ -413,7 +417,6 @@ const formattedDate = (str) => {
   border-radius: var(--radius-button);
   width: 100%;
   height: 7rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -433,8 +436,6 @@ const formattedDate = (str) => {
   font-size: 1.3rem;
 }
 
-
-
 .showtimeSlots {
   display: flex;
   flex-direction: column;
@@ -452,13 +453,13 @@ const formattedDate = (str) => {
   font-weight: 600;
   font-size: 1rem;
 }
+
 .timesWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
-
 
 .timesNav {
   position: absolute;
@@ -469,12 +470,9 @@ const formattedDate = (str) => {
 .timesNav.left {
   left: 1rem;
 }
-
 .timesNav.right {
   right: 1rem;
 }
-
-
 
 .timesNav button {
   background: var(--interactive-red);
@@ -493,9 +491,12 @@ const formattedDate = (str) => {
   cursor: not-allowed;
 }
 
+/* === Skuespillere === */
 .actors {
-    padding: var(--space-container);
-    padding-top: 0;
+  padding: var(--space-container);
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .actors a {
@@ -503,34 +504,29 @@ const formattedDate = (str) => {
 }
 
 .actorSection {
- display: grid;
+  display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 20px; 
+  gap: 20px;
+  margin-top: 2rem;
 }
-
-.arrowsWrapper {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
 
 .actorImg {
-  width: 100%;     
-  height: 70%;     
-  object-fit: cover;  
-  border-radius: 8px; 
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 8px;
   transition: transform 0.5s ease;
 }
 
-:hover.actorImg {
-    transform: scale(1.10);
+.actorImg:hover {
+  transform: scale(1.10);
 }
 
-
-.actorName, .actorRole {
+.actorName,
+.actorRole {
   text-align: center;
-  margin-top: 0;
+  margin-top: 0.3rem;
   margin-bottom: 0;
 }
 
@@ -552,119 +548,341 @@ const formattedDate = (str) => {
   gap: 1rem;
 }
 
-@media (max-width: 1024px) {
-    .dateCard  {
-    width: 100%;
-  }
-
-
-
-  .days {
-    padding: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .showtimeDayCard {
-    min-width: 140px;
-  }
-
-
-}
-
-
 @media (max-width: 768px) {
-  .arrowsWrapper {
-    justify-content: space-between;
-    padding: 1rem;
-    width: 100%;
-  }
-  .actorSection {
-    grid-template-columns: repeat(3, 1fr);
+  .movieHeroWrapper {
+    padding: 0;
+    padding-top: 100px;
   }
 
-  .timesWrapper {
+  .hero {
+    padding: 0 20px;
     flex-direction: column;
     align-items: center;
   }
 
+  .moviePoster {
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-section);
+    box-shadow: 0px 0px 20px 2px #4C90FF;
+  }
+
+  .movieInfoBox {
+    padding: 1.5rem 20px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .showtimesSection {
+    width: calc(100% - 40px);
+    padding: 3rem 20px;
+    border-radius: 12px;
+    background: var(--secondary-blue);
+    box-sizing: border-box;
+    margin: 5rem 20px;
+  }
+
+  .actors {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 3rem;
+  }
+
+  .actorSection {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+
+  .timesWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+  }
+
+  .arrowsWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
   .timesNav {
-    position: static;
+    position: relative;
     transform: none;
-    margin: 0 0.5rem; 
     width: auto;
     display: flex;
     justify-content: center;
   }
 
-  .timesNav.left, 
+  .timesNav.left,
   .timesNav.right {
-    width: auto;  
-  }
-
-  .timesNav.left {
-    order: 1;
+    flex: 1;
+    justify-content: flex-start;
   }
 
   .timesNav.right {
-    order: 1;
+    justify-content: flex-end;
   }
 
   .days {
-    order: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.8rem;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .timesWrapper > .timesNav.left,
-  .timesWrapper > .timesNav.right {
-    display: inline-flex;
-  }
-
-  .timesWrapper > .timesNav.left {
-    margin-right: 1rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .days {
-    padding: 1.5rem 1rem;
-    flex-direction: column;
-    gap: 2rem;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   .showtimeDayCard {
-    width: 100%;
-    align-items: center;
+    flex: 1;
+    min-width: 0;
+    max-width: calc(33.333% - 0.533rem);
+    box-sizing: border-box;
+  }
+
+  .dateCard {
+    height: 5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .date-day {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ff3b5c;
+  }
+
+  .date-month {
+    font-size: 0.75rem;
+    text-transform: capitalize;
+  }
+
+  .showtimeSlots {
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
   .time {
     width: 100%;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.3rem;
+    box-sizing: border-box;
   }
 
-}
+  .backButton {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    position: relative;
+    top: -30px;
+  }
 
+  .days::-webkit-scrollbar {
+    display: none;
+  }
 
-
-
-/* @media (min-width: 1200px) {
-  .hero, .showtimesSection {
-    max-width: 1200px;
+  .days {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
-@media (min-width: 700px) {
-  .movieInfoBox {
-    max-width: 700px;
+@media (min-width: 769px) and (max-width: 1024px) {
+  .movieHeroWrapper {
+    padding: 0;
+    padding-top: 100px;
   }
-}
 
-@media (min-width: 400px) {
+  .hero {
+    padding: 0 50px;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .moviePoster {
-    max-width: 400px;
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-section);
+    box-shadow: 0px 0px 20px 2px #4C90FF;
   }
-} */
+
+  .movieInfoBox {
+    padding: 1.5rem 50px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .showtimesSection {
+    width: calc(100% - 100px);
+    padding: 3rem 50px;
+    border-radius: 12px;
+    background: var(--secondary-blue);
+    box-sizing: border-box;
+    margin: 5rem 50px;
+  }
+
+  .actors {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 3rem;
+  }
+
+  .actorSection {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+
+  .actorImg {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 8px;
+    transition: transform 0.5s ease;
+  }
+
+  .actorImg:hover {
+    transform: scale(1.10);
+  }
+
+  .actorName,
+  .actorRole {
+    text-align: center;
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+  }
+
+  .actorName {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .actorRole {
+    font-size: 15px;
+    font-weight: 200;
+  }
+
+  .actorbutton {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: right;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .timesWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+  }
+
+  .arrowsWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .timesNav {
+    position: relative;
+    transform: none;
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .timesNav.left,
+  .timesNav.right {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .timesNav.right {
+    justify-content: flex-end;
+  }
+
+  .days {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.8rem;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .showtimeDayCard {
+    flex: 1;
+    min-width: 0;
+    max-width: calc(25% - 0.75rem);
+    box-sizing: border-box;
+  }
+
+  .dateCard {
+    height: 5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .date-day {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ff3b5c;
+  }
+
+  .date-month {
+    font-size: 0.75rem;
+    text-transform: capitalize;
+  }
+
+  .showtimeSlots {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .time {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.3rem;
+    box-sizing: border-box;
+  }
+
+  .backButton {
+    margin-top: 0.5rem;
+    padding-left: 50px;
+    position: relative;
+    top: -30px;
+  }
+
+  .days::-webkit-scrollbar {
+    display: none;
+  }
+
+  .days {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+
 </style>
