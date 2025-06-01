@@ -1,27 +1,48 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, nextTick, computed } from 'vue'
+import gsap from 'gsap'
 
-const { limit = null } = defineProps(['limit']);
-const movies = ref([]);
+const { limit = null } = defineProps(['limit'])
+const movies = ref([])
 
-const isUpcoming = date => new Date(date) > new Date();
-const formatDate = date => new Date(date).toLocaleDateString('da-DK', { day: 'numeric', month: 'short', year: 'numeric' });
+const isUpcoming = date => new Date(date) > new Date()
+const formatDate = date =>
+  new Date(date).toLocaleDateString('da-DK', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  })
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
-    const data = await res.json();
+    const res = await fetch(
+      'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100'
+    )
+    const data = await res.json()
     movies.value = data
       .filter(m => isUpcoming(m.acf.udgivelsesdato))
-      .sort((a, b) => new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato));
+      .sort(
+        (a, b) =>
+          new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato)
+      )
+
+    await nextTick()
+    gsap.from('.movieCard', {
+      opacity: 0,
+      y: 30,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power2.out'
+    })
   } catch (err) {
-    console.error('Fejl:', err);
+    console.error('Fejl:', err)
   }
-});
+})
 
-const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : movies.value);
+const displayedMovies = computed(() =>
+  limit ? movies.value.slice(0, limit) : movies.value
+)
 </script>
-
 
 <template>
   <div v-if="movies.length === 0">
@@ -45,9 +66,7 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
             {{ formatDate(movie.acf.udgivelsesdato) }}
           </span>
 
-          <span class="upcomingTag">
-            Kommende
-          </span>
+          <span class="upcomingTag"> Kommende </span>
         </div>
       </NuxtLink>
       <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
@@ -59,15 +78,12 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
   </div>
 </template>
 
-
 <style scoped>
-
-
-
 .movieCards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
+  column-gap: 30px;
+  row-gap: 50px;
   margin-top: 30px;
   padding-bottom: 3rem;
 }
@@ -102,7 +118,11 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
 .movieOverlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at bottom, rgba(24, 31, 47, 1), transparent 100%);
+  background: radial-gradient(
+    circle at bottom,
+    rgba(24, 31, 47, 1),
+    transparent 100%
+  );
   z-index: 1;
 }
 
@@ -116,7 +136,6 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
   z-index: 1;
 }
 
-
 .upcomingTag {
   position: absolute;
   top: 10px;
@@ -129,7 +148,6 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
   border-radius: var(--radius-button);
   z-index: 2;
 }
-
 
 .movieDate {
   position: absolute;
@@ -164,15 +182,14 @@ const displayedMovies = computed(() => limit ? movies.value.slice(0, limit) : mo
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: auto; 
-  margin-top: 1.5rem; 
-  margin-left: auto; 
-  margin-right: auto; 
+  width: auto;
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
   transition: background 0.3s;
 }
 
 .ticketButton:hover {
   background: #e11d48;
 }
-
 </style>
