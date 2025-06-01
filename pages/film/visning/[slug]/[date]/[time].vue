@@ -1,7 +1,13 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useHead } from '#app'
+
+// Importer svg ikoner for sæder
+import ledigIcon from '@/assets/img/ledig.svg?raw'
+import valgtIcon from '@/assets/img/dit-valg.svg?raw'
+import optagetIcon from '@/assets/img/optaget.svg?raw'
+import hoverIcon from '@/assets/img/hover-seat.svg?raw'
 
 // Seo/meta
 useHead({
@@ -13,214 +19,114 @@ useHead({
     },
     {
       name: 'keywords',
-      content: 'sædereservation, film, biograf, biffen, sæder, bestil'
+      content: 'Reservation, sæde, film, alle, aalborg, biograftur, biffen'
     }
   ]
 })
 
-import ledigIcon from '@/assets/img/ledig.svg?raw'
-import valgtIcon from '@/assets/img/dit-valg.svg?raw'
-import optagetIcon from '@/assets/img/optaget.svg?raw'
-import hoverIcon from '@/assets/img/hover-seat.svg?raw'
+// Hent filmdata fra API
+onMounted(async () => {
+  const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie')
+  const movies = await res.json()
+  const movie = movies.find(m => m.slug === slug)
+  const valgtVisning = movie?.acf?.spilletider?.filmvisning.find(v => v.filmdato.replaceAll('/', '-') === date)
+  const valgtSpilletid = valgtVisning?.spilletid.find(spilletid => spilletid.spilletidspunkt.replace(':', '-') === time)
+  if (movie && valgtVisning && valgtSpilletid) visning.value = {
+    title: movie.title.rendered,
+    date: valgtVisning.filmdato,
+    time: valgtSpilletid.spilletidspunkt,
+    posterUrl: movie.acf.poster.url,
+    duration: movie.acf.varighed,
+    age: movie.acf.age?.[0]?.aldersgraense
+  }
+})
 
+//  Henter parametre for url
 const { slug, date, time } = useRoute().params
+
+// Reaktive variabler til filmvisning og billetantal
 const visning = ref(null)
-
-const selectedSeats = ref([])
-const hoverPreviewSeats = ref([])
-
-const prices = {
-  normal: 100,
-  senior: 85,
-  student: 85,
-}
-
 const ticketCounts = ref({ normal: 0, senior: 0, student: 0 })
 
+// Definerer billetpriserne
+const prices = { normal: 100, senior: 85, student: 85 }
+
+// Lav en liste med 6 kolonner sæder, og 14 i hver række og sæt dem til at være ledige og ikke valgt som default
+const columns = 6
+const rows = 14
 const seats = ref(
-  Array.from({ length: 6 }, (_, row) => {
-    const cols = row === 2 ? 13 : 14
-    return Array.from({ length: cols }, (_, col) => ({
-      id: `${row}-${col}`,
+  Array.from({ length: columns }, (_, column) =>
+    Array.from({ length: rows }, (_, row) => ({
+      id: `${column}-${row}`,
       taken: false,
       selected: false
     }))
-  })
+  )
 )
 
-const totalTicketsSelected = computed(() =>
-  ticketCounts.value.normal + ticketCounts.value.senior + ticketCounts.value.student
+//  antal billetter valgt i alt
+const totalSelected = computed(() =>
+  Object.values(ticketCounts.value).reduce((totalCount, currentCount) => totalCount + currentCount, 0)
 )
 
-function resetSelectedSeats() {
-  seats.value.forEach(row => {
-    row.forEach(seat => seat.selected = false)
-  })
-  selectedSeats.value = []
+// Tekstoversigt over valgte billetter i bunden
+const billetOversigt = computed(() =>
+  Object.entries(ticketCounts.value)
+    .filter(([, antal]) => antal > 0)
+    .map(([ticketType, antal]) => `${antal} x ${ticketType === 'student' ? 'studerende' : ticketType}`)
+    .join(', ') || 'Vælg billetter'
+)
+
+
+// Regner samlet pris for valgte billetter
+const totalPrice = computed(() =>
+  Object.entries(ticketCounts.value)
+    .reduce((samletPris, [ticketType, antal]) => samletPris + antal * prices[ticketType], 0)
+)
+
+// Opdater billetantal og nulstil valgte sæder når man vælger nye sæder
+function updateTicketCount(type, changeAmount) {
+  ticketCounts.value[type] = Math.max(0, ticketCounts.value[type] + changeAmount)
+  seats.value.flat().forEach(s => s.selected = false)
 }
 
-function updateTicketCount(type, delta) {
-  const newCount = Math.max(ticketCounts.value[type] + delta, 0)
-  if (ticketCounts.value[type] !== newCount) {
-    ticketCounts.value[type] = newCount
-    resetSelectedSeats()
-  }
-}
+// Reaktiv array med sæder der vises ved hover
+const hoverPreviewSeats = ref([])
 
+// Returner korrekt ikon afhængig af status på sæde
 function getSeatIcon(seat) {
-  if (seat.taken) return optagetIcon
-  if (seat.selected) return valgtIcon
-  if (hoverPreviewSeats.value.includes(seat.id)) return hoverIcon
-  return ledigIcon
+  return seat.taken ? optagetIcon : seat.selected ? valgtIcon :
+    hoverPreviewSeats.value.includes(seat.id) ? hoverIcon : ledigIcon
 }
 
-function toggleSeat() {
-  const count = totalTicketsSelected.value
-  if (count === 0 || hoverPreviewSeats.value.length !== count) return
-
-  const ids = hoverPreviewSeats.value.map(id => id.split('-').map(Number))
-  const rowIndex = ids[0][0]
-  const startIndex = ids[0][1]
-  const endIndex = ids[ids.length - 1][1]
-  const row = seats.value[rowIndex]
-
-  // Forhindre tom plads før
-  const before = startIndex - 1
-  if (
-    before >= 0 &&
-    !row[before].taken &&
-    !row[before].selected &&
-    (before === 0 || row[before - 1]?.taken)
-  ) {
-    alert('Du kan ikke efterlade et enkelt tomt sæde i starten af rækken.')
-    return
-  }
-
-  // Forhindre tom plads efter
-  const after = endIndex + 1
-  if (
-    after < row.length &&
-    !row[after].taken &&
-    !row[after].selected &&
-    (after === row.length - 1 || row[after + 1]?.taken)
-  ) {
-    alert('Du kan ikke efterlade et enkelt tomt sæde i slutningen af rækken.')
-    return
-  }
-
-  const valid = ids.every(([r, i]) => {
-    const s = seats.value[r]?.[i]
-    return s && !s.taken && !s.selected
-  })
-
-  if (!valid) return
-
-  resetSelectedSeats()
-  ids.forEach(([r, i]) => {
-    const s = seats.value[r][i]
-    s.selected = true
-    selectedSeats.value.push(s.id)
-  })
-}
-
-function handleSeatHover(rowIndex, seatIndex) {
-  const row = seats.value[rowIndex]
-  const count = totalTicketsSelected.value
-  let preview = []
-
-  if (count === 0) {
+// Håndter hover på sæder
+function handleSeatHover(row, i) {
+  if (!totalSelected.value) {
     hoverPreviewSeats.value = []
     return
   }
 
-  const rowLength = row.length
+  const seatRow = seats.value[row]
+  const group = start => seatRow.slice(start, start + totalSelected.value)
+    .every(s => !s.taken && !s.selected)
+    ? seatRow.slice(start, start + totalSelected.value).map(s => s.id)
+    : []
 
-  // Fremad (højre)
-  if (seatIndex + count <= rowLength) {
-    const group = row.slice(seatIndex, seatIndex + count)
-    if (group.every(s => !s.taken && !s.selected)) {
-      preview = group.map(s => s.id)
-    }
-  }
-
-  // Bagud (venstre)
-  if (preview.length < count && seatIndex - count + 1 >= 0) {
-    const group = row.slice(seatIndex - count + 1, seatIndex + 1)
-    if (group.every(s => !s.taken && !s.selected)) {
-      preview = group.map(s => s.id)
-    }
-  }
-
-  hoverPreviewSeats.value = preview
+  hoverPreviewSeats.value = group(i) || group(i - totalSelected.value + 1) || []
 }
 
-function clearHoverPreview() {
-  hoverPreviewSeats.value = []
+// Vælg sæder baseret på hover
+function toggleSeat() {
+  if (hoverPreviewSeats.value.length !== totalSelected.value) return
+
+  seats.value.flat().forEach(s => s.selected = false)
+
+  hoverPreviewSeats.value.forEach(id => {
+    const [row, column] = id.split('-').map(Number)
+    seats.value[row][column].selected = true
+  })
 }
 
-const billetOversigt = computed(() => {
-  const typer = []
-  if (ticketCounts.value.normal > 0)
-    typer.push(`${ticketCounts.value.normal} x normal billet`)
-  if (ticketCounts.value.senior > 0)
-    typer.push(`${ticketCounts.value.senior} x Senior +65 billet`)
-  if (ticketCounts.value.student > 0)
-    typer.push(`${ticketCounts.value.student} x Studerende`)
-  return typer.length > 0 ? typer.join(', ') : 'Vælg billetter'
-})
-
-const total = computed(() =>
-  ticketCounts.value.normal * prices.normal +
-  ticketCounts.value.senior * prices.senior +
-  ticketCounts.value.student * prices.student
-)
-
-const sluttidspunkt = computed(() => {
-  if (!visning.value?.time || !visning.value?.duration) return ''
-  const [startHour, startMinute] = visning.value.time.split(':').map(Number)
-  let hours = 0, minutes = 0
-  if (visning.value.duration.includes(':')) {
-    [hours, minutes] = visning.value.duration.split(':').map(Number)
-  } else {
-    const floatDuration = parseFloat(visning.value.duration.replace(',', '.'))
-    hours = Math.floor(floatDuration)
-    minutes = Math.round((floatDuration - hours) * 60)
-  }
-  const totalMinutes = hours * 60 + minutes + 20
-  const endDate = new Date()
-  endDate.setHours(startHour)
-  endDate.setMinutes(startMinute + totalMinutes)
-  const endHours = String(endDate.getHours()).padStart(2, '0')
-  const endMinutes = String(endDate.getMinutes()).padStart(2, '0')
-  return `${endHours}:${endMinutes}`
-})
-
-onMounted(async () => {
-  try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100')
-    const movies = await res.json()
-    const movie = movies.find(m => m.slug === slug)
-    const session = movie?.acf?.spilletider?.filmvisning?.find(s =>
-      s.filmdato.replaceAll('/', '-') === date
-    )
-    const timeSlot = session?.spilletid?.find(t =>
-      t.spilletidspunkt.replace(':', '-') === time
-    )
-    if (movie && session && timeSlot) {
-      visning.value = {
-        title: movie.title.rendered,
-        date: session.filmdato,
-        time: timeSlot.spilletidspunkt,
-        posterUrl: movie.acf.poster.url,
-        sal: timeSlot.sal,
-        duration: movie.acf.varighed,
-        age: movie.acf.age?.[0]?.aldersgraense
-      }
-    }
-  } catch (e) {
-    console.error('Fejl ved hentning:', e)
-  }
-})
 </script>
 
 
@@ -240,7 +146,7 @@ onMounted(async () => {
           <div class="show-info-bar">
             <p>Sal A</p>
             <p>{{ visning.date }}</p>
-            <p>{{ visning.time }} – {{ sluttidspunkt }}</p>
+            <p>{{ visning.time }}</p>
           </div>
         </div>
 
@@ -264,7 +170,6 @@ onMounted(async () => {
     <div class="screen">Lærred</div>
     <div v-for="(row, rowIndex) in seats" :key="rowIndex" class="seat-row">
       <span>{{ rowIndex + 1 }}</span>
-      <div v-if="rowIndex === 2" class="seat-spacer"></div>
       <div
         class="seat"
         v-for="(seat, seatIndex) in row"
@@ -280,7 +185,7 @@ onMounted(async () => {
     <div class="seat-legend">
       <div class="legend-item">
         <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: false })"></div>
-        <span>Ledige sæder</span>
+        <span>Ledige</span>
       </div>
       <div class="legend-item">
         <div class="seat-icon" v-html="getSeatIcon({ taken: false, selected: true })"></div>
@@ -300,7 +205,7 @@ onMounted(async () => {
     <strong>{{ billetOversigt }}</strong>
   </div>
   <div class="summary-right">
-    <strong>Pris i alt: {{ total }} kr</strong>
+    <strong>Pris i alt: {{ totalPrice }} kr</strong>
     <button class="buy-button">Køb billet(er)</button>
   </div>
 </div>
