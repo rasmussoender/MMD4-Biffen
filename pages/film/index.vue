@@ -1,9 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useHead } from '#app'
+import { ref, onMounted, nextTick } from 'vue';
+import { useHead } from '#app';
+import gsap from 'gsap';
+
 const movies = ref([]);
 
-// Seo/meta
+// SEO meta
 useHead({
   title: 'Alle Film',
   meta: [
@@ -16,35 +18,38 @@ useHead({
       content: 'biograf, alle, film, vintage, aalborg, biograftur'
     }
   ]
-})
-
+});
 
 onMounted(async () => {
   try {
     const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
     const data = await response.json();
     movies.value = data;
+
+    await nextTick();
+    gsap.from('.movieCard', {
+      opacity: 0,
+      y: 30,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power2.out'
+    });
   } catch (error) {
     console.error('Der skete en fejl', error);
   }
 });
 
-// Kommende dato tag
 const isUpcoming = (releaseDate) => {
   const today = new Date();
   const release = new Date(releaseDate);
   return release > today;
 };
 
-// Formatering af dato
 const formatDate = (dateString) => {
   const options = { day: 'numeric', month: 'short', year: 'numeric' };
-  const parsedDate = new Date(dateString);
-  return parsedDate.toLocaleDateString('da-DK', options);
+  return new Date(dateString).toLocaleDateString('da-DK', options);
 };
-
 </script>
-
 
 <template>
   <Header />
@@ -76,17 +81,16 @@ const formatDate = (dateString) => {
               />
               <div class="movieOverlay"></div>
               <div class="movieTitleOverlay">{{ movie.title.rendered }}</div>
-                  <span class="movieDate">
-                  <i class="fa-solid fa-film"></i>
-                  {{ formatDate(movie.acf.udgivelsesdato) }}
-                  </span>
-
-                  <span
-                  v-if="isUpcoming(movie.acf.udgivelsesdato)"
-                  class="upcomingTag"
-                  >
-                  Kommende
-                  </span>
+              <span class="movieDate">
+                <i class="fa-solid fa-film"></i>
+                {{ formatDate(movie.acf.udgivelsesdato) }}
+              </span>
+              <span
+                v-if="isUpcoming(movie.acf.udgivelsesdato)"
+                class="upcomingTag"
+              >
+                Kommende
+              </span>
             </div>
           </router-link>
           <router-link :to="`/film/${movie.slug}`" class="movieLink">
@@ -101,11 +105,7 @@ const formatDate = (dateString) => {
   <Footer />
 </template>
 
-
-
 <style scoped>
-
-
 .movieContainer {
   padding: 40px 20px;
 }
@@ -139,7 +139,7 @@ const formatDate = (dateString) => {
 
 .filterButton i,
 .calenderButton i {
-  font-size: 1.5; 
+  font-size: 1.5rem; 
 }
 
 .filterButton:hover,
@@ -150,7 +150,8 @@ const formatDate = (dateString) => {
 .movieCards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
+  column-gap: 30px;
+  row-gap: 70px;
   margin-top: 30px;
 }
 
@@ -181,8 +182,6 @@ const formatDate = (dateString) => {
   display: block;
 }
 
-
-
 .movieOverlay {
   position: absolute;
   inset: 0;
@@ -200,7 +199,6 @@ const formatDate = (dateString) => {
   z-index: 1;
 }
 
-
 .upcomingTag {
   position: absolute;
   top: 10px;
@@ -213,7 +211,6 @@ const formatDate = (dateString) => {
   border-radius: var(--radius-button);
   z-index: 2;
 }
-
 
 .movieDate {
   position: absolute;
@@ -258,6 +255,4 @@ const formatDate = (dateString) => {
 .ticketButton:hover {
   background: #e11d48;
 }
-
-
 </style>
