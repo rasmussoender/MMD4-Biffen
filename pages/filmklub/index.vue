@@ -20,6 +20,9 @@ onMounted(async () => {
       <!-- Sektion 1 med tekst og billede -->
       <div class="section-boks-1-container">
         <div class="section-boks-1">
+            <div class="section-boks-1-billede">
+              <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
+            </div>
           <div class="section-boks-1-content">
             <div class="section-boks-1-text">
               <h2 class="overskrift-boks-1"><span>Filmklubber</span></h2>
@@ -36,9 +39,6 @@ onMounted(async () => {
                     Du kan læse mere om de filmklubber  vi tilbyder nedenunder og find den filmklub dig passer dig og dine filmbehov bedst!
                 </p>
               </div>
-            </div>
-            <div class="section-boks-1-billede">
-              <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
             </div>
           </div>
         </div>
@@ -137,8 +137,9 @@ onMounted(async () => {
 
 .forside-entry-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 83px;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 .forside-entry-card {
@@ -213,5 +214,15 @@ onMounted(async () => {
 .forside-entry-card--white-bg:hover img {
   transform: scale(1.03);
   box-shadow: 0px 0px 20px 2px #4C90FF;
+}
+
+@media (min-width: 430px) and (max-width:767px){
+  
+}
+
+@media (min-width: 1250px){
+  .forside-entry-grid{
+    grid-template-columns: repeat(3,1fr)
+  }
 }
 </style>
