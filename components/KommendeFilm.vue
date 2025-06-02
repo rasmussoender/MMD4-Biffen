@@ -1,9 +1,9 @@
 <script setup>
-import { ref, onMounted, nextTick, computed } from 'vue'
+import { computed, nextTick, onMounted } from 'vue'
+import { useFetch } from '#app'
 import gsap from 'gsap'
 
-const { limit = null } = defineProps(['limit'])
-const movies = ref([])
+const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100')
 
 const isUpcoming = date => new Date(date) > new Date()
 const formatDate = date =>
@@ -13,70 +13,74 @@ const formatDate = date =>
     year: 'numeric'
   })
 
-onMounted(async () => {
-  try {
-    const res = await fetch(
-      'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100'
-    )
-    const data = await res.json()
-    movies.value = data
-      .filter(m => isUpcoming(m.acf.udgivelsesdato))
-      .sort(
-        (a, b) =>
-          new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato)
-      )
-
-    await nextTick()
-    gsap.from('.movieCard', {
-      opacity: 0,
-      y: 30,
-      stagger: 0.1,
-      duration: 0.8,
-      ease: 'power2.out'
-    })
-  } catch (err) {
-    console.error('Fejl:', err)
-  }
+const filteredMovies = computed(() => {
+  if (!movies.value) return []
+  return movies.value
+    .filter(m => isUpcoming(m.acf.udgivelsesdato))
+    .sort((a, b) => new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato))
 })
 
+onMounted(async () => {
+  await nextTick();
+  gsap.from('.movieCard', {
+    opacity: 0,
+    y: 30,
+    stagger: 0.1,
+    duration: 0.8,
+    ease: 'power2.out'
+  });
+});
+
+const { limit = null } = defineProps(['limit'])
 const displayedMovies = computed(() =>
-  limit ? movies.value.slice(0, limit) : movies.value
+  limit ? filteredMovies.value.slice(0, limit) : filteredMovies.value
 )
 </script>
 
 <template>
-  <div v-if="movies.length === 0">
-    <i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...
-  </div>
+  <div>
+    <div v-if="pending">
+      <i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...
+    </div>
 
-  <div v-else class="movieCards widthContainer">
-    <div v-for="movie in displayedMovies" :key="movie.id" class="movieCard">
-      <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
-        <div class="moviePosterWrapper imageHoverEffect">
-          <img
-            :src="movie.acf.poster.url"
-            :alt="movie.title.rendered"
-            class="movieImage"
-          />
-          <div class="movieOverlay"></div>
-          <div class="movieTitleOverlay">{{ movie.title.rendered }}</div>
+    <div v-else-if="error">
+      Der opstod en fejl
+    </div>
 
-          <span class="movieDate">
-            <i class="fa-solid fa-film"></i>
-            {{ formatDate(movie.acf.udgivelsesdato) }}
-          </span>
+    <div v-else-if="displayedMovies.length" class="movieCards widthContainer">
+      <div v-for="movie in displayedMovies" :key="movie.id" class="movieCard">
+        <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
+          <div class="moviePosterWrapper imageHoverEffect">
+            <img
+              :src="movie.acf.poster.url"
+              :alt="movie.title.rendered"
+              class="movieImage"
+            />
+            <div class="movieOverlay"></div>
+            <div class="movieTitleOverlay">{{ movie.title.rendered }}</div>
 
-          <span class="upcomingTag"> Kommende </span>
-        </div>
-      </NuxtLink>
-      <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
-        <button class="ticketButton">
-          <i class="fa-solid fa-ticket"></i> Bestil billetter
-        </button>
-      </NuxtLink>
+            <span class="movieDate">
+              <i class="fa-solid fa-film"></i>
+              {{ formatDate(movie.acf.udgivelsesdato) }}
+            </span>
+
+            <span class="upcomingTag">Kommende</span>
+          </div>
+        </NuxtLink>
+        <NuxtLink :to="`/film/${movie.slug}`" class="movieLink">
+          <button class="ticketButton">
+            <i class="fa-solid fa-ticket"></i> Bestil billetter
+          </button>
+        </NuxtLink>
+      </div>
+    </div>
+
+    <div v-else>
+      Ingen kommende film fundet.
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .movieCards {
