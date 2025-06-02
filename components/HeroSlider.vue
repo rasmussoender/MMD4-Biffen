@@ -1,29 +1,23 @@
 <!-- brugt library: swiperjs:  https://swiperjs.com/ -->
 <script setup>
-import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 
-const movies = ref([])
-const error = ref(null)
-
-onMounted(async () => {
-  try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-hero-slider=17&_embed')
-    movies.value = await res.json()
-  } catch (e) {
-    error.value = e
-    console.error('Fejl ved hentning af film:', e)
-  }
-})
+const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-hero-slider=17&_embed')
 </script>
 
 <template>
   <div class="hero-slider">
+
+    <div v-if="pending"><i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...</div>
+
+    <div v-else-if="error">Der opstod en fejl</div>
+
     <Swiper
+      v-else
       :modules="[Autoplay, Navigation, Pagination]"
       :slides-per-view="1"
       :loop="true"
@@ -33,9 +27,8 @@ onMounted(async () => {
       :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
     >
       <SwiperSlide v-for="film in movies" :key="film.id">
-
-        <div 
-          class="slide" 
+        <div
+          class="slide"
           :style="{
             background: `
               linear-gradient(to bottom, rgba(24, 31, 47, 0) 40%, #181F2F 100%),
@@ -47,69 +40,76 @@ onMounted(async () => {
           }"
         >
           <div class="slide-content widthContainer">
-
             <p class="forside-hero-genre">
-            <template v-for="(g, i) in film.acf.genre" :key="i">
+              <template v-for="(g, i) in film.acf.genre" :key="i">
                 <span>{{ g.filmgenre }}</span>
                 <span v-if="i < film.acf.genre.length - 1" class="forside-hero-genre-separator">|</span>
-            </template>
+              </template>
             </p>
 
             <h1 class="forside-hero-title">{{ film.acf.title }}</h1>
-            
+
             <ul class="forside-hero-details">
               <li class="forside-hero-detail forside-hero-rating">
-                <i class="fas fa-star forside-hero-icon-detail"></i><span>{{ film.acf.hero_slider_film_rating }}/10</span>
+                <i class="fas fa-star forside-hero-icon-detail"></i>
+                <span>{{ film.acf.hero_slider_film_rating }}/10</span>
               </li>
               <li class="forside-hero-detail forside-hero-date">
-                <i class="fas fa-film forside-hero-icon-detail"></i><span>{{ film.acf.udgivelsesdato }}</span>
+                <i class="fas fa-film forside-hero-icon-detail"></i>
+                <span>{{ film.acf.udgivelsesdato }}</span>
               </li>
               <li class="forside-hero-detail forside-hero-time">
-                <i class="fas fa-clock forside-hero-icon-detail"></i><span>{{ film.acf.varighed }}</span>
+                <i class="fas fa-clock forside-hero-icon-detail"></i>
+                <span>{{ film.acf.varighed }}</span>
               </li>
               <li class="forside-hero-detail forside-hero-age">
-                <i class="fas fa-child-reaching forside-hero-icon-detail"></i><span>{{ film.acf.age[0]?.aldersgraense }}</span>
+                <i class="fas fa-child-reaching forside-hero-icon-detail"></i>
+                <span>{{ film.acf.age[0]?.aldersgraense }}</span>
               </li>
             </ul>
-            
+
             <div class="forside-hero-description-container">
-            <p class="forside-hero-description">
-            {{ film.acf.description.length > 200 ? film.acf.description.slice(0, 200) + '...' : film.acf.description }}
-            </p>
+              <p class="forside-hero-description">
+                {{ film.acf.description.length > 200 ? film.acf.description.slice(0, 200) + '...' : film.acf.description }}
+              </p>
             </div>
 
             <div class="generalButtons">
-
-                <router-link 
-                :to="`/film/${film.slug}`" 
+              <router-link
+                :to="`/film/${film.slug}`"
                 class="generalbtn btn-primary"
-                >
+              >
                 <span class="material-symbols-outlined">local_activity</span>
                 Bestil billetter
-                </router-link>
+              </router-link>
 
-                <a 
-                :href="film.acf.trailer" 
-                target="_blank" 
+              <a
+                :href="film.acf.trailer"
+                target="_blank"
                 class="generalbtn btn-secondary"
-                >
+              >
                 <i class="fab fa-youtube"></i>
                 Se trailer
-                </a>
-
+              </a>
             </div>
           </div>
         </div>
       </SwiperSlide>
     </Swiper>
 
-    <div class="custom-controls">
-      <button class="custom-prev" aria-label="Forrige slide"><i class="fa-solid fa-circle-chevron-left"></i></button>
+    <div class="custom-controls" v-if="movies && movies.length">
+      <button class="custom-prev" aria-label="Forrige slide">
+        <i class="fa-solid fa-circle-chevron-left"></i>
+      </button>
       <div class="custom-pagination"></div>
-      <button class="custom-next" aria-label="Næste slide"><i class="fa-solid fa-circle-chevron-right"></i></button>
+      <button class="custom-next" aria-label="Næste slide">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+      </button>
     </div>
+
   </div>
 </template>
+
 
 
 

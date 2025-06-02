@@ -1,6 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useHead } from '#app'
+import { useHead, useFetch } from '#app'
 
 // Seo/meta
 useHead({
@@ -18,17 +17,10 @@ useHead({
 })
 
 
-
 // Filmprogram
-const moviesProgram = ref([])
-onMounted(async () => {
-  try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-program=18&_embed')
-    moviesProgram.value = await res.json()
-  } catch (e) {
-    console.error('Fejl ved hentning af film:', e)
-  }
-})
+const { data: moviesProgram, pending, error } = await useFetch(
+  'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-program=18&_embed'
+)
 </script>
 
 
@@ -46,53 +38,63 @@ onMounted(async () => {
             <div class="section-boks-1-text">
               <h2 class="subtitle-boks-1">Velkommen til</h2>
               <h2 class="overskrift-boks-1"><span>Biffen</span></h2>
-              <p class="section-boks-1-beskrivelse">Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.</p>
+              <p class="section-boks-1-beskrivelse">
+                Biffen Nordkraft er Aalborgs eneste uafhængige biograf. Vi har specialiseret os i små som store filmperler, som ikke altid finder vej til de traditionelle biografer. I vores 3 sale vises der både nye premierefilm og historiske klassikere. Derudover afholder vi filmfestivaler (f.eks. CPH DOX) og arrangerer oplæg og interviews med instruktører og skuespillere m. fl. - altid med den gode film i centrum.
+              </p>
             </div>
             <div class="section-boks-1-video">
               <video autoplay muted loop aria-hidden="true">
-                  <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4" />
-                  Din browser understøtter ikke videoafspilning.
+                <source src="../assets/vid/biffen-video-forside.mp4" type="video/mp4" />
+                Din browser understøtter ikke videoafspilning.
               </video>
-
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <section>
       <h2 class="overskrift-med-streg"><span>Populære film</span></h2>
 
-<div class="film-program-container">
-  <div class="film-program">
-    <div 
-      class="film-program-content" 
-      v-for="movie in moviesProgram" 
-      :key="movie.id"
-    >
-<div class="program-film-poster">
-  <img 
-    v-if="movie.acf?.poster?.url" 
-    :src="movie.acf.poster.url" 
-    :alt="movie.title.rendered" 
-  />
-</div>
+      <div v-if="pending">
+        <i class="fa fa-spinner fa-spin"></i> Indlæser program...
+      </div>
 
-      <div class="film-program-detaljer">
-        <div class="film-program-titel-og-info">
-          <h3 v-html="movie.title.rendered"></h3>
-          <ul>
-            <li><i class="fas fa-clock"></i> {{ movie.acf?.varighed }}</li>
-            <li><i class="fas fa-child-reaching"></i> {{ movie.acf.age?.[0]?.aldersgraense }}</li>
+      <div v-else-if="error">
+        Der opstod en fejl
+      </div>
 
-          </ul>
-        </div>
-        <hr class="film-program-hr">
-        <!-- Eventuelt program -->
-                <div class="film-information-container">
+      <div v-else class="film-program-container">
+        <div class="film-program">
+          <div 
+            class="film-program-content" 
+            v-for="movie in moviesProgram" 
+            :key="movie.id"
+          >
+            <div class="program-film-poster">
+              <img 
+                v-if="movie.acf?.poster?.url" 
+                :src="movie.acf.poster.url" 
+                :alt="movie.title.rendered" 
+              />
+            </div>
+
+            <div class="film-program-detaljer">
+              <div class="film-program-titel-og-info">
+                <h3 v-html="movie.title.rendered"></h3>
+                <ul>
+                  <li><i class="fas fa-clock"></i> {{ movie.acf?.varighed }}</li>
+                  <li><i class="fas fa-child-reaching"></i> {{ movie.acf.age?.[0]?.aldersgraense }}</li>
+                </ul>
+              </div>
+              <hr class="film-program-hr">
+
+              <div class="film-information-container">
                 <div class="film-program-dato-beskrivelse">
-
                   <div class="film-program-beskrivelse">
-                    <p>{{ movie.acf.description.length > 300 ? movie.acf.description.slice(0, 300) + '...' : movie.acf.description }}</p>
+                    <p>
+                      {{ movie.acf.description.length > 300 ? movie.acf.description.slice(0, 300) + '...' : movie.acf.description }}
+                    </p>
                   </div>
                 </div>
                 <div class="read-more-button-container">
@@ -101,15 +103,11 @@ onMounted(async () => {
                   </NuxtLink>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
-
-
-
-      
       <div class="vis-flere-film-cta">
         <a href="#">
           Vis flere film
@@ -119,66 +117,64 @@ onMounted(async () => {
     </section>
 
     <section class="kommendeFilmIndex">
-    <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
+      <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
 
       <KommendeFilm :limit="4" />
 
-        <div class="vis-flere-film-cta">
+      <div class="vis-flere-film-cta">
         <a href="/kommende-film">
           Se kommende film
           <span class="material-symbols-outlined">arrow_circle_right</span>
         </a>
       </div>
-
     </section>
 
+    <section class="forside-entry-section">
+      <div class="forside-entry-grid">
 
-<section class="forside-entry-section">
-  <div class="forside-entry-grid">
+        <a href="/cinemateket" class="forside-entry-card forside-entry-card--white-bg">
+          <img src="../assets/img/cinemateket-entry.png" alt="Card 1">
+          <hr>
+          <h3>Cinemateket</h3>
+          <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
+        </a>
 
-    <a href="/cinemateket" class="forside-entry-card forside-entry-card--white-bg">
-      <img src="../assets/img/cinemateket-entry.png" alt="Card 1">
-      <hr>
-      <h3>Cinemateket</h3>
-      <p>Oplev store klassikere, sjældne filmperler og spændende events i Cinemateket i Biffen.</p>
-    </a>
+        <a href="/filmklub" class="forside-entry-card">
+          <img src="../assets/img/filmklubben-entry.png" alt="Card 2">
+          <hr>
+          <h3>Filmklubber</h3>
+          <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
+        </a>
 
-    <a href="/filmklub" class="forside-entry-card">
-      <img src="../assets/img/filmklubben-entry.png" alt="Card 2">
-      <hr>
-      <h3>Filmklubber</h3>
-      <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
-    </a>
+        <a href="/events" class="forside-entry-card">
+          <img src="../assets/img/events-entry.png" alt="Card 3">
+          <hr>
+          <h3>Events</h3>
+          <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
+        </a>
 
-    <a href="/events" class="forside-entry-card">
-      <img src="../assets/img/events-entry.png" alt="Card 3">
-      <hr>
-      <h3>Events</h3>
-      <p>Biffen arrangerer året igennem en lang række spændende events - altid med den gode film i centrum.</p>
-    </a>
+        <a href="/gavekort-og-ovrige-billetter" class="forside-entry-card">
+          <img src="../assets/img/gavekort-entry.png" alt="Card 4">
+          <hr>
+          <h3>Gavekort</h3>
+          <p>Et gavekort til Biffen er mere end bare en gave – det er en oplevelse. Se også vores øvrige billetter.</p>
+        </a>
 
-    <a href="/gavekort-og-ovrige-billetter" class="forside-entry-card">
-      <img src="../assets/img/gavekort-entry.png" alt="Card 4">
-      <hr>
-      <h3>Gavekort</h3>
-      <p>Et gavekort til Biffen er mere end bare en gave – det er en oplevelse. Se også vores øvrige billetter.</p>
-    </a>
+        <a href="/book-en-sal" class="forside-entry-card">
+          <img src="../assets/img/a-salen_lille.jpg" alt="Card 5">
+          <hr>
+          <h3>Book en biografsal</h3>
+          <p>Book en af vores sale. Perfekt til skoler, virksomhedsarrangementer, børnefødselsdage mm.</p>
+        </a>
 
-    <a href="/book-en-sal" class="forside-entry-card">
-      <img src="../assets/img/a-salen_lille.jpg" alt="Card 5">
-      <hr>
-      <h3>Book en biografsal</h3>
-      <p>Book en af vores sale. Perfekt til skoler, virksomhedsarrangementer, børnefødselsdage mm.</p>
-    </a>
+        <a href="/praktisk-information" class="forside-entry-card">
+          <img src="../assets/img/kontakt-entry.jpg" alt="Card 6">
+          <hr>
+          <h3>Kontakt os</h3>
+        </a>
 
-    <a href="/praktisk-information" class="forside-entry-card">
-      <img src="../assets/img/kontakt-entry.jpg" alt="Card 6">
-      <hr>
-      <h3>Kontakt os</h3>
-    </a>
-
-  </div>
-</section>
+      </div>
+    </section>
 
     <section>
       <h2 class="overskrift-med-streg"><span>Vi elsker vores samarbejde med</span></h2>
@@ -188,13 +184,14 @@ onMounted(async () => {
         <img src="../assets/img/aalborg-kommune.png" alt="Logo 3">
       </div>
     </section>
-    
+
     <Newsletter />
-    
   </main>
- <Footer />
+
+  <Footer />
 
 </template>
+
 
 <style scoped>
 
