@@ -68,17 +68,19 @@ onUnmounted(() => {
 
 <template>
   <header class="siteHeader" :class="{ 'scrolled': isScrolled, 'hiddenHeader': !showHeader }">
-    <a href="/" class="logoWrapper headerLogo" v-show="!isMenuOpen">
-      <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
-    </a>
-    <div class="headerRight" :class="{ hidden: isMenuOpen }">
-      <nav class="mainNav underlineAnimationLinks">
-        <a href="/film">Alle film</a>
-        <a href="/kommende-film">Kommende film</a>
-        <a href="/events">Events</a>
-      </nav>
-      <div class="burgerMenuWrapper">
-        <i class="fas fa-bars burgerIcon" v-if="!isMenuOpen" @click="openMenu"></i>
+    <div class="headerInner">
+      <a href="/" class="logoWrapper headerLogo" v-show="!isMenuOpen">
+        <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
+      </a>
+      <div class="headerRight" :class="{ hidden: isMenuOpen }">
+        <nav class="mainNav underlineAnimationLinks">
+          <a href="/film">Alle film</a>
+          <a href="/kommende-film">Kommende film</a>
+          <a href="/events">Events</a>
+        </nav>
+        <div class="burgerMenuWrapper">
+          <i class="fas fa-bars burgerIcon" v-if="!isMenuOpen" @click="openMenu"></i>
+        </div>
       </div>
     </div>
   </header>
@@ -94,15 +96,17 @@ onUnmounted(() => {
 
   <div class="fullscreenMenu" v-if="isMenuOpen">
     <div class="fullscreenTopBar">
-      <div class="fullscreenTopBarInner">
-        <div class="fullscreenLeft">
-          <a href="/" class="logoWrapper fullscreenLogo">
-            <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
-          </a>
-        </div>
-        <div class="fullscreenRight">
-          <div class="closeIcon" @click="closeMenu">
-            <i class="fas fa-times"></i>
+      <div class="fullscreenInnerWrapper">
+        <div class="fullscreenTopBarInner">
+          <div class="fullscreenLeft">
+            <a href="/" class="logoWrapper fullscreenLogo">
+              <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
+            </a>
+          </div>
+          <div class="fullscreenRight">
+            <div class="closeIcon" @click="closeMenu">
+              <i class="fas fa-times"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -112,51 +116,52 @@ onUnmounted(() => {
       <div class="fullscreenInner">
         <div class="menuLayout">
           <div class="menuColumn">
-  <div class="menuItem"><span class="menuNumber">01</span><NuxtLink to="/film" class="menuLink">Alle film</NuxtLink></div>
-  <div class="menuItem"><span class="menuNumber">02</span><NuxtLink to="/kommende-film" class="menuLink">Kommende film</NuxtLink></div>
-  <div class="menuItem"><span class="menuNumber">03</span><NuxtLink to="/events" class="menuLink">Events</NuxtLink></div>
-  <div class="menuItem"><span class="menuNumber">04</span><NuxtLink to="/cinemateket" class="menuLink">Cinemateket</NuxtLink></div>
-</div>
-<div class="menuColumn">
-  <div class="menuItem"><span class="menuNumber">05</span><NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink></div>
-  <div class="menuItem"><span class="menuNumber">06</span><NuxtLink to="/gavekort-og-ovrige-billetter" class="menuLink">Gavekort & øvrige billetter</NuxtLink></div>
-  <div class="menuItem"><span class="menuNumber">07</span><NuxtLink to="/book-en-sal" class="menuLink">Book en sal</NuxtLink></div>
-  <div class="menuItem"><span class="menuNumber">08</span><NuxtLink to="/praktisk-information" class="menuLink">Praktisk info</NuxtLink></div>
-</div>
-
+            <div class="menuItem"><span class="menuNumber">01</span><NuxtLink to="/film" class="menuLink">Alle film</NuxtLink></div>
+            <div class="menuItem"><span class="menuNumber">02</span><NuxtLink to="/kommende-film" class="menuLink">Kommende film</NuxtLink></div>
+            <div class="menuItem"><span class="menuNumber">03</span><NuxtLink to="/events" class="menuLink">Events</NuxtLink></div>
+            <div class="menuItem"><span class="menuNumber">04</span><NuxtLink to="/cinemateket" class="menuLink">Cinemateket</NuxtLink></div>
+          </div>
+          <div class="menuColumn">
+            <div class="menuItem"><span class="menuNumber">05</span><NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink></div>
+            <div class="menuItem"><span class="menuNumber">06</span><NuxtLink to="/gavekort-og-ovrige-billetter" class="menuLink">Gavekort & øvrige billetter</NuxtLink></div>
+            <div class="menuItem"><span class="menuNumber">07</span><NuxtLink to="/book-en-sal" class="menuLink">Book en sal</NuxtLink></div>
+            <div class="menuItem"><span class="menuNumber">08</span><NuxtLink to="/praktisk-information" class="menuLink">Praktisk info</NuxtLink></div>
+          </div>
         </div>
 
         <div class="fullscreenFooter">
-          <div class="footerInfo">
-            <div class="footerItem">
-              <i class="fas fa-phone"></i>
-              <div class="footerText">
-                <strong>Telefon</strong>
-                <a href="tel:+4598169977">+45 98 16 99 77</a>
+          <div class="fullscreenInnerWrapper">
+            <div class="footerInfo">
+              <div class="footerItem">
+                <i class="fas fa-phone"></i>
+                <div class="footerText">
+                  <strong>Telefon</strong>
+                  <a href="tel:+4598169977">+45 98 16 99 77</a>
+                </div>
+              </div>
+              <div class="footerItem">
+                <i class="fas fa-envelope"></i>
+                <div class="footerText">
+                  <strong>E-mail</strong>
+                  <a href="mailto:info@biffen.eu">info@biffen.eu</a>
+                </div>
+              </div>
+              <div class="footerItem">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="footerText">
+                  <strong>Adresse</strong>
+                  <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
+                    Biffen Nordkraft<br />
+                    Teglgårds Plads 1, 9000 Aalborg
+                  </a>
+                </div>
               </div>
             </div>
-            <div class="footerItem">
-              <i class="fas fa-envelope"></i>
-              <div class="footerText">
-                <strong>E-mail</strong>
-                <a href="mailto:info@biffen.eu">info@biffen.eu</a>
-              </div>
+            <div class="footerSocials">
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="footerItem">
-              <i class="fas fa-map-marker-alt"></i>
-              <div class="footerText">
-                <strong>Adresse</strong>
-                <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
-                  Biffen Nordkraft<br />
-                  Teglgårds Plads 1, 9000 Aalborg
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="footerSocials">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           </div>
         </div>
       </div>
@@ -166,6 +171,17 @@ onUnmounted(() => {
 
 
 <style scoped>
+.headerInner,
+.fullscreenInnerWrapper {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .siteHeader {
   position: fixed;
   top: 0;

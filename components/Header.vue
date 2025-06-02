@@ -85,16 +85,17 @@ watch(() => route.fullPath, () => {
 
 <template>
   <header
-    v-show="true"
-    class="siteHeader"
-    :class="{
-      scrolled: isScrolled,
-      hiddenHeader: !showHeader && !isMenuOpen && !isClosing,
-      slideUp: isMenuOpen,
-      slideDown: !isMenuOpen && !isClosing,
-      instantShow: isClosing
-    }"
-  >
+  v-show="true"
+  class="siteHeader"
+  :class="{
+    scrolled: isScrolled,
+    hiddenHeader: !showHeader && !isMenuOpen && !isClosing,
+    slideUp: isMenuOpen,
+    slideDown: !isMenuOpen && !isClosing,
+    instantShow: isClosing
+  }"
+>
+  <div class="headerInner">
     <a class="logoWrapper" href="/" :class="{ hiddenLogo: isMenuOpen }">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
     </a>
@@ -108,7 +109,9 @@ watch(() => route.fullPath, () => {
         <i class="fas fa-bars burgerIcon" @click="openMenu"></i>
       </div>
     </div>
-  </header>
+  </div>
+</header>
+
 
   <div class="menuCircleOverlay" :class="{ active: isMenuOpen, closing: isClosing }"></div>
 
@@ -122,19 +125,22 @@ watch(() => route.fullPath, () => {
 
   <div class="fullscreenMenu" v-if="isMenuOpen">
     <div class="fullscreenTopBar">
-      <div class="fullscreenTopBarInner">
-        <div class="fullscreenLeft">
-          <a href="/" class="logoWrapper fullscreenLogo">
-            <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
-          </a>
-        </div>
-        <div class="fullscreenRight">
-          <div class="closeIcon" @click="closeMenu">
-            <i class="fas fa-times"></i>
-          </div>
+  <div class="fullscreenInnerWrapper">
+    <div class="fullscreenTopBarInner">
+      <div class="fullscreenLeft">
+        <a href="/" class="logoWrapper fullscreenLogo">
+          <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
+        </a>
+      </div>
+      <div class="fullscreenRight">
+        <div class="closeIcon" @click="closeMenu">
+          <i class="fas fa-times"></i>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
     <div class="fullscreenContent" :class="{ visible: contentVisible }">
       <div class="fullscreenInner">
         <div class="menuLayout">
@@ -179,37 +185,40 @@ watch(() => route.fullPath, () => {
 
         </div>
         <div class="fullscreenFooter">
-          <div class="footerInfo">
-            <div class="footerItem">
-              <i class="fas fa-phone"></i>
-              <div class="footerText">
-                <strong>Telefon</strong>
-                <a href="tel:+4598169977">+45 98 16 99 77</a>
-              </div>
-            </div>
-            <div class="footerItem">
-              <i class="fas fa-envelope"></i>
-              <div class="footerText">
-                <strong>E-mail</strong>
-                <a href="mailto:info@biffen.eu">info@biffen.eu</a>
-              </div>
-            </div>
-            <div class="footerItem">
-              <i class="fas fa-map-marker-alt"></i>
-              <div class="footerText">
-                <strong>Adresse</strong>
-                <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
-                  Biffen Nordkraft<br />Teglgårds Plads 1, 9000 Aalborg
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="footerSocials">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          </div>
+  <div class="fullscreenInnerWrapper">
+    <div class="footerInfo">
+      <div class="footerItem">
+        <i class="fas fa-phone"></i>
+        <div class="footerText">
+          <strong>Telefon</strong>
+          <a href="tel:+4598169977">+45 98 16 99 77</a>
         </div>
+      </div>
+      <div class="footerItem">
+        <i class="fas fa-envelope"></i>
+        <div class="footerText">
+          <strong>E-mail</strong>
+          <a href="mailto:info@biffen.eu">info@biffen.eu</a>
+        </div>
+      </div>
+      <div class="footerItem">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="footerText">
+          <strong>Adresse</strong>
+          <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
+            Biffen Nordkraft<br />Teglgårds Plads 1, 9000 Aalborg
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footerSocials">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   </div>
@@ -231,6 +240,15 @@ watch(() => route.fullPath, () => {
   z-index: 9999;
   transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   will-change: transform;
+}
+
+.headerInner {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .siteHeader.hiddenHeader {
@@ -511,6 +529,16 @@ watch(() => route.fullPath, () => {
   box-sizing: border-box;
   min-height: 100%;
   overflow: hidden;
+}
+
+.fullscreenInnerWrapper {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .menuLayout {
