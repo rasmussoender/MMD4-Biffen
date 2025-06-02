@@ -20,10 +20,10 @@ onMounted(async () => {
       <!-- Sektion 1 med tekst og billede -->
       <div class="section-boks-1-container">
         <div class="section-boks-1">
-            <div class="section-boks-1-billede">
+          <div class="section-boks-1-content">
+             <div class="section-boks-1-billede">
               <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
             </div>
-          <div class="section-boks-1-content">
             <div class="section-boks-1-text">
               <h2 class="overskrift-boks-1"><span>Filmklubber</span></h2>
               <div class="section-boks-1-beskrivelse">
@@ -79,7 +79,7 @@ onMounted(async () => {
 
 .section-boks-1 {
   background: #202F4D;
-  padding: 50px;
+  padding: 20px;
   border-radius: 20px;
 }
 
@@ -88,6 +88,7 @@ onMounted(async () => {
   justify-content: space-between;
   align-items: flex-start;
   gap: 70px;
+  flex-direction: row-reverse;
 }
 
 .section-boks-1-text,
@@ -217,7 +218,16 @@ onMounted(async () => {
 }
 
 @media (min-width: 430px) and (max-width:767px){
-  
+  .section-boks-1-content{
+    flex-direction: unset;
+    display: block;
+  }
+  .section-boks-1-billede img{
+    height: auto;
+  }
+  .section-boks-1-billede, .section-boks-1-text{
+    max-width: 100% !important;
+  }
 }
 
 @media (min-width: 1250px){
