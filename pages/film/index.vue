@@ -1,42 +1,29 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
-import { useHead } from '#app';
+import { onMounted, nextTick } from 'vue';
+import { useHead, useFetch } from '#app';
 import gsap from 'gsap';
 
-const movies = ref([]);
-
-// SEO meta
 useHead({
   title: 'Alle Film',
   meta: [
-    {
-      name: 'description',
-      content: 'Biffens film'
-    },
-    {
-      name: 'keywords',
-      content: 'biograf, alle, film, vintage, aalborg, biograftur'
-    }
+    { name: 'description', content: 'Biffens film' },
+    { name: 'keywords', content: 'biograf, alle, film, vintage, aalborg, biograftur' }
   ]
 });
 
-onMounted(async () => {
-  try {
-    const response = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100');
-    const data = await response.json();
-    movies.value = data;
+const { data: movies, pending, error } = await useFetch(
+  'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100'
+);
 
-    await nextTick();
-    gsap.from('.movieCard', {
-      opacity: 0,
-      y: 30,
-      stagger: 0.1,
-      duration: 0.8,
-      ease: 'power2.out'
-    });
-  } catch (error) {
-    console.error('Der skete en fejl', error);
-  }
+onMounted(async () => {
+  await nextTick();
+  gsap.from('.movieCard', {
+    opacity: 0,
+    y: 30,
+    stagger: 0.1,
+    duration: 0.8,
+    ease: 'power2.out'
+  });
 });
 
 const isUpcoming = (releaseDate) => {
@@ -66,13 +53,24 @@ const formatDate = (dateString) => {
         </button>
       </div>
 
-      <div v-if="movies.length === 0">
+      <div v-if="pending">
         <i class="fa fa-spinner fa-spin"></i> Loader alle film
       </div>
 
+      <div v-else-if="error">
+        <p>Kunne ikke hente filmene</p>
+      </div>
+
       <div v-else class="movieCards">
-        <div v-for="movie in movies" :key="movie.id" class="movieCard">
-          <router-link :to="`/film/${movie.slug}`" class="movieLink">
+        <div
+          v-for="movie in movies"
+          :key="movie.id"
+          class="movieCard"
+        >
+          <router-link
+            :to="`/film/${movie.slug}`"
+            class="movieLink"
+          >
             <div class="moviePosterWrapper imageHoverEffect">
               <img
                 :src="movie.acf.poster.url"
@@ -93,7 +91,10 @@ const formatDate = (dateString) => {
               </span>
             </div>
           </router-link>
-          <router-link :to="`/film/${movie.slug}`" class="movieLink">
+          <router-link
+            :to="`/film/${movie.slug}`"
+            class="movieLink"
+          >
             <button class="ticketButton">
               <i class="fa-solid fa-ticket"></i> Bestil billetter
             </button>
@@ -104,6 +105,7 @@ const formatDate = (dateString) => {
   </main>
   <Footer />
 </template>
+
 
 <style scoped>
 .movieContainer {

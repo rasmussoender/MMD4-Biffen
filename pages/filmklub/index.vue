@@ -1,8 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useHead } from '#app'
+import { useHead, useFetch } from '#app';
 
-// Seo/meta
+// SEO/meta
 useHead({
   title: 'Filmklubber',
   meta: [
@@ -15,78 +14,68 @@ useHead({
       content: 'filmklub, biffen, film, klub, alle'
     }
   ]
-})
-
-const filmklubber = ref([]);
-
-onMounted(async () => {
-  try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?per_page=100');
-    const data = await res.json();
-    filmklubber.value = data;
-  } catch (err) {
-    console.error('Fejl ved hentning af filmklubber:', err);
-  }
 });
+
+const { data: filmklubber, pending, error } = await useFetch(
+  'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?per_page=100'
+);
 </script>
 
 <template>
-   <Header />
-   <main class="widthContainer">
-
-     <section>
-       <!-- Sektion 1 med tekst og billede -->
-       <div class="section-boks-1-container">
-         <div class="section-boks-1">
-           <div class="section-boks-1-content">
-             <div class="section-boks-1-text">
-                <h2 class="overskrift-med-streg"><span>Filmklubber</span></h2>
-               <div class="section-boks-1-beskrivelse">
-                 <p>
-                   Meld dig ind i én filmklub, og se udvalgte film til reduceret pris!
-                  </p>
-                  <br>
-                  <p>
-                    Udover Biffens egne filmklubber, 'De Smukke og Særlige' og 'SeniorBifffen', kan du også se filmene fra 'Filmporten' og 'Biografklub Danmark' i Biffen. 
-                  </p>
-                  <br>
-                  <p>
-                    Du kan læse mere om de filmklubber  vi tilbyder nedenunder og find den filmklub dig passer dig og dine filmbehov bedst!
-                  </p>
-                </div>
+  <Header />
+  <main class="widthContainer">
+    <section>
+      <div class="section-boks-1-container">
+        <div class="section-boks-1">
+          <div class="section-boks-1-content">
+            <div class="section-boks-1-text">
+              <h2 class="overskrift-med-streg"><span>Filmklubber</span></h2>
+              <div class="section-boks-1-beskrivelse">
+                <p>
+                  Meld dig ind i én filmklub, og se udvalgte film til reduceret pris!
+                </p>
+                <br />
+                <p>
+                  Udover Biffens egne filmklubber, 'De Smukke og Særlige' og 'SeniorBifffen', kan du også se filmene fra 'Filmporten' og 'Biografklub Danmark' i Biffen.
+                </p>
+                <br />
+                <p>
+                  Du kan læse mere om de filmklubber vi tilbyder nedenunder og finde den filmklub der passer dig og dine filmbehov bedst!
+                </p>
               </div>
-              <div class="section-boks-1-billede">
-                <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="">
-              </div>
+            </div>
+            <div class="section-boks-1-billede">
+              <img src="../../assets/img/filmklubber-boks-billede.jpg" alt="" />
             </div>
           </div>
         </div>
-      </section>
-      
-      <!-- Entry kort -->
-      <section class="forside-entry-section">
-        <div class="forside-entry-grid">
-          <router-link
+      </div>
+    </section>
+
+    <section class="forside-entry-section">
+      <div class="forside-entry-grid">
+        <router-link
           v-for="klub in filmklubber"
           :key="klub.id"
           :to="`/filmklub/${klub.slug}`"
           class="forside-entry-card"
-          >
+        >
           <img
-          :src="klub.acf?.['filmklub-billede']?.url || '../assets/img/placeholder.jpg'"
-          :alt="klub.title.rendered"
+            :src="klub.acf?.['filmklub-billede']?.url || '../assets/img/placeholder.jpg'"
+            :alt="klub.title.rendered"
           />
           <hr />
           <h3 v-html="klub.title.rendered"></h3>
           <p>{{ klub.acf?.['filmklub-teaser-tekst'] || '' }}</p>
         </router-link>
       </div>
+      <p v-if="pending">Indlæser...</p>
+      <p v-if="error" class="error-text">Der skete en fejl med filmklubberne</p>
     </section>
   </main>
+  <Footer />
+</template>
 
-   <Footer />
-
-  </template>
   
 
 <style scoped>
