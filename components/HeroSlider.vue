@@ -5,6 +5,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { useFetch } from '#app'
 
 const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-hero-slider=17&_embed')
 </script>
