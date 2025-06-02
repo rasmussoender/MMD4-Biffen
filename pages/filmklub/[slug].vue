@@ -54,16 +54,19 @@ onMounted(async () => {
 
         <div class="movie-description-container">
           <div v-if="klub?.acf?.['filmklub-gruppe1']">
+            <img src="../../assets/img/Filmklubber ikon.png" alt="">
             <h3>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-title'] }}</h3>
             <p>{{ klub.acf['filmklub-gruppe1']['filmklub-gruppe1-tekst'] }}</p>
           </div>
 
           <div v-if="klub?.acf?.['filmklub-gruppe2']">
+            <img src="../../assets/img/medlemskab ikon.png" alt="">
             <h3>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-title'] }}</h3>
             <p>{{ klub.acf['filmklub-gruppe2']['filmklub-gruppe2-tekst'] }}</p>
           </div>
 
           <div v-if="klub?.acf?.['filmklub-gruppe3']">
+             <img src="../../assets/img/nyhedsbrev ikon.png" alt="">
             <h3>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-title'] }}</h3>
             <p>{{ klub.acf['filmklub-gruppe3']['filmklub-gruppe3-tekst'] }}</p>
           </div>
@@ -285,6 +288,23 @@ onMounted(async () => {
   background-color: #F63758;
 }
 
+ .movie-description-container img{
+    display: block;
+    margin: 0 auto;
+  }
+   .movie-description-container h3{
+    text-align: center;
+  }
+
+@media (min-width: 430px) and (max-width:767px){
+  .movie-description-container{
+    flex-direction: column;
+  }
+  .movie-description-container img{
+    display: block;
+    margin: 0 auto;
+  }
+}
 
 
 </style>
