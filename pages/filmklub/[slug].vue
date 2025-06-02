@@ -296,7 +296,7 @@ onMounted(async () => {
     text-align: center;
   }
 
-@media (min-width: 430px) and (max-width:767px){
+@media (min-width: 430px) and (max-width:1000px){
   .movie-description-container{
     flex-direction: column;
   }
