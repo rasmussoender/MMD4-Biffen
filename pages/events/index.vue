@@ -219,6 +219,7 @@ h1, h2, h3, h4, h5, h6 {
   column-gap: 2rem;
   row-gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+  padding-bottom: var(--space-section);
 }
 
 .events section article img, .upcomingEvents section article img {

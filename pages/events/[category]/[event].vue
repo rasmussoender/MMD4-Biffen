@@ -48,8 +48,8 @@ onMounted(async () => {
 >
   <HeaderImageBackground />
   <div class="eventHeroContent widthContainer">
-      <div class="backButton">
-      <NuxtLink to="/events" class="backbtn">
+      <div class="backButton underlineAnimationLinks">
+      <NuxtLink to="/events" class="backbtn ">
         <i class="fa fa-arrow-left"></i> Tilbage
       </NuxtLink>
     </div>

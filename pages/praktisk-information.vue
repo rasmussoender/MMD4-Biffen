@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useHead } from '#app'
 
 // Seo/meta
@@ -34,13 +34,18 @@ onMounted(()=>{
     });
   });
 
-  const arrows = document.querySelectorAll(".click");
-  arrows.forEach(function(arrow){
-    arrow.addEventListener("click",function(e){
-      arrow.querySelector("i").classList.toggle("rotate");
-      arrow.parentElement.parentElement.querySelector("p:last-child").classList.toggle("hide")
-    })
-  })
+const accordionsFull = document.querySelectorAll(".wrapper3 .accordion");
+
+accordionsFull.forEach(function(accordion) {
+  accordion.addEventListener("click", function () {
+    const arrowIcon = accordion.querySelector("i");
+    const answer = accordion.parentElement.querySelector("p:last-child");
+
+    arrowIcon.classList.toggle("rotate");
+    answer.classList.toggle("hide");
+  });
+});
+
 })
 
 </script>
@@ -50,20 +55,27 @@ onMounted(()=>{
   <main class="widthContainer">
     <section>
        <div class="info">
-      <div class="headingNdLine">
-      <h1>FAQ</h1>
-      <div></div>
-      </div>
+            <h2 class="overskrift-med-streg"><span>FAQ</span></h2>
+
       <p>Er du i tvivl om noget vedrørende vores biograf, billetter, forestillinger eller andet? Vi har samlet svar på de mest almindelige spørgsmål, så du hurtigt og nemt kan finde den information, du har brug for</p>
       <div>
         <p>Se vores udvalg af film!</p>
-        <button>Se alle film </button>
+                    <div class="generalButtons">
+              <router-link
+                :to="`/film`"
+                class="generalbtn btn-primary"
+              >
+                
+                Se alle film
+              </router-link>
+
+            </div>
       </div>
       </div>
 
       <div class="tabs">
         <div class="buttons">
-        <button class="active">Mest stillet</button>
+        <button class="active">Generelt</button>
         <button class="inactive">Billetter & Priser</button>
         <button class="inactive">Faciliteter</button>
         <button class="inactive">Program</button>
@@ -502,9 +514,11 @@ onMounted(()=>{
   align-items: center;
   gap: 20px;
   padding-bottom: 1rem;
+
 }
 .tabs i{
   font-size: 32px;
+
 }
 
 .buttons{
@@ -512,9 +526,12 @@ onMounted(()=>{
   display: flex;
   justify-content: center;
   gap: 10px;
+
 }
 .buttons button{
   padding: 10px 10px;
+      cursor: pointer;
+
 }
 iframe{
   width: 100%;
@@ -587,6 +604,7 @@ input{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .accordion div{
