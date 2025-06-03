@@ -315,15 +315,20 @@ const formattedDate = (str) => {
   color: white;
   border-radius: 5px;
 }
-
 .moviePoster {
   flex: 0 1 35%;
-  height: auto;
+  width: 100%;
   aspect-ratio: 2 / 3;
+  height: auto;
   object-fit: cover;
   border-radius: var(--radius-section);
   box-shadow: 0px 0px 20px 2px #4C90FF;
+  max-width: 500px;
+  overflow: hidden; 
+  display: block;
 }
+
+
 
 .movieInfoBox {
   flex: 1 1 55%;
@@ -737,6 +742,7 @@ const formattedDate = (str) => {
     padding: 1.5rem 50px;
     width: 100%;
     margin: 0 auto;
+    margin-top: 2rem;
   }
 
   .showtimesSection {

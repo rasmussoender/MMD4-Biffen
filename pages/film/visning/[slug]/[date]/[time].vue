@@ -7,7 +7,6 @@ import { useHead } from '#app'
 import ledigIcon from '@/assets/img/ledig.svg?raw'
 import valgtIcon from '@/assets/img/dit-valg.svg?raw'
 import optagetIcon from '@/assets/img/optaget.svg?raw'
-import hoverIcon from '@/assets/img/hover-seat.svg?raw'
 
 // Seo/meta
 useHead({
@@ -26,7 +25,7 @@ useHead({
 
 // Hent filmdata fra API
 onMounted(async () => {
-  const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie')
+  const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100')
   const movies = await res.json()
   const movie = movies.find(m => m.slug === slug)
   const valgtVisning = movie?.acf?.spilletider?.filmvisning.find(v => v.filmdato.replaceAll('/', '-') === date)
@@ -63,7 +62,6 @@ const seats = ref(
     }))
   )
 )
-
 //  antal billetter valgt i alt
 const totalSelected = computed(() =>
   Object.values(ticketCounts.value).reduce((totalCount, currentCount) => totalCount + currentCount, 0)
@@ -77,7 +75,6 @@ const billetOversigt = computed(() =>
     .join(', ') || 'Vælg billetter'
 )
 
-
 // Regner samlet pris for valgte billetter
 const totalPrice = computed(() =>
   Object.entries(ticketCounts.value)
@@ -90,46 +87,29 @@ function updateTicketCount(type, changeAmount) {
   seats.value.flat().forEach(s => s.selected = false)
 }
 
-// Reaktiv array med sæder der vises ved hover
-const hoverPreviewSeats = ref([])
-
-// Returner korrekt ikon afhængig af status på sæde
+// Returner korrekt sæde svg afhængig af status
 function getSeatIcon(seat) {
-  return seat.taken ? optagetIcon : seat.selected ? valgtIcon :
-    hoverPreviewSeats.value.includes(seat.id) ? hoverIcon : ledigIcon
+  return seat.taken ? optagetIcon : seat.selected ? valgtIcon : ledigIcon
 }
 
-// Håndter hover på sæder
-function handleSeatHover(row, i) {
-  if (!totalSelected.value) {
-    hoverPreviewSeats.value = []
-    return
-  }
+function toggleSeat(seat) {
 
-  const seatRow = seats.value[row]
-  const group = start => seatRow.slice(start, start + totalSelected.value)
-    .every(s => !s.taken && !s.selected)
-    ? seatRow.slice(start, start + totalSelected.value).map(s => s.id)
-    : []
-
-  hoverPreviewSeats.value = group(i) || group(i - totalSelected.value + 1) || []
-}
-
-// Vælg sæder baseret på hover
-function toggleSeat() {
-  if (hoverPreviewSeats.value.length !== totalSelected.value) return
-
+  // Rydder tidligere valgte sæde
   seats.value.flat().forEach(s => s.selected = false)
 
-  hoverPreviewSeats.value.forEach(id => {
-    const [row, column] = id.split('-').map(Number)
-    seats.value[row][column].selected = true
-  })
+   // Vælg så mange ledige sæder som nødvendigt (Afhænigt af valgt antal), startende fra det valgte sæde
+  const flatSeats = seats.value.flat()
+  const startIndex = flatSeats.findIndex(s => s.id === seat.id)
+
+  let count = 0
+  for (let i = startIndex; i < flatSeats.length && count < totalSelected.value; i++) {
+    if (!flatSeats[i].taken) {
+      flatSeats[i].selected = true
+      count++
+    }
+  }
 }
-
 </script>
-
-
 <template>
   <Header />
   <main class="booking-wrapper widthContainer">
@@ -171,15 +151,14 @@ function toggleSeat() {
     <div v-for="(row, rowIndex) in seats" :key="rowIndex" class="seat-row">
       <span>{{ rowIndex + 1 }}</span>
       <div
-        class="seat"
-        v-for="(seat, seatIndex) in row"
-        :key="seat.id"
-        :class="{ taken: seat.taken, selected: seat.selected }"
-        @mouseenter="handleSeatHover(rowIndex, seatIndex)"
-        @mouseleave="clearHoverPreview"
-        @click="toggleSeat(seat, rowIndex, seatIndex)"
-        v-html="getSeatIcon(seat)"
+      class="seat"
+      v-for="seat in row"
+      :key="seat.id"
+      :class="{ taken: seat.taken, selected: seat.selected }"
+      @click="toggleSeat(seat)"
+      v-html="getSeatIcon(seat)"
       ></div>
+
     </div>
 
     <div class="seat-legend">

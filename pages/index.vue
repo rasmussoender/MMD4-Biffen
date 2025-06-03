@@ -170,7 +170,9 @@ const { data: moviesProgram, pending, error } = await useFetch(
         <a href="/praktisk-information" class="forside-entry-card">
           <img src="../assets/img/kontakt-entry.jpg" alt="Card 6">
           <hr>
-          <h3>Kontakt os</h3>
+          <h3>Praktisk info</h3>
+          <p>Er du i tvivl om noget, eller har brug for hjælp? </p>
+
         </a>
 
       </div>
