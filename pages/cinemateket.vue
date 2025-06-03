@@ -1,9 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useHead } from '#app'
-const filmProgram = ref([]);
+import { useHead, useFetch } from '#app'
 
-// Seo/meta
 useHead({
   title: 'Cinemateket',
   meta: [
@@ -18,41 +15,45 @@ useHead({
   ]
 })
 
-onMounted(async () => {
-  try {
-    const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?cinemateket=16&per_page=100&_embed');
-    const data = await res.json();
-    filmProgram.value = data;
-  } catch (error) {
-    console.error('Fejl:', error);
-    
-  }
-});
+const { data: filmProgram, pending, error } = await useFetch(
+  'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?cinemateket=16&per_page=100&_embed'
+)
 </script>
+
 <template>
   <Header />
   <main class="widthContainer">
-        <div class="section-boks-1-container">
-    <div class="section-boks-1">
-      <div class="section-boks-1-content">
-        <div class="section-boks-1-text">
-          <h4 class="subtitle-boks-1">Hvad er</h4>
-          <h2 class="overskrift-boks-1"><span>Cinemateket</span></h2>
-          <p class="section-boks-1-bold">STORE KLASSIKERE, SJÆLDNE FILMPERLER, SPÆNDENDE EVENTS</p>
-          <p class="section-boks-1-beskrivelse">CINEMATEKET I BIFFEN byder hver tirsdag og udvalgte dage på klassikere, kultfilm og sjældne perler fra filmhistorien – film du sjældent ser i danske biografer. Udvalgt i samarbejde med Cinemateket og vist i Biffen i Nordkraft, ofte med introduktion, mad eller musik. Se programmet her. OBS: Filmene vises uden danske undertekster, medmindre andet er angivet.</p>
+    <div class="section-boks-1-container">
+      <div class="section-boks-1">
+        <div class="section-boks-1-content">
+          <div class="section-boks-1-text">
+            <h4 class="subtitle-boks-1">Hvad er</h4>
+            <h2 class="overskrift-boks-1"><span>Cinemateket</span></h2>
+            <p class="section-boks-1-bold">STORE KLASSIKERE, SJÆLDNE FILMPERLER, SPÆNDENDE EVENTS</p>
+            <p class="section-boks-1-beskrivelse">
+              CINEMATEKET I BIFFEN byder hver tirsdag og udvalgte dage på klassikere, kultfilm og sjældne perler fra filmhistorien – film du sjældent ser i danske biografer. Udvalgt i samarbejde med Cinemateket og vist i Biffen i Nordkraft, ofte med introduktion, mad eller musik. Se programmet her. OBS: Filmene vises uden danske undertekster, medmindre andet er angivet.
+            </p>
             <p class="section-boks-1-beskrivelse">Entré: 100 kr. (evt. tillæg ved events/helaftensfilm)</p>
-        </div>
-        <div class="section-boks-1-img">
-          <img src="/public/img/cinemateket.png" alt="">
+          </div>
+          <div class="section-boks-1-img">
+            <img src="/public/img/cinemateket.png" alt="">
+          </div>
         </div>
       </div>
     </div>
-    </div>
 
-<section>
+    <section>
       <h2 class="overskrift-med-streg"><span>Cinematekets Program</span></h2>
 
-      <div class="film-program-container">
+      <div v-if="pending">
+        <i class="fa fa-spinner fa-spin"></i> Loader alle film
+      </div>
+
+      <div v-else-if="error">
+        <p>Kunne ikke hente filmene</p>
+      </div>
+
+      <div v-else class="film-program-container">
         <div
           v-if="filmProgram.length > 0"
           class="film-program"
@@ -71,10 +72,10 @@ onMounted(async () => {
                 <h3>{{ film.acf?.title || film.title.rendered }}</h3>
                 <ul>
                   <li>
-                    <i class="fas fa-clock"></i>{{ film.acf?.varighed }}
+                    <i class="fas fa-clock"></i> {{ film.acf?.varighed }}
                   </li>
                   <li>
-                    <i class="fas fa-child-reaching"></i>{{ film.acf?.age?.[0]?.aldersgraense }}
+                    <i class="fas fa-child-reaching"></i> {{ film.acf?.age?.[0]?.aldersgraense }}
                   </li>
                 </ul>
               </div>
@@ -90,8 +91,11 @@ onMounted(async () => {
                     </p>
                   </div>
                   <div class="film-program-beskrivelse">
-                  <p>{{ film.acf.description.length > 200 ? film.acf.description.slice(0, 200) + '...' : film.acf.description }}</p>
-
+                    <p>
+                      {{ film.acf.description.length > 200
+                        ? film.acf.description.slice(0, 200) + '...'
+                        : film.acf.description }}
+                    </p>
                   </div>
                 </div>
                 <div class="read-more-button-container">
@@ -104,16 +108,15 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div v-else style="color: white; margin-top: 2rem;">
+        <div v-else>
           Ingen film fundet i kategori 13.
         </div>
       </div>
     </section>
-
   </main>
   <Footer />
-
 </template>
+
 
 
 <style scoped>

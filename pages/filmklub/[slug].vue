@@ -1,9 +1,8 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { useHead, useFetch } from '#app'
 import { useRoute } from 'vue-router'
-import { useHead } from '#app'
 
-// Seo/meta
+// SEO/meta
 useHead({
   title: 'Filmklub',
   meta: [
@@ -19,25 +18,24 @@ useHead({
 })
 
 const slug = useRoute().params.slug
-const klub = ref(null)
-const filmProgram = ref([])
-const backdropImage = ref('')
 
-onMounted(async () => {
-  try {
-    const klubData = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`).then(res => res.json())
-    klub.value = klubData[0]
-    backdropImage.value = klub.value.acf?.['filmklub-billede'].url 
+// Hent filmklub data ud fra slug
+const { data: klubData } = await useFetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`)
 
-    const kategorier = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub-kategori?per_page=100`).then(res => res.json())
-    const kategori = kategorier.find(k => k.slug === slug)
+const klub = klubData.value ? klubData.value[0] : null
 
-    filmProgram.value = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?filmklub-kategori=${kategori?.id}&per_page=100&_embed`).then(res => res.json())
-  } catch (err) {
-    console.error('Fejl:', err)
-  }
-})
+// Hent kategorier, find den matchende kategori, og hent filmprogrammet ud fra kategori-id
+const { data: kategorierData } = await useFetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub-kategori?per_page=100`)
+const kategori = kategorierData.value?.find(k => k.slug === slug)
+
+const { data: filmProgramData } = await useFetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?filmklub-kategori=${kategori?.id}&per_page=100&_embed`)
+
+const filmProgram = filmProgramData.value || []
+
+// Backdropbillede
+const backdropImage = klub?.acf?.['filmklub-billede']?.url || ''
 </script>
+
 
 
 <template>
@@ -146,15 +144,12 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div v-else style="color: white; margin-top: 2rem;">
+        <div v-else>
           Ingen film fundet i kategori.
         </div>
       </div>
     </section>
   </main>
-
-  <div v-else class="loading">Indlæser filmklub...</div>
-
   <Footer />
 </template>
 
