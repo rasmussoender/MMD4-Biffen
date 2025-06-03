@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useHead } from '#app'
+import { ref, computed } from 'vue';
+import { useHead, useFetch } from '#app';
 
-// Seo/meta
+// SEO/meta
 useHead({
   title: 'Events',
   meta: [
@@ -15,32 +15,27 @@ useHead({
       content: 'events, event, oversigt, biffen, upcoming'
     }
   ]
-})
+});
 
-const categoryList = ref([])
-const eventList = ref([])
+const { data: categoryData } = await useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event-kategori');
+const { data: eventData } = await useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?_embed');
 
-onMounted(async () => {
-  const [categoryResponse, eventResponse] = await Promise.all([
-    fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event-kategori'),
-    fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?_embed')
-  ])
-  categoryList.value = await categoryResponse.json()
-  eventList.value = await eventResponse.json()
-})
+const categoryList = ref(categoryData.value || []);
+const eventList = ref(eventData.value || []);
 
 function getEventCategorySlug(eventItem) {
-  const categoryId = eventItem['event-kategori']?.[0]
-  const foundCategory = categoryList.value.find(cat => cat.id === categoryId)
-  return foundCategory?.slug || 'unknown'
+  const categoryId = eventItem['event-kategori']?.[0];
+  const foundCategory = categoryList.value.find(cat => cat.id === categoryId);
+  return foundCategory?.slug || 'unknown';
 }
+
 const sortedEvents = computed(() => {
   return [...eventList.value].sort((a, b) => {
-    return new Date(a.acf?.dato) - new Date(b.acf?.dato)
-  })
-})
-
+    return new Date(a.acf?.dato) - new Date(b.acf?.dato);
+  });
+});
 </script>
+
 
 <template>
     <Header />
