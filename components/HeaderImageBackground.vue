@@ -197,6 +197,7 @@ onUnmounted(() => {
   transition: background-color 0.3s ease, border 0.3s ease, transform 0.4s ease;
   background-color: transparent;
   border: 2px solid transparent;
+  opacity: 0.95;
 }
 
 .siteHeader.scrolled {

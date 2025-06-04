@@ -85,6 +85,8 @@ const { data: moviesProgram, pending, error } = await useFetch(
                 <ul>
                   <li><i class="fas fa-clock"></i> {{ movie.acf?.varighed }}</li>
                   <li><i class="fas fa-child-reaching"></i> {{ movie.acf.age?.[0]?.aldersgraense }}</li>
+                  <li><i class="fa-solid fa-calendar-days"></i> {{ movie.acf.udgivelsesdato }}</li>
+
                 </ul>
               </div>
               <hr class="film-program-hr">
