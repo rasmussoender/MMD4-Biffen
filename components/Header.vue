@@ -240,6 +240,7 @@ watch(() => route.fullPath, () => {
   z-index: 9999;
   transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   will-change: transform;
+  opacity: 0.95;
 }
 
 .headerInner {
@@ -271,11 +272,10 @@ watch(() => route.fullPath, () => {
   transition: transform 0.5s ease;
 }
 
-/* New class for instant appearance during menu close */
 .instantShow {
   transform: translateY(0) !important;
   transition: none !important;
-  z-index: 9998; /* Lower than fullscreen menu but still high */
+  z-index: 9998; 
 }
 
 .siteLogo {
@@ -286,7 +286,6 @@ watch(() => route.fullPath, () => {
   z-index: 1000;
 }
 
-/* Hide the header logo when fullscreen menu is open */
 .logoWrapper.hiddenLogo {
   opacity: 0;
   transition: none;

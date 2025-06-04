@@ -13,9 +13,9 @@ export default defineNuxtConfig({
       },
       titleTemplate: '%s | Biffen Nordkraft',
       // Siden indexeres ikke
-      meta: [
-        { name: 'robots', content: 'noindex, nofollow' }
-      ],
+      // meta: [
+      //   { name: 'robots', content: 'noindex, nofollow' }
+      // ],
       link: [
         {
           rel: 'stylesheet',

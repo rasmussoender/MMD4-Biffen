@@ -119,13 +119,13 @@ const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pederse
 
 .hero-slider {
   position: relative; 
-  height: 90vh;      
+  height: 80vh;      
   width: 100%;
   overflow: hidden;
 }
 
 .slide {
-  height: 90vh;      
+  height: 80vh;      
   background-size: cover;
   background-position: center;
   display: flex;

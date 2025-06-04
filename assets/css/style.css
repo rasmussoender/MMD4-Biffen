@@ -211,7 +211,6 @@ border-radius: var(--radius-section);
   width: 300px;       
   height: 400px;      
   border-radius: 20px;
-  box-shadow: 0px 0px 20px 2px #4C90FF;
   object-fit: cover;   
 }
 
