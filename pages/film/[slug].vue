@@ -1,9 +1,11 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useHead } from '#app'
 
 // Seo/meta
+// Her definerer vi title, metadescripton og keywords til seo
+
 useHead({
   title: 'Film',
   meta: [
@@ -18,89 +20,99 @@ useHead({
   ]
 })
 
+// variabel for movie, som default er på null
 const movie = ref(null);
+// // Variabel til at hente route for url.
 const route = useRoute();
 const slug = route.params.slug;
+
+// Opretter tomt reaktiv array til skuespillere og tom string til backdrop
 const cast = ref([]);
 const backdropImage = ref('');
-
+// API key til https://www.themoviedb.org/
 const TMDB_API_KEY = 'b65594f1d77a7f9b07f9c713616d0cc8';
 
 const visibleStart = ref(0);
+// Viser altid 5 visninger
 const visibleCount = ref(5);
 
-const updateVisibleCount = () => {
-  const width = window.innerWidth;
-  if (width <= 768) {
-    visibleCount.value = 3;
-  } else if (width <= 1024) {
-    visibleCount.value = 4;
-  } else {
-    visibleCount.value = 5;
-  }
-};
-
+// Når den bliver vist i dom'en, kører funktionen.
 onMounted(async () => {
-  updateVisibleCount();
-  window.addEventListener('resize', updateVisibleCount);
-
   try {
+    // Henter filmdata fra WP rest api, baseret på slug
     const response = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?slug=${slug}`);
+    // Konverterer til json
     const data = await response.json();
+    // den første film i movie variablen
     movie.value = data[0];
 
+    // Finder moviedv_id som vi har sat ind i SCF i WP
     const tmdbId = movie.value?.acf?.moviedb_id;
-
+    // Tjekker om der er blevet sat et id ind
     if (tmdbId) {
+      // Hvis ja, starter den med at hente skuespillerne, og sætter det id ind i moviedb's api url. Den sætter også vores API KEY ind, så den kan verify us.
       const castResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=${TMDB_API_KEY}&language=da`);
       const castData = await castResponse.json();
+      // gemmer de øveste 6 skuespillere, hvis der er ingen gemmes de i et tomt array
       cast.value = castData.cast?.slice(0, 6) || [];
 
+      // Så henter den detaljer om filmen (herinde backdrop, og vote average ligger)
       const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=da`);
       const movieData = await movieResponse.json();
-
+      // Hvis der så findes et backdrop_path, gemmes url'en i backdropImage
       if (movieData.backdrop_path) {
         backdropImage.value = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`;
       }
-
+      // Hvis der så findes et vote_average gemmes url'en i movie.value
       if (movieData.vote_average) {
         movie.value.rating = movieData.vote_average;
       }
     }
+    // Fanger errors, hvis der skulle ske noget
   } catch (error) {
     console.error('Der skete en fejl!', error);
   }
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateVisibleCount);
-});
-
+// Knapper for at vise flere spilletider
+// 
 const nextDays = () => {
+  // Hvis der findes data i movie variablen, finder den alle visningsdage
   if (movie.value) {
     const total = movie.value.acf.spilletider.filmvisning.length;
+    //Tjekker om de næste visninger er mindre end det totale antal, om der er flere dage at vise
     if (visibleStart.value + visibleCount.value < total) {
+      // Hvis ja, flyttes det fremad med antallet af viste dage, så næste dage bliver synligt.
       visibleStart.value += visibleCount.value;
     }
   }
 };
 
+// Definerer prevdays, som tjekker om den kan flytte visningen bagud uden at gå under 0
 const prevDays = () => {
   if (visibleStart.value - visibleCount.value >= 0) {
+    // Hvis det er muligt at flytte den bagud, så viser den dem
     visibleStart.value -= visibleCount.value;
   }
 };
 
+// Opretter computed property
 const visibleSessions = computed(() => {
+  // liste med alle de dage, hvor filmen vises. 
+  // Bruger slice til kun at vise de 5 dage, startende fra visibleStart.
   return movie.value?.acf.spilletider.filmvisning.slice(
     visibleStart.value,
     visibleStart.value + visibleCount.value
   ) || [];
 });
 
+// Formaterer datoen 
 const formattedDate = (str) => {
+  // splitter en dato i tekstform dag/måned op, konverterer delene til tal, og gemmer dem som dag og måned
   const [d, m] = str.split('/').map(Number);
+  // Opretter en dato, sætter bare året til 2000 da vi kun er interreseret i måned og dag.
   const date = new Date(2000, m - 1, d);
+  // For at ændre formateringen på datoen, returnes der html så vi kan style måneden og dagen korrekt
   return `
     <div class="dateContent">
       <div class="date-day">${d}</div>
@@ -109,6 +121,8 @@ const formattedDate = (str) => {
   `;
 };
 </script>
+
+
 
 <template>
   <main v-if="movie" class="movieDetailsPage">
@@ -228,7 +242,7 @@ const formattedDate = (str) => {
   </a>
 </div>
 <div class="actorbutton">
-  <a :href="movie.acf.moviedb_actors" target="_blank" class="btn outline">Se alle skuespillere</a>
+  <a :href="movie.acf.moviedb_actors" target="_blank" class="generalbtn btn-primary">Se alle skuespillere</a>
 </div>
 </section>
 </div>
@@ -639,25 +653,28 @@ const formattedDate = (str) => {
   }
 
   .days {
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     justify-content: space-between;
-    gap: 0.8rem;
     width: 100%;
     flex-wrap: nowrap;
     overflow: hidden;
     padding: 0;
     box-sizing: border-box;
+    gap: 2rem;
   }
 
   .showtimeDayCard {
     flex: 1;
     min-width: 0;
-    max-width: calc(33.333% - 0.533rem);
+    width: 100%;
     box-sizing: border-box;
+    gap: 0;
   }
 
   .dateCard {
-    height: 5rem;
+    height: 8rem;
     font-size: 0.9rem;
     padding: 0.5rem;
     margin-bottom: 0.5rem;

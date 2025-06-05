@@ -173,7 +173,6 @@ onUnmounted(() => {
 <style scoped>
 .headerInner,
 .fullscreenInnerWrapper {
-  max-width: 1500px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -181,6 +180,15 @@ onUnmounted(() => {
   align-items: center;
   flex-wrap: wrap;
 }
+
+@media (min-width: 1500px) {
+.headerInner,
+.fullscreenInnerWrapper {
+  max-width: 1500px;
+  padding: var(--space-container);
+}
+}
+
 
 .siteHeader {
   position: fixed;
@@ -261,7 +269,11 @@ onUnmounted(() => {
   color: white;
   cursor: pointer;
   padding: 8px;
-  transition: transform 0.3s ease;
+  transition: color 0.5s;
+}
+
+.burgerIcon:hover {
+  color: var(--interactive-red);
 }
 
 .menuCircleOverlay {
@@ -444,8 +456,12 @@ onUnmounted(() => {
   cursor: pointer;
   z-index: 10000;
   padding-right: 1.50rem;
+  transition: color 0.5s;
 }
 
+.closeIcon:hover {
+  color: var(--interactive-red);
+}
 .fullscreenContent {
   flex-grow: 1;
   overflow: hidden;
@@ -492,6 +508,7 @@ onUnmounted(() => {
   font-weight: 200;
 }
 
+
 .menuNumber {
   color: #517BEA;
   font-size: 30px;
@@ -507,6 +524,10 @@ onUnmounted(() => {
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 200;
+  transition: color 0.5s;
+}
+.menuLink:hover {
+  color: var(--interactive-red);
 }
 
 .fullscreenFooter {
