@@ -62,7 +62,7 @@ useHead({
     </div>
    </div>
     <div class="package">
-      <p>En fødselsdagspakke i Biffen koster kun 95 kr. pr. deltager og indeholder:</p>
+      <p class="package-first-p">En fødselsdagspakke i Biffen koster kun 95 kr. pr. deltager og indeholder:</p>
       <div class="packageWrapper">
         <div>
         <img src="../assets/img/Billetikon.png" alt="">
@@ -77,7 +77,7 @@ useHead({
         <h5>1 billet til den valgte film</h5>
         </div>
       </div>
-      <p>Minimum 10 deltagere</p>
+      <p class="package-last-p">Minimum 10 deltagere</p>
     </div>
     </article>
     <article class="text">
@@ -112,6 +112,15 @@ useHead({
 .package p {
   text-align: center;
 }
+
+.package-first-p {
+  margin-bottom: 2rem;
+}
+
+.package-last-p {
+  margin-top: 2rem;
+}
+
 .packageWrapper{
   display: flex;
   justify-content: center;
@@ -124,22 +133,30 @@ useHead({
   align-items: center;
 }
 .package{
-  padding: 36px 10px;
+  padding: 40px;
   border-radius: 20px;
   background-color: #273A5F;
+  margin-top: 50px;
 }
 .birthday{
   background-color: var(--secondary-blue);
 }
 
 .birthday{
-  padding: 20px 20px;
+  padding: 50px;
 }
 
 .birthday img{
   border-radius: 20px;
 }
 
+.introWrapper h3 {
+  margin-top: 2rem;
+}
+
+.introWrapper p {
+  font-size: 18px;
+}
 
 main{
   padding: 0px 12px;
@@ -149,12 +166,13 @@ h1,h2,h3,h4,h5,h6{
 }
 .introEvents{
   background-color: var(--secondary-blue);
-  padding: 20px 20px;
+  padding: 50px;
 }
 
-.introEvents img{
+.introEvents img {
   border-radius: 20px;
 }
+
 .introEvents{
   margin-bottom: var(--space-section);
 }
@@ -178,6 +196,13 @@ h1,h2,h3,h4,h5,h6{
 
 .introEvents{
   margin-bottom: var(--space-section);
+}
+
+@media (max-width: 767px){
+  .introEvents img, .birthday img {
+    width: 100%;
+  }
+
 }
 
 @media (min-width: 1200px){
@@ -230,7 +255,7 @@ h1,h2,h3,h4,h5,h6{
     padding: 0 var(--space-container);
   }
   .introEvents img, .birthdayimg{
-    width: 75%;
+    width: 100%;
   }
 }
 
