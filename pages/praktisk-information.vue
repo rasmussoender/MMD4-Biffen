@@ -79,321 +79,201 @@ accordionsFull.forEach(function(accordion) {
         <button class="inactive">Billetter & Priser</button>
         <button class="inactive">Faciliteter</button>
         <button class="inactive">Program</button>
-        <button class="inactive">Mad & Drikke</button>
         </div>
       </div>
       <div class="accordions">
 
       <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?12312</p>
+          <p>Hvor kan jeg købe billetter?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-        <p class="hide">hej</p>
+        <p class="hide">Billetter kan købes online via Biffens hjemmeside eller ved fysisk fremmøde ved Biffens cafe.</p>
       </div>
           <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvor meget koster billetter?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">-	Normalpris: 100 - 110 kr.
+-	Senior (65+): 85 kr.
+-	Studerende: 85 kr.
+-	Børn (u. 12 år): 80 kr.
+-	Rabatkort med 5 klip: 400 kr. (80 kr. pr. film)
+-	Reservations- og købsgebyr 5 kr.
+-	Tillæg ved helaftensfilm og events.
+</p>
         </div>
 
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvordan tilmelder jeg mig til en filmklub?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">-	Biffen har sine egne filmklubber, som man kan meldes ind og se udvalgte film til en reduceret film. Udover vores egne filmklubber kan du også se filmene fra Filmporten og Biografklub Danmark i Biffen.</p>
         </div>
 
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Kan man parkere nær Biffen?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">-	Ja, du kan finde en oversigt over parkeringsmulighederne her:</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Kan jeg reserve billetter?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Du kan ikke reservere billetter online, men du kan ringe til billetsalget og bede om en reservation, tlf. 98169977. Billetsalget åbner 30 min. før dagens første visning. -	Hvis du køber dine billetter online, undgår du at stå i kø i Biffen. Skulle du blive forhindret, kan du altid få billetterne annulleret, så længe du ringer herind inden forestillingen går i gang.</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Jeg kom til at købe billetter til en forkert dato/film.</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">-	Vi kan ikke ændre billetterne, men vi kan annullere dem. Du får herved pengene retur og kan købe billetter til den rigtige dato/film. Du kan få billetterne annulleret ved at ringe til billetsalget på tlf. 98169977. Det er vigtigt, at du ringer, før filmens start. Ellers kan billetterne ikke refunderes.</p>
         </div>
       </div>
        <div class="accordions hide">
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?1+1-!!</p>
+          <p>Hvor meget koster billetter?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">-	Normalpris: 100 - 110 kr.
+-	Senior (65+): 85 kr.
+-	Studerende: 85 kr.
+-	Børn (u. 12 år): 80 kr.
+-	Rabatkort med 5 klip: 400 kr. (80 kr. pr. film)
+-	Reservations- og købsgebyr 5 kr.
+-	Tillæg ved helaftensfilm og events.
+</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvorfor kan jeg kun købe 2 billetter på bagerste række?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Bagerste række består af sofasæder (dobbeltsæder). De kan derfor kun købes to af gangen. Ønsker du flere sæder, kan du lave flere særskilte køb.</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Kan jeg købe billet online med biografklub Danmark?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Ja, Biografklub Danmark vælges som billettype. Undervejs i billetkøbet bliver du bedt om at indtaste kuponnumre.</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Kan jeg indløse gavepakker ved jer?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Du kan indløse mange men ikke alle af de gavepakker som kan købes i supermarkeder, hos boghandlere eller på tankstationer mv. Vi tager bl.a. imod GoDream, Smartbox, biotur fra COOP, biotur fra Salling. Sørg altid for på forhånd at læse vilkår i din gavepakke grundigt igennem, og vær sikker på, at du på forhånd har aktiveret billetterne på nettet i de tilfælde, hvor dette er påkrævet. Vær også opmærksom på, at denne type gavebilletter kun er gyldige til ordinære filmforestillinger - altså ikke til forpremierer, gallapremierer eller andre særarrangementer.</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Mine biokuponer er udløbet – kan de forlænges?</p>
         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Vi modtager mange forskellige biokuponer i Biffen. Nogle gavepakker kan forlænges. Kontakt udbyderen for at høre om mulighederne. Er du i tvivl om, hvor dine biokuponer er fra, kan du sende en mail til info@biffen.eu - så hjælper vi dig på vej. </p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Kan jeg købe billet online med filmporten rabat?</p>
         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Ja. Filmporten rabat vælges som billettype. Din kupon afleveres ved ankomst til Biffen.</p>
         </div>
       </div>
        <div class="accordions hide">
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter??!?!??!?!</p>
+          <p>Kan man booke en sal hos Biffen?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Biffen har 3 moderne sale med plads til henholdsvis 87, 52 og 52 gæster. Vi arrangerer lukkede forestillinger for skoler, virksomheder og andre. For mere info kan vi kontaktes på info@biffen.eu</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvor meget koster det at booke en sal?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Billetprisen er kr. 55 pr. billet (formiddag, filmstart kl. 9) ved film fra det aktuelle repertoire, dog er der en minimumspris på kr. 800,- pr. forestilling. Eftermiddag/aften afhænger prisen af tidspunkt og film. For mere info kan vi kontaktes på info@biffen.eu</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Er der mulighed for at købe snacks, mad og drikkevarer i Biffen?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-         <p class="hide">hej</p>
+         <p class="hide">Ja, vi tilbyder lidt af hvert i biffens cafe. Der kan købes øl, snacks, mad og drikkevarer.</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Er det muligt at bringe sin egen mad, snacks eller drikkevarer med?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Nej, det tillader vi ikke. Hvis man vil have noget med at spise eller drikke med i biffen, skal det købes fra biffens cafe.</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Skal man se en film for at være i biffen?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Man skal ikke se film i biffen for at være der. Man kan også bare komme i biffens cafe for at få en kop kaffe med en ven og sidde lidt og snakke.</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Er der Wi-Fi i biografen?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Ja, vi tilbyder gratis Wi-Fi til kunder, som besøger Biffen for at se film eller bare være i Biffens Cafe.</p>
         </div>
       </div>
        <div class="accordions hide">
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter??!?!</p>
+          <p>Jeg kan ikke se nogle film i programmet?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Almindelige filmvisninger programlægges en uge ad gangen. Vi laver filmprogram hver mandag som gælder den kommende torsdag til onsdag. Særvisninger programlægges længere frem. Vi kan desværre ikke programlægge længere frem, da vi hver uge får nye film og andre er nødt til at gå ud af programmet</p>
         </div>
           <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvornår slutter filmen?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Under fakta på filmens underside kan du se filmens længde. Ved normale forestillinger er der ca. 15 minutters reklamer og trailers, som du skal lægge til filmens længde for at kende sluttidspunktet.</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvor længe går filmen?</p>
           <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-          <p class="hide">hej</p>
+          <p class="hide">Den enkelte films levetid i Biffen er baseret på publikums efterspørgsel. Derfor laves der normalt kun program for én uge ad gangen (dog kan forsalget ved særligt store premierer, festivaler eller events starte flere uger før visning). Biffens ugeprogram bliver typisk færdiggjort og offentliggjort mandag ved frokosttid og gælder fra førstkommende torsdag (som typisk er premieredagen) til og med onsdagen efter.</p>
         </div>
          <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvorfor spiller filmen kun om formiddagen/eftermiddagen/aften?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Filmene har som regel aftenvisninger i premiereugen. Derefter flytter de som regel ned til formiddage og/eller eftermiddage. Afhængig af filmens popularitet, kan den have flere visninger dagligt. Filmprogrammet laves hver mandag og gælder den kommende torsdag (premieredag) til onsdag. Filmtiderne ændrer sig uge for uge, så hold øje med programmet for at finde et filmtidspunkt, der passer i din kalender :)</p>
         </div>
        <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvor finder jeg programmet for ugen?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">Du kan finde vores program ved under siden Alle film. Her kan du få overblikket over de film, som spiller i denne uge. Programoversigten kan også ses fysisk ved Biffen.</p>
         </div>
         <div class="wrapper3">
           <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
+          <p>Hvad gør jeg, hvis jeg ikke kan finde den film, jeg vil se?</p>
          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
         </div>
-           <p class="hide">hej</p>
+           <p class="hide">De film vi vælger at vise hos biffens, er på baggrunds af filmens efterspørgsel, men også dens popularitet. Hvis der er en film, som du synes skal være med i de næste programmer, så kontakt os omkring, og det kan være den kommer på afhængig af filmens efterspørgsel og popularitet.</p>
         </div>
       </div>
-       <div class="accordions hide">
-        <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter??????????+</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-          <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-         <p class="hide">hej</p>
-        </div>
-         <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-         <p class="hide">hej</p>
-        </div>
-         <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-       <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-        <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-           <p class="hide">hej</p>
-        </div>
-      </div>
-       <div class="accordions hide">
-        <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter???</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-           <p class="hide">hej</p>
-        </div>
-          <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-         <p class="hide">hej</p>
-        </div>
-         <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-           <p class="hide">hej</p>
-        </div>
-         <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-           <p class="hide">hej</p>
-        </div>
-       <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-         <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-           <p class="hide">hej</p>
-        </div>
-        <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-      </div>
-       <div class="accordions hide">
-        <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter??</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-          <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-         <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-         <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-        <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-         <p class="hide">hej</p>
-        </div>
-       <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-        <div class="wrapper3">
-          <div class="accordion">
-          <p>Hvordan bestiller man billetter?</p>
-          <div class="click"><i class="fa-solid fa-angle-right"></i></div>
-        </div>
-          <p class="hide">hej</p>
-        </div>
-      </div>
-            
     </section>
     <section>
         <div class="contact">
@@ -711,5 +591,9 @@ main{
 
 .info,.contact,.map{
   border-radius: 20px;
+}
+
+.accordion p:first-of-type{
+  font-weight: bolder;
 }
 </style>
