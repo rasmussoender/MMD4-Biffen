@@ -17,6 +17,9 @@ export default defineNuxtConfig({
         { name: 'robots', content: 'noindex, nofollow' }
       ],
       link: [
+        { rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.png' },
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/icon?family=Material+Icons'

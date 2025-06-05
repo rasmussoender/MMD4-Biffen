@@ -115,13 +115,13 @@ onUnmounted(() => {
     <div class="fullscreenContent" :class="{ visible: contentVisible }">
       <div class="fullscreenInner">
         <div class="menuLayout">
-          <div class="menuColumn">
-            <div class="menuItem"><span class="menuNumber">01</span><NuxtLink to="/film" class="menuLink">Alle film</NuxtLink></div>
+          <div class="menuColumn underlineAnimationLinks">
+            <div class="menuItem "><span class="menuNumber">01</span><NuxtLink to="/film" class="menuLink ">Alle film</NuxtLink></div>
             <div class="menuItem"><span class="menuNumber">02</span><NuxtLink to="/kommende-film" class="menuLink">Kommende film</NuxtLink></div>
             <div class="menuItem"><span class="menuNumber">03</span><NuxtLink to="/events" class="menuLink">Events</NuxtLink></div>
             <div class="menuItem"><span class="menuNumber">04</span><NuxtLink to="/cinemateket" class="menuLink">Cinemateket</NuxtLink></div>
           </div>
-          <div class="menuColumn">
+          <div class="menuColumn underlineAnimationLinks">
             <div class="menuItem"><span class="menuNumber">05</span><NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink></div>
             <div class="menuItem"><span class="menuNumber">06</span><NuxtLink to="/gavekort-og-ovrige-billetter" class="menuLink">Gavekort & øvrige billetter</NuxtLink></div>
             <div class="menuItem"><span class="menuNumber">07</span><NuxtLink to="/book-en-sal" class="menuLink">Book en sal</NuxtLink></div>
@@ -174,6 +174,7 @@ onUnmounted(() => {
 .headerInner,
 .fullscreenInnerWrapper {
   width: 100%;
+  max-width: 1500px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -181,13 +182,7 @@ onUnmounted(() => {
   flex-wrap: wrap;
 }
 
-@media (min-width: 1500px) {
-.headerInner,
-.fullscreenInnerWrapper {
-  max-width: 1500px;
-  padding: var(--space-container);
-}
-}
+
 
 
 .siteHeader {
@@ -524,11 +519,8 @@ onUnmounted(() => {
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 200;
-  transition: color 0.5s;
 }
-.menuLink:hover {
-  color: var(--interactive-red);
-}
+
 
 .fullscreenFooter {
   display: flex;

@@ -101,8 +101,8 @@ const { data: filmProgram, pending, error } = await useFetch(
                     </p>
                   </div>
                 </div>
-                <div class="read-more-button-container">
-                  <NuxtLink :to="`/film/${film.slug}`" class="read-more-btn">
+                <div class="generalButtons">
+                  <NuxtLink :to="`/film/${film.slug}`" class="generalbtn btn-primary">
                     Mere info
                   </NuxtLink>
                 </div>

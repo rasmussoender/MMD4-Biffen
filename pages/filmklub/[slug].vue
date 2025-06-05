@@ -142,8 +142,8 @@ const backdropImage = klub?.acf?.['filmklub-billede']?.url || ''
                   </div>
                 </div>
 
-                <div class="read-more-button-container">
-                  <NuxtLink :to="`/film/${film.slug}`" class="read-more-btn">
+                <div class="generalButtons">
+                  <NuxtLink :to="`/film/${film.slug}`" class="generalbtn btn-primary">
                     Mere info
                   </NuxtLink>
                 </div>
@@ -280,7 +280,6 @@ const backdropImage = klub?.acf?.['filmklub-billede']?.url || ''
 .movie-description-container {
   display: flex;
   gap: 4rem;
-  margin-top: 3rem;
 }
 
 .movie-description-container h3 {

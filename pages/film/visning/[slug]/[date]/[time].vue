@@ -6,7 +6,6 @@ import { useHead } from '#app'
 // Importer svg ikoner for sæder
 import ledigIcon from '@/assets/img/ledig.svg?raw'
 import valgtIcon from '@/assets/img/dit-valg.svg?raw'
-import optagetIcon from '@/assets/img/optaget.svg?raw'
 
 // Seo/meta
 useHead({
@@ -23,13 +22,24 @@ useHead({
   ]
 })
 
-// Hent filmdata fra API
+//  Henter parametre for url
+const { slug, date, time } = useRoute().params
+
+// Reaktive variabel til filmvisning
+const visning = ref(null)
+
+// // Når komponenten er mounted, hentes data fra WordPress API
 onMounted(async () => {
   const res = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100')
   const movies = await res.json()
+  // Finder den film, hvis slug passer til url
   const movie = movies.find(m => m.slug === slug)
+  // Finder filmvisningen der matcher datoen i URL og erstatter / med -
   const valgtVisning = movie?.acf?.spilletider?.filmvisning.find(v => v.filmdato.replaceAll('/', '-') === date)
+  // Finder spilletid der matcher tidspunktet i URL og erstatter : med - for sammenligning
   const valgtSpilletid = valgtVisning?.spilletid.find(spilletid => spilletid.spilletidspunkt.replace(':', '-') === time)
+  // Hvis alt dette går igennem, gemmes oplysningerne i den reaktive variabel 'visning'
+
   if (movie && valgtVisning && valgtSpilletid) visning.value = {
     title: movie.title.rendered,
     date: valgtVisning.filmdato,
@@ -40,40 +50,43 @@ onMounted(async () => {
   }
 })
 
-//  Henter parametre for url
-const { slug, date, time } = useRoute().params
-
-// Reaktive variabler til filmvisning og billetantal
-const visning = ref(null)
-const ticketCounts = ref({ normal: 0, senior: 0, student: 0 })
-
-// Definerer billetpriserne
-const prices = { normal: 100, senior: 85, student: 85 }
-
 // Lav en liste med 6 kolonner sæder, og 14 i hver række og sæt dem til at være ledige og ikke valgt som default
 const columns = 6
 const rows = 14
+// Bruger ref for at gøre seats reaktive. Opretter et array med 6 kolonner og 14 rækker af sæder,
+// hvor hvert sæde har en unik id og starter som ledigt og ikke valgt.
 const seats = ref(
   Array.from({ length: columns }, (_, column) =>
     Array.from({ length: rows }, (_, row) => ({
       id: `${column}-${row}`,
-      taken: false,
-      selected: false
+      selected: false 
     }))
   )
 )
+
+// Reaktive variabler til billetantal
+const ticketCounts = ref({ normal: 0, senior: 0, student: 0 })
+
 //  antal billetter valgt i alt
+// Bruger computed til at beregne antallet af billetter, den vil automatisk generegne hver gang ticketcounts ændres
 const totalSelected = computed(() =>
   Object.values(ticketCounts.value).reduce((totalCount, currentCount) => totalCount + currentCount, 0)
 )
 
 // Tekstoversigt over valgte billetter i bunden
+// Bruger compouted, så den automatisk kan opdatere værdien, hvis ticketcounts.value ændres
 const billetOversigt = computed(() =>
   Object.entries(ticketCounts.value)
+  // filtrerer de billettyper hvor antal er større end 0
     .filter(([, antal]) => antal > 0)
+    // Gør hvert element til en string, og så vises antallet som antal x billettype
     .map(([ticketType, antal]) => `${antal} x ${ticketType === 'student' ? 'studerende' : ticketType}`)
+    // Sætter , mellem billettyper
     .join(', ') || 'Vælg billetter'
 )
+
+// Definerer billetpriserne
+const prices = { normal: 100, senior: 85, student: 85 }
 
 // Regner samlet pris for valgte billetter
 const totalPrice = computed(() =>
@@ -82,34 +95,45 @@ const totalPrice = computed(() =>
 )
 
 // Opdater billetantal og nulstil valgte sæder når man vælger nye sæder
+// Funktion for updateticketcount, som tager to parametre
 function updateTicketCount(type, changeAmount) {
+  // Opdaterer antallet af biletter, og sikrer at antallet ikke kan komme under 0
   ticketCounts.value[type] = Math.max(0, ticketCounts.value[type] + changeAmount)
+// seats er reaktiv variabel med alle sæder, som et 2Darray 
+// .flat gør 2D-arrayet fladt, så alle sæder ligger i et samlet array
+// foreach loop går gennem hvert sæde og sætter selected = false, så ingen sæder er valgt længere
   seats.value.flat().forEach(s => s.selected = false)
 }
 
 // Returner korrekt sæde svg afhængig af status
 function getSeatIcon(seat) {
-  return seat.taken ? optagetIcon : seat.selected ? valgtIcon : ledigIcon
+  return seat.selected ? valgtIcon : ledigIcon 
 }
 
+// funktionen toggleseat kaldes når man trykker på et sæde
 function toggleSeat(seat) {
 
-  // Rydder tidligere valgte sæde
+  // seats er vores 2d array, som gøres flat igen, 
+  // foreach loop går gennem hvert sæde og sætter selected = false, så ingen sæder er valgt længere
   seats.value.flat().forEach(s => s.selected = false)
 
-   // Vælg så mange ledige sæder som nødvendigt (Afhænigt af valgt antal), startende fra det valgte sæde
+   // Opretter en variabel flatSeats, som er et fladt array med alle sæder.
   const flatSeats = seats.value.flat()
+  // Finder index for det sæde man trykker på
   const startIndex = flatSeats.findIndex(s => s.id === seat.id)
 
-  let count = 0
-  for (let i = startIndex; i < flatSeats.length && count < totalSelected.value; i++) {
-    if (!flatSeats[i].taken) {
-      flatSeats[i].selected = true
-      count++
-    }
-  }
+let count = 0
+// For loop, der starter ved det valgte sæde, og vil fortsætte så længe der er sæder tilbage
+// og der ikke er valgt nok sæder endnu (count < totalSelected.value)
+for (let i = startIndex; i < flatSeats.length && count < totalSelected.value; i++) {
+  // Vælger sædet ved index i
+  flatSeats[i].selected = true
+  // Øger count med 1, for hvert sæde der er valgt
+  count++
+}
 }
 </script>
+
 <template>
   <Header />
   <main class="booking-wrapper widthContainer">
