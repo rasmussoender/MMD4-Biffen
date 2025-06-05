@@ -2,6 +2,7 @@
 import { useHead, useFetch } from '#app';
 
 // SEO/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Filmklubber',
   meta: [
@@ -15,7 +16,8 @@ useHead({
     }
   ]
 });
-
+// Her fetches data fra wordpress api, ved hjælp af useFetch. 
+// Her defineres pending og error, altså hvis der skulle ske en fejl kommer der besked, samt når den loader
 const { data: filmklubber, pending, error } = await useFetch(
   'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?per_page=100'
 );

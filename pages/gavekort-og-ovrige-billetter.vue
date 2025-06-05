@@ -3,6 +3,7 @@ import Header from '@/components/Header.vue';
 import { useHead } from '#app'
 
 // Seo/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Gavekort & Øvrige billetter',
   meta: [
@@ -78,10 +79,7 @@ useHead({
     <img src="../assets/img/FirmabilleterMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/FirmabilleterDesktop.png" alt="" class="pcbillede">
     <div class="introWrapper">
-    <div class="headingNdLine">
-      <h1>Firmabilletter</h1>
-      <div></div>
-    </div>
+<h2 class="overskrift-med-streg"><span>Firmabilletter</span></h2>
     <p>Med vores firmaordning kan du nemt og billigt glæde dine medarbejdere og forretningsforbindelser med store filmoplevelser. </p>
     <p>En firmabillet koster 76 kr. inkl. moms (min. 10 stk.) og kan indløses til alle ordinære forestillinger i Biffen Nordkraft. Der opkræves tillæg for forlænget spilletid og events. Tilkøb af lækkerier fra caféen er muligt. Kontakt os for at høre mere om mulighederne og evt. tilbud. Det ønskede antal billetter fremsendes til din firmaadresse sammen med en faktura. I forbindelse med køb af firmabilletter skal virksomhedens CVR-nr. oplyses. </p>
     <p>Firmabilletter kan bestilles hos Karin Fast på <span class="red">info@biffen.eu</span> eller tlf. <span class="red">31909977</span> hverdage kl. 9-13.</p>
@@ -260,7 +258,7 @@ h1,h2,h3,h4,h5,h6{
     display: grid;
     grid-template-columns: repeat(2,1fr);
     align-items: center;
-    padding: 40px 100px;
+    padding: 2rem;
     gap: 2rem;
   }
   .introEvents .introWrapper{

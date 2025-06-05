@@ -3,6 +3,7 @@ import { useHead, useFetch } from '#app'
 import { useRoute } from 'vue-router'
 
 // SEO/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Filmklub',
   meta: [
@@ -17,22 +18,29 @@ useHead({
   ]
 })
 
+// Henter slug for url'en. og bruger useRoute til at få fat i url parametre
 const slug = useRoute().params.slug
 
-// Hent filmklub data ud fra slug
+// Hent filmklub data ud fra slug ved hjælp af UseFetch
 const { data: klubData } = await useFetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub?slug=${slug}`)
-
+// Variabel der tjekker om der kommer data fra klubData
+// Hvis ja, gemmer den filklub i variablen, hvis nej sætter den klub=null
 const klub = klubData.value ? klubData.value[0] : null
 
-// Hent kategorier, find den matchende kategori, og hent filmprogrammet ud fra kategori-id
+// Hent kategorier, find den matchende kategori, og hent filmprogrammet ud fra kategoriid
 const { data: kategorierData } = await useFetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/filmklub-kategori?per_page=100`)
+
+// Finder den kategori, hvor slug matcher den fra URL. Gemmer den i kategori.
 const kategori = kategorierData.value?.find(k => k.slug === slug)
 
+// Henter filmprogrammet fra API, som hører til den valgte kategori.
 const { data: filmProgramData } = await useFetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?filmklub-kategori=${kategori?.id}&per_page=100&_embed`)
 
+// Hvis vi får data, gemmer den dem i filmProgram. Hvis ikke, brug en tom liste
 const filmProgram = filmProgramData.value || []
 
 // Backdropbillede
+// Henter backdrop billede fra SCF, Hvis det ikke findes, bruges en tom string.
 const backdropImage = klub?.acf?.['filmklub-billede']?.url || ''
 </script>
 
@@ -56,7 +64,7 @@ const backdropImage = klub?.acf?.['filmklub-billede']?.url || ''
 
     
     <div class="hero widthContainer">
-      <div class="backButton">
+      <div class="backButton underlineAnimationLinks">
         <NuxtLink to="/filmklub" class="backbtn">
           <i class="fa fa-arrow-left"></i> Tilbage
         </NuxtLink>

@@ -160,9 +160,9 @@ const formattedDate = (str) => {
 
           <p class="movieinstructor">Instruktør(ere): {{ movie.acf.movieinstructor.map(i => i.instructor).join(', ') }}</p>
           <p class="moviedescription">{{ movie.acf.description }}</p>
-          <div class="buttons">
-            <a :href="movie.acf.trailer" target="_blank" class="btn red"> <i class="fa-brands fa-youtube"></i> Se trailer</a>
-            <a :href="movie.acf.tmdb" target="_blank" class="btn outline"> <i class="fa-solid fa-circle-info"></i> Læs mere</a>
+          <div class="generalButtons">
+            <a :href="movie.acf.trailer" target="_blank" class="generalbtn btn-primary"> <i class="fa-brands fa-youtube"></i> Se trailer</a>
+            <a :href="movie.acf.tmdb" target="_blank" class="generalbtn btn-secondary"> <i class="fa-solid fa-circle-info"></i> Læs mere</a>
           </div>
         </div>
       </div>
@@ -385,24 +385,6 @@ const formattedDate = (str) => {
 
 .moviedescription {
   margin: 1rem 0;
-}
-
-.buttons {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.btn.red {
-  background-color: #ff3b5c;
-  color: white;
-}
-
-.btn.outline {
-  border: 1px solid white;
-  color: white;
-  background: transparent;
 }
 
 .showtimesSection {

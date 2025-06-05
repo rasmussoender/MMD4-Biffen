@@ -2,6 +2,7 @@
 import { useHead, useFetch } from '#app'
 
 // Seo/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Forside',
   meta: [
@@ -18,6 +19,8 @@ useHead({
 
 
 // Filmprogram
+// Her fetches data fra wordpress api, ved hjælp af useFetch. 
+// Her defineres pending og error, altså hvis der skulle ske en fejl kommer der besked, samt når den loader
 const { data: moviesProgram, pending, error } = await useFetch(
   'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-program=18&_embed'
 )
@@ -95,12 +98,13 @@ const { data: moviesProgram, pending, error } = await useFetch(
                 <div class="film-program-dato-beskrivelse">
                   <div class="film-program-beskrivelse">
                     <p>
+                      <!-- Henter films beskrivelse dog sætter vi den ti max 300 tegn ved hjælp ad .slice -->
                       {{ movie.acf.description.length > 300 ? movie.acf.description.slice(0, 300) + '...' : movie.acf.description }}
                     </p>
                   </div>
                 </div>
-                <div class="read-more-button-container">
-                  <NuxtLink :to="`/film/${movie.slug}`" class="read-more-btn">
+                <div class="generalButtons">
+                  <NuxtLink :to="`/film/${movie.slug}`" class="generalbtn btn-primary ">
                     Mere info
                   </NuxtLink>
                 </div>
@@ -111,7 +115,7 @@ const { data: moviesProgram, pending, error } = await useFetch(
       </div>
 
       <div class="vis-flere-film-cta">
-        <a href="#">
+        <a href="/film" class="generalbtn btn-secondary">
           Vis flere film
           <span class="material-symbols-outlined">arrow_circle_right</span>
         </a>
@@ -121,10 +125,11 @@ const { data: moviesProgram, pending, error } = await useFetch(
     <section class="kommendeFilmIndex">
       <h2 class="overskrift-med-streg"><span>Nyheder på vej</span></h2>
 
+      <!-- Her kan vi render de 4 næste kommende film, som defineret i vores "kommendeFilm.vue component"  -->
       <KommendeFilm :limit="4" />
 
       <div class="vis-flere-film-cta">
-        <a href="/kommende-film">
+        <a href="/kommende-film" class="generalbtn btn-secondary">
           Se kommende film
           <span class="material-symbols-outlined">arrow_circle_right</span>
         </a>
@@ -279,18 +284,6 @@ const { data: moviesProgram, pending, error } = await useFetch(
   margin-bottom: var(--space-section) ;
 }
 
-.vis-flere-film-cta a {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 1rem;
-  border: 2px solid white;
-  border-radius: 10px;
-  color: white;
-  font-size: 18px;
-  text-decoration: none;
-  font-weight: 500;
-}
 
 .vis-flere-film-cta .material-symbols-outlined {
   font-size: 30px;

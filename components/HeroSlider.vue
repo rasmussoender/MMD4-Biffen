@@ -1,5 +1,6 @@
 <!-- brugt library: swiperjs:  https://swiperjs.com/ -->
 <script setup>
+// Importerer swiper komponenter samt useFetch 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -7,6 +8,8 @@ import 'swiper/css/pagination'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { useFetch } from '#app'
 
+// Her fetches data fra wordpress api, ved hjælp af useFetch. 
+// Her defineres pending og error, altså hvis der skulle ske en fejl kommer der besked, samt når den loader
 const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?forside-hero-slider=17&_embed')
 </script>
 
@@ -16,7 +19,7 @@ const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pederse
     <div v-if="pending"><i class="fa fa-spinner fa-spin"></i> Indlæser kommende film...</div>
 
     <div v-else-if="error">Der opstod en fejl</div>
-
+    <!-- Så kan vi så brugerdefinere vores slider, i forhold til hastighed, om der skal være pagination, autoplay, osv. -->
     <Swiper
       v-else
       :modules="[Autoplay, Navigation, Pagination]"

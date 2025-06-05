@@ -1,6 +1,8 @@
 <script setup>
+// Importerer useHead fra app
 import { useHead } from '#app'
-
+// SEO/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Kommende Film',
   meta: [

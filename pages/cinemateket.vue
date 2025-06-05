@@ -1,6 +1,8 @@
 <script setup>
 import { useHead, useFetch } from '#app'
 
+// SEO/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Cinemateket',
   meta: [
@@ -14,7 +16,8 @@ useHead({
     }
   ]
 })
-
+// Her fetches data fra wordpress api, ved hjælp af useFetch. 
+// Her defineres pending og error, altså hvis der skulle ske en fejl kommer der besked, samt når den loader
 const { data: filmProgram, pending, error } = await useFetch(
   'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?cinemateket=16&per_page=100&_embed'
 )

@@ -4,6 +4,8 @@ import { ref, onMounted } from 'vue'
 import { useHead } from '#app'
 
 // Seo/meta
+// Seo/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Event',
   meta: [
@@ -17,14 +19,19 @@ useHead({
     }
   ]
 })
-
+// Variabel til at hente route for url.
 const route = useRoute()
 const eventSlug = route.params.event
+// Opretter en variabel til at gemme data om det event, den starter i null, men skal senere fyldes med info
 const singleEvent = ref(null)
 
+// Bruger onMOunted, som gør at den venter på komponentet er færdig med at blive vist
 onMounted(async () => {
+  // Derefter henter vio data fra vores api
   const response = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?slug=${eventSlug}&_embed`)
+  // Retunerer scaret som json
   const eventData = await response.json()
+  // Gemmer det første event fra resultatet ellers sættes værdien til null.
   singleEvent.value = eventData[0] || null
 })
 </script>
