@@ -30,10 +30,10 @@ onMounted(()=>{
   //Alle buttons får tilføjet en inactive klasse, som bliver fjernet afhænging af hvilken en man trykker på.
   buttons.forEach(function(button, index){
     button.addEventListener("click",function(e){
-      accordions.forEach(function(accordion){
+      accordions.forEach(function(accordion){ // Her skjuler vi alle accordions
         accordion.classList.add("hide");
       });
-      accordions[index].classList.remove("hide");
+      accordions[index].classList.remove("hide"); // Her vises vi accordions frem
       for(let i = 0; i<buttons.length; i++){
         buttons[i].classList.add("inactive");
       }

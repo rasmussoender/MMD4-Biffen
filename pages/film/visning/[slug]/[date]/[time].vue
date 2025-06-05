@@ -6,6 +6,7 @@ import { useHead } from '#app'
 // Importer svg ikoner for sæder
 import ledigIcon from '@/assets/img/ledig.svg?raw'
 import valgtIcon from '@/assets/img/dit-valg.svg?raw'
+import optagetIcon from '@/assets/img/optaget.svg?raw'
 
 // Seo/meta
 useHead({
@@ -34,9 +35,9 @@ onMounted(async () => {
   const movies = await res.json()
   // Finder den film, hvis slug passer til url
   const movie = movies.find(m => m.slug === slug)
-  // Finder filmvisningen der matcher datoen i URL og erstatter / med -
+  // Finder filmvisningen der matcher datoen i URL og erstatter / med -. Dette er for at linke hen til den rigtige filmvisning
   const valgtVisning = movie?.acf?.spilletider?.filmvisning.find(v => v.filmdato.replaceAll('/', '-') === date)
-  // Finder spilletid der matcher tidspunktet i URL og erstatter : med - for sammenligning
+  // Finder spilletid der matcher tidspunktet i URL og erstatter : med - for sammenligning. Dette er for at linke hen til den rigtige spilletid
   const valgtSpilletid = valgtVisning?.spilletid.find(spilletid => spilletid.spilletidspunkt.replace(':', '-') === time)
   // Hvis alt dette går igennem, gemmes oplysningerne i den reaktive variabel 'visning'
 
@@ -107,7 +108,7 @@ function updateTicketCount(type, changeAmount) {
 
 // Returner korrekt sæde svg afhængig af status
 function getSeatIcon(seat) {
-  return seat.selected ? valgtIcon : ledigIcon 
+  return seat.taken ? optagetIcon : seat.selected ? valgtIcon : ledigIcon
 }
 
 // funktionen toggleseat kaldes når man trykker på et sæde

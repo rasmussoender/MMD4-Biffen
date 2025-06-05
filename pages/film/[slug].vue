@@ -88,7 +88,7 @@ const nextDays = () => {
   }
 };
 
-// Definerer prevdays, som tjekker om den kan flytte visningen bagud uden at gå under 0
+// Definerer prevdays som tjekker om den kan flytte visningen bagud uden at gå under 0
 const prevDays = () => {
   if (visibleStart.value - visibleCount.value >= 0) {
     // Hvis det er muligt at flytte den bagud, så viser den dem
