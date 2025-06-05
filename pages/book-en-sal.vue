@@ -30,7 +30,7 @@ useHead({
     <h1 class="overskrift-med-streg"><span>Dit arrangement</span></h1>
 
     <p>Både private og virksomheder kan leje biografsal og café til arrangementer og events.</p>
-    <p>Digitalt udstyr til film, billeder og lyd af enhver art og i bedste kvalitet forefindes, ligesom caféen kan benyttes til afholdelse af forskellige typer arrangementer. Salen kan også benyttes til forelæsninger, debat eller andet.</p>
+    <p>Digitalt udstyr til film, billeder og lyd af enhver art og i bedste kvalitet forefindes, ligesom caféen kan benyttes til afholdelse af forskellige typer arrangementer. Salen kan også benyttes til forelæsninger, debat eller andet.</p> <br>
     <p>Biffen tilbyder desuden samarbejder med virksomheder, der ønsker at benytte biografens hyggelige rammer til at kræse om medarbejdere, kunder og samarbejdspartnere.</p>
     <p>Kontakt Karin Fast, <span class="red">info@biffen.eu</span></p>
     </div>
@@ -44,7 +44,7 @@ useHead({
     <div class="introWrapper column1">
     <h2 class="overskrift-med-streg"><span>Med skolen i biografen</span></h2>
 
-    <p>Størstedelen af de nordjyske skoler booker hvert skoleår den lokale biograf som klasselokale, og ca. titusindvis af børn og unge går på udflugt ind i verdener, historiske perioder og konflikter, de kan spejle sig i og blive klogere på livet af at besøge. Intet rum i børns aktuelle virkelighed egner sig bedre hertil end netop biografens rum.</p>
+    <p>Størstedelen af de nordjyske skoler booker hvert skoleår den lokale biograf som klasselokale, og ca. titusindvis af børn og unge går på udflugt ind i verdener, historiske perioder og konflikter, de kan spejle sig i og blive klogere på livet af at besøge. Intet rum i børns aktuelle virkelighed egner sig bedre hertil end netop biografens rum.</p> <br>
     <p>Med Skolen I Biografen er ikke blot en udflugt ind i filmens magiske univers. Det er også anledning til at præsentere tidens børn og unge for film og filmnationer, de ikke selv kunne drømme om at besøge. Med Skolen I Biografen tilrettelægges og administreres af UCN, Center for Undervisningsmaterialer i Aalborg.</p>
     <h3>Gymnasier og videregående uddannelser </h3>
     <p> skriv til Karin Fast, <span class="red">info@biffen.eu</span></p>
@@ -56,10 +56,7 @@ useHead({
     <img src="../assets/img/BirthdayMobile.png" alt="" class="mobilbillede birthdayimg">
     <img src="../assets/img/BirthdayDesktop.png" alt="" class="pcbillede birthdayimg">
    <div class="notShow">
-     <div class="headingNdLine notShow">
-      <h1>Børnefødselsdag</h1>
-      <div></div>
-    </div>
+     <h2 class="overskrift-med-streg"><span>Børnefødselsdage</span></h2>
    </div>
     <div class="package">
       <p class="package-first-p">En fødselsdagspakke i Biffen koster kun 95 kr. pr. deltager og indeholder:</p>
@@ -84,10 +81,10 @@ useHead({
    <div class="toShow">
 <h2 class="overskrift-med-streg"><span>Børnefødselsdag</span></h2>
    </div>
-    <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden.</p>
-    <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden. Glem alt om oprydning - Vi tager os af det praktiske, så du kan fokusere på at nyde dagen sammen med fødselaren.</p>
+    <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden.</p> <br>
+    <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden. Glem alt om oprydning - Vi tager os af det praktiske, så du kan fokusere på at nyde dagen sammen med fødselaren.</p> <br>
     <p>Samme pris for voksne (der skal mindst en voksen med ind i salen). Som udgangspunkt vil det være med filmstart kl. 10 alle ugens dage.</p>
-    <p>Book din næste børnefødselsdag i Biffen (gerne senest 14 dage før) på mail til <span class="red">stine@biffen.eu</span></p>
+    <p>Book din næste børnefødselsdag i Biffen (gerne senest 14 dage før) på mail til <span class="red">stine@biffen.eu</span></p> <br>
     <p>Meget kan lade sig gøre - så tøv ikke med at kontakte os for at høre om andre muligheder.</p>
     <p>Vi glæder os til at fejre dagen med jer!</p>
     </article>

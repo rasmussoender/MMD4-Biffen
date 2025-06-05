@@ -165,7 +165,7 @@ a {
 }
 .upcomingEvents {
   padding: var(--space-container);
-padding-top: 1rem;
+padding-top: 4rem;
 }
 @media (min-width: 1500px) {
   .upcomingEvents {
@@ -174,6 +174,7 @@ padding-top: 1rem;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 0;
+  padding-top: 4rem;
   }
 }
 
@@ -217,9 +218,9 @@ padding-top: 1rem;
 .eventInfoBox {
   flex-direction: row-reverse;
   display: flex;
-  gap: 1rem;
+  gap: 50px;
   background: rgba(32, 47, 77, 0.85);
-  padding: 2rem;
+  padding: 50px;
   border-radius: var(--radius-section);
   width: 100%;
   box-sizing: border-box;

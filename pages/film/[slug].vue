@@ -347,7 +347,7 @@ const formattedDate = (str) => {
 .movieInfoBox {
   flex: 1 1 55%;
   background: rgba(32, 47, 77, 0.85);
-  padding: 2rem;
+  padding: 50px;
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;
