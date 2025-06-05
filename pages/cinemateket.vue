@@ -137,7 +137,7 @@ const { data: filmProgram, pending, error } = await useFetch(
 .section-boks-1-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 70px;
 }
 

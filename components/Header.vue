@@ -2,15 +2,28 @@
 import { ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
+// Styrer om menuen er åben
 const isMenuOpen = ref(false)
+
+// Styrer om menuen er i gang med at lukke. Den bruger vi til at animere at den skal lukke
 const isClosing = ref(false)
+
+// Viser menuens indhold efter en lille forsinkelse for fade-effekt
 const contentVisible = ref(false)
+
+// Bruges til at ændre headerens udseende, når vi scroller
 const isScrolled = ref(false)
+
+// Gemmer hvor langt vi er scrollet ned – bruges til at sammenligne scrollretning
 const lastScrollY = ref(0)
+
+// Bruges til at vise/skjule header alt efter om vi scroller op eller ned
 const showHeader = ref(true)
 
+// Henter den aktuelle route (vi bruger den længere nede til at reagere på skift)
 const route = useRoute()
 
+// Låser scroll så brugeren ikke kan scrolle i baggrunden mens menuen er åben
 function lockScroll() {
   const scrollY = window.scrollY
   document.body.style.position = 'fixed'
@@ -21,6 +34,7 @@ function lockScroll() {
   document.body.dataset.scrollY = scrollY
 }
 
+// Gendanner scrollen til dens oprindelige position
 function unlockScroll() {
   const scrollY = document.body.dataset.scrollY
   document.body.style.position = ''
@@ -32,6 +46,7 @@ function unlockScroll() {
   delete document.body.dataset.scrollY
 }
 
+// Åbner menuen låser scroll og viser indholdet lidt efter
 function openMenu() {
   isMenuOpen.value = true
   lockScroll()
@@ -40,9 +55,10 @@ function openMenu() {
   }, 800)
 }
 
+// Lukker menuen i sekvenser. Først skjules indholdet og derefter hele menuen
 function closeMenu() {
   contentVisible.value = false
-  showHeader.value = true
+  showHeader.value = true // Sørger for at header vises efter lukning
   setTimeout(() => {
     isClosing.value = true
     setTimeout(() => {
@@ -53,6 +69,7 @@ function closeMenu() {
   }, 400)
 }
 
+// Styrer hvordan header reagerer på scroll. Skjules ved scroll ned og vises ved scroll op
 function handleScroll() {
   const currentScroll = window.scrollY
   isScrolled.value = currentScroll > 10
@@ -60,23 +77,27 @@ function handleScroll() {
   lastScrollY.value = currentScroll
 }
 
+// Sørger for at body har nok padding-top til at give plads til header
 function applyHeaderPadding() {
   nextTick(() => {
-    document.body.style.paddingTop = '134px'
+    document.body.style.paddingTop = '134px' // Justeres hvis headerens højde ændrer sig
   })
 }
 
+// Når komponenten loader scroll-events, padding og initial tilstand
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   applyHeaderPadding()
 })
 
+// Når komponenten fjernes så ryd op og fjern header-padding
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   unlockScroll()
   document.body.style.paddingTop = ''
 })
 
+// Hvis brugeren skifter side genanvender vi padding så header ikke overlapper indhold
 watch(() => route.fullPath, () => {
   applyHeaderPadding()
 })
@@ -88,17 +109,19 @@ watch(() => route.fullPath, () => {
   v-show="true"
   class="siteHeader"
   :class="{
-    scrolled: isScrolled,
-    hiddenHeader: !showHeader && !isMenuOpen && !isClosing,
-    slideUp: isMenuOpen,
-    slideDown: !isMenuOpen && !isClosing,
-    instantShow: isClosing
+    scrolled: isScrolled,                          // Tilføjes når man scroller lidt ned
+    hiddenHeader: !showHeader && !isMenuOpen && !isClosing, // Skjuler header ved scroll ned, men kun hvis menuen er lukket
+    slideUp: isMenuOpen,                           // Tilføjes for animation når menu åbner
+    slideDown: !isMenuOpen && !isClosing,          // Tilføjes når menu lukkes
+    instantShow: isClosing                         // Tvinger headeren til at vises med det samme efter luk
   }"
 >
   <div class="headerInner">
+    <!-- Logo som skjules når menu er åben -->
     <a class="logoWrapper" href="/" :class="{ hiddenLogo: isMenuOpen }">
       <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
     </a>
+
     <div class="headerRight">
       <nav class="mainNav underlineAnimationLinks">
         <a href="/film">Alle film</a>
@@ -112,116 +135,94 @@ watch(() => route.fullPath, () => {
   </div>
 </header>
 
+<!-- Cirkel-overlay med animation -->
+<div class="menuCircleOverlay" :class="{ active: isMenuOpen, closing: isClosing }"></div>
 
-  <div class="menuCircleOverlay" :class="{ active: isMenuOpen, closing: isClosing }"></div>
-
-  <div class="lavaLampBackground" v-show="isMenuOpen" :class="{ visible: contentVisible }">
-    <div class="darkCenterOverlay"></div>
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="blob blobAccent"></div>
-    <div class="blob blobElectric"></div>
-  </div>
-
-  <div class="fullscreenMenu" v-if="isMenuOpen">
-    <div class="fullscreenTopBar">
-  <div class="fullscreenInnerWrapper">
-    <div class="fullscreenTopBarInner">
-      <div class="fullscreenLeft">
-        <a href="/" class="logoWrapper fullscreenLogo">
-          <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
-        </a>
-      </div>
-      <div class="fullscreenRight">
-        <div class="closeIcon" @click="closeMenu">
-          <i class="fas fa-times"></i>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Baggrund med blobs og mørk overlay -->
+<div class="lavaLampBackground" v-show="isMenuOpen" :class="{ visible: contentVisible }">
+  <div class="darkCenterOverlay"></div>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blobAccent"></div>
+  <div class="blob blobElectric"></div>
 </div>
 
-    <div class="fullscreenContent" :class="{ visible: contentVisible }">
-      <div class="fullscreenInner">
-        <div class="menuLayout">
-
-          <div class="menuColumn underlineAnimationLinks">
-    <div class="menuItem">
-      <span class="menuNumber">01</span>
-      <NuxtLink to="/film" class="menuLink">Alle film</NuxtLink>
-    </div>
-    <div class="menuItem">
-      <span class="menuNumber">02</span>
-      <NuxtLink to="/kommende-film" class="menuLink">Kommende film</NuxtLink>
-    </div>
-    <div class="menuItem">
-      <span class="menuNumber">03</span>
-      <NuxtLink to="/events" class="menuLink">Events</NuxtLink>
-    </div>
-    <div class="menuItem">
-      <span class="menuNumber">04</span>
-      <NuxtLink to="/cinemateket" class="menuLink">Cinemateket</NuxtLink>
-    </div>
-  </div>
-
-  <div class="menuColumn underlineAnimationLinks">
-    <div class="menuItem">
-      <span class="menuNumber">05</span>
-      <NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink>
-    </div>
-    <div class="menuItem">
-      <span class="menuNumber">06</span>
-      <NuxtLink to="/gavekort-og-ovrige-billetter" class="menuLink">Gavekort & øvrige billetter</NuxtLink>
-    </div>
-    <div class="menuItem">
-      <span class="menuNumber">07</span>
-      <NuxtLink to="/book-en-sal" class="menuLink">Book en sal</NuxtLink>
-    </div>
-    <div class="menuItem">
-      <span class="menuNumber">08</span>
-      <NuxtLink to="/praktisk-information" class="menuLink">Praktisk info</NuxtLink>
-    </div>
-  </div>
-
-        </div>
-        <div class="fullscreenFooter">
-  <div class="fullscreenInnerWrapper">
-    <div class="footerInfo">
-      <div class="footerItem">
-        <i class="fas fa-phone"></i>
-        <div class="footerText">
-          <strong>Telefon</strong>
-          <a href="tel:+4598169977">+45 98 16 99 77</a>
-        </div>
-      </div>
-      <div class="footerItem">
-        <i class="fas fa-envelope"></i>
-        <div class="footerText">
-          <strong>E-mail</strong>
-          <a href="mailto:info@biffen.eu">info@biffen.eu</a>
-        </div>
-      </div>
-      <div class="footerItem">
-        <i class="fas fa-map-marker-alt"></i>
-        <div class="footerText">
-          <strong>Adresse</strong>
-          <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
-            Biffen Nordkraft<br />Teglgårds Plads 1, 9000 Aalborg
+<div class="fullscreenMenu" v-if="isMenuOpen">
+  <div class="fullscreenTopBar">
+    <div class="fullscreenInnerWrapper">
+      <div class="fullscreenTopBarInner">
+        <div class="fullscreenLeft">
+          <a href="/" class="logoWrapper fullscreenLogo">
+            <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
           </a>
         </div>
+        <div class="fullscreenRight">
+          <div class="closeIcon" @click="closeMenu">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="footerSocials">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+
+  <!-- Menuens indhold der også vises med fade-effekt -->
+  <div class="fullscreenContent" :class="{ visible: contentVisible }">
+    <div class="fullscreenInner">
+      <div class="menuLayout">
+
+        <div class="menuColumn underlineAnimationLinks">
+          <div class="menuItem"><span class="menuNumber">01</span><NuxtLink to="/film" class="menuLink">Alle film</NuxtLink></div>
+          <div class="menuItem"><span class="menuNumber">02</span><NuxtLink to="/kommende-film" class="menuLink">Kommende film</NuxtLink></div>
+          <div class="menuItem"><span class="menuNumber">03</span><NuxtLink to="/events" class="menuLink">Events</NuxtLink></div>
+          <div class="menuItem"><span class="menuNumber">04</span><NuxtLink to="/cinemateket" class="menuLink">Cinemateket</NuxtLink></div>
+        </div>
+
+        <div class="menuColumn underlineAnimationLinks">
+          <div class="menuItem"><span class="menuNumber">05</span><NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink></div>
+          <div class="menuItem"><span class="menuNumber">06</span><NuxtLink to="/gavekort-og-ovrige-billetter" class="menuLink">Gavekort & øvrige billetter</NuxtLink></div>
+          <div class="menuItem"><span class="menuNumber">07</span><NuxtLink to="/book-en-sal" class="menuLink">Book en sal</NuxtLink></div>
+          <div class="menuItem"><span class="menuNumber">08</span><NuxtLink to="/praktisk-information" class="menuLink">Praktisk info</NuxtLink></div>
+        </div>
+      </div>
+
+      <div class="fullscreenFooter">
+        <div class="fullscreenInnerWrapper">
+          <div class="footerInfo">
+            <div class="footerItem">
+              <i class="fas fa-phone"></i>
+              <div class="footerText">
+                <strong>Telefon</strong>
+                <a href="tel:+4598169977">+45 98 16 99 77</a>
+              </div>
+            </div>
+            <div class="footerItem">
+              <i class="fas fa-envelope"></i>
+              <div class="footerText">
+                <strong>E-mail</strong>
+                <a href="mailto:info@biffen.eu">info@biffen.eu</a>
+              </div>
+            </div>
+            <div class="footerItem">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="footerText">
+                <strong>Adresse</strong>
+                <a href="https://maps.google.com/?q=Teglgaards Plads 1, 9000 Aalborg" target="_blank">
+                  Biffen Nordkraft<br />Teglgårds Plads 1, 9000 Aalborg
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="footerSocials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-      </div>
-    </div>
-  </div>
 </template>
 
 <style scoped>

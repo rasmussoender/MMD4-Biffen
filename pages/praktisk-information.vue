@@ -30,10 +30,10 @@ onMounted(()=>{
   //Alle buttons får tilføjet en inactive klasse, som bliver fjernet afhænging af hvilken en man trykker på.
   buttons.forEach(function(button, index){
     button.addEventListener("click",function(e){
-      accordions.forEach(function(accordion){
+      accordions.forEach(function(accordion){ // Her skjuler vi alle accordions
         accordion.classList.add("hide");
       });
-      accordions[index].classList.remove("hide");
+      accordions[index].classList.remove("hide"); // Her vises vi accordions frem
       for(let i = 0; i<buttons.length; i++){
         buttons[i].classList.add("inactive");
       }
@@ -285,65 +285,45 @@ accordionsFull.forEach(function(accordion) {
       </div>
     </section>
     <section>
-        <div class="contact">
-        <div class="wrapper">
-        <div class="firstname">
-          <div>
-            <label for="fname">Fornavn<span>*</span></label>
-          </div>
-          <div>
-            <input type="text" name="fname" id="fname" placeholder="Skriv dit fornavn">
-          </div>
-        </div>
+      <div class="contact">
+  <div class="wrapper">
+    <div class="form-group firstname">
+      <label for="fname">Fornavn<span>*</span></label>
+      <input type="text" name="fname" id="fname" placeholder="Skriv dit fornavn">
+    </div>
 
-        <div class="lastname">
-          <div>
-            <label for="fname">Efternavn<span>*</span></label>
-          </div>
-          <div>
-            <input type="text" name="fname" id="fname" placeholder="Skriv dit efternavn">
-          </div>
-        </div>
-        </div>
-        <div class="email">
-          <div>
-          <label for="email">E-mail<span>*</span></label>
-          </div>
-          <div>
-            <input type="email" name="email" id="email" placeholder="Skriv din email">
-          </div>
-        </div>
-          <div class="phone">
-          <div>
-          <label for="phone">Telefon<span>*</span></label>
-          </div>
-          <div>
-            <input type="tel" name="phone" id="phone" placeholder="Skriv dit telefon nummer">
-          </div>
-        </div>
-        <div class="message">
-          <div>
-            <label for="message">Besked<span>*</span></label>
-          </div>
-          <div>
-            <textarea id="message" rows="9" placeholder="Skriv din besked"></textarea>
-          </div>
-        </div>
+    <div class="form-group lastname">
+      <label for="lname">Efternavn<span>*</span></label>
+      <input type="text" name="lname" id="lname" placeholder="Skriv dit efternavn">
+    </div>
+  </div>
 
-        <div class="centerbtn">
-          <button>
-            Send besked
-          </button>
-        </div>
-      </div>
+  <div class="form-group email">
+    <label for="email">E-mail<span>*</span></label>
+    <input type="email" name="email" id="email" placeholder="Skriv din email">
+  </div>
+
+  <div class="form-group phone">
+    <label for="phone">Telefon<span>*</span></label>
+    <input type="tel" name="phone" id="phone" placeholder="Skriv dit telefon nummer">
+  </div>
+
+  <div class="form-group message">
+    <label for="message">Besked<span>*</span></label>
+    <textarea id="message" rows="9" placeholder="Skriv din besked"></textarea>
+  </div>
+
+  <div class="centerbtn">
+    <button>Send besked</button>
+  </div>
+</div>
+
 
       <div class="info">
-      <div class="headingNdLine">
-      <h1>Kontakt os</h1>
-      <div></div>
-      </div>
+        <h2 class="overskrift-med-streg"><span>Kontakt os</span></h2>
+
       <p>Har du spørgsmål? Du er altid velkommen til at kontakte os via vores formular, telefon eller e-mail.</p>
-      
+      <br>
       <div class="wrapper2">
         <div>
           <div class="phoneinfo">
@@ -352,6 +332,7 @@ accordionsFull.forEach(function(accordion) {
           </div>
           <p>+45 98 16 99 77</p>
         </div>
+        <br>
         <div>
           <div class="emailinfo">
             <i class="fa-solid fa-envelope"></i>
@@ -365,11 +346,8 @@ accordionsFull.forEach(function(accordion) {
 
     <section>
        <div class="info">
-      <div class="headingNdLine">
-      <h1>Find os</h1>
-      <div></div>
-      </div>
-      <p>Vil du finde vej til os? Brug kortet ved siden af for at se, hvor vi holder til. Du er altid velkommen til at kontakte os via formularen, telefon eller e-mail, hvis du har spørgsmål.</p>
+        <h2 class="overskrift-med-streg"><span>Find os</span></h2>
+      <p>Vil du finde vej til os? Brug kortet ved siden af for at se, hvor vi holder til. Du er altid velkommen til at kontakte os via formularen, telefon eller e-mail, hvis du har spørgsmål.</p> <br>
       <div class="wrapper2">
         <div>
           <div class="phoneinfo">
@@ -410,6 +388,11 @@ accordionsFull.forEach(function(accordion) {
 
 }
 
+label {
+  margin-top: 1rem; /* Giver afstand over label */
+  display: inline-block;
+}
+
 .buttons{
   overflow: hidden;
   display: flex;
@@ -438,6 +421,7 @@ iframe{
 .centerbtn{
   display: flex;
   justify-content: start;
+  margin-top: 1rem;
 }
 .info button,.active, .centerbtn button
 {
@@ -464,7 +448,6 @@ textarea{
 }
 .wrapper{
   display: flex;
-
   gap: 1rem;
 }
 
@@ -512,24 +495,12 @@ input{
 }
 .contact,.info,.map{
   background-color: var(--secondary-blue);
-  padding: 25px 25px;
+  padding: 50px;
   margin-bottom: 60px;
 }
 
 main{
   padding: 0px 12px;
-}
-
-
-.headingNdLine div{
-  width: 50%;
-  background-color: var(--interactive-red);
-  height: 3px;
-}
-
-.headingNdLine{
-  display: inline-block;
-  margin-top: 40px;
 }
 
 @media (min-width: 1000px){
@@ -555,7 +526,7 @@ main{
     margin: 0px;
   }
   .contact{
-    padding: 25px 128px;
+    padding: 50px;
   }
 
   .tabs{
@@ -604,5 +575,9 @@ main{
 
 .accordion p:first-of-type{
   font-weight: bolder;
+}
+
+.info {
+  padding: 50px;
 }
 </style>

@@ -22,14 +22,22 @@ const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pederse
     <!-- Så kan vi så brugerdefinere vores slider, i forhold til hastighed, om der skal være pagination, autoplay, osv. -->
     <Swiper
       v-else
-      :modules="[Autoplay, Navigation, Pagination]"
+      :modules="[Autoplay, Navigation, Pagination]" 
       :slides-per-view="1"
       :loop="true"
       :speed="1000"
       :autoplay="{ delay: 4000, pauseOnMouseEnter: true }"
       :pagination="{ clickable: true, el: '.custom-pagination' }"
       :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
-    >
+    > <!--
+  :modules: aktiverer Swiper-modulerne autoplay navigation og pagination.
+  :slides-per-view="1": viser et slide ad gangen.
+  :loop="true": når man når det sidste slide så starter den automatisk forfra.
+  :speed="1000": slide-animation tager 1 sekund.
+  :autoplay="{ delay: 4000, pauseOnMouseEnter: true }": skifter automatisk slide hvert 4. sekund, men holder pause hvis musen holdes over slideren.
+  :pagination="{ clickable: true, el: '.custom-pagination' }": tilføjker klikbare pagination dots.
+  :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }": gør det muligt at bruge egne knapper til næste og forrige navigation ved at angive deres classes.
+-->
       <SwiperSlide v-for="film in movies" :key="film.id">
         <div
           class="slide"

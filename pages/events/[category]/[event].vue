@@ -4,7 +4,6 @@ import { ref, onMounted } from 'vue'
 import { useHead } from '#app'
 
 // Seo/meta
-// Seo/meta
 // Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Event',
@@ -29,7 +28,7 @@ const singleEvent = ref(null)
 onMounted(async () => {
   // Derefter henter vio data fra vores api
   const response = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?slug=${eventSlug}&_embed`)
-  // Retunerer scaret som json
+  // Retunerer svaret som json
   const eventData = await response.json()
   // Gemmer det første event fra resultatet ellers sættes værdien til null.
   singleEvent.value = eventData[0] || null
@@ -144,7 +143,7 @@ onMounted(async () => {
 .eventInfoBox {
   flex: 1 1 55%;
   background: rgba(32, 47, 77, 0.85);
-  padding: 2rem;
+  padding: 50px;
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;

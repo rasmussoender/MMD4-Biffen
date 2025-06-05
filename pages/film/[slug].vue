@@ -88,7 +88,7 @@ const nextDays = () => {
   }
 };
 
-// Definerer prevdays, som tjekker om den kan flytte visningen bagud uden at gå under 0
+// Definerer prevdays som tjekker om den kan flytte visningen bagud uden at gå under 0
 const prevDays = () => {
   if (visibleStart.value - visibleCount.value >= 0) {
     // Hvis det er muligt at flytte den bagud, så viser den dem
@@ -347,7 +347,7 @@ const formattedDate = (str) => {
 .movieInfoBox {
   flex: 1 1 55%;
   background: rgba(32, 47, 77, 0.85);
-  padding: 2rem;
+  padding: 50px;
   border-radius: var(--radius-section);
   display: flex;
   flex-direction: column;

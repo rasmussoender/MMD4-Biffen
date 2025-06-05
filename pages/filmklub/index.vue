@@ -85,7 +85,7 @@ const { data: filmklubber, pending, error } = await useFetch(
 
 .section-boks-1 {
   background: #202F4D;
-  padding: 2rem;
+  padding: 50px;
   border-radius: 20px;
 }
 
