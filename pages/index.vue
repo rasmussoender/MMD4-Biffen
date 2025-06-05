@@ -147,7 +147,7 @@ const { data: moviesProgram, pending, error } = await useFetch(
         </a>
 
         <a href="/filmklub" class="forside-entry-card">
-          <img src="../assets/img/filmklubben-entry.png" alt="Card 2">
+          <img src="../assets/img/filmklubber-entry-point-red.png" alt="Card 2">
           <hr>
           <h3>Filmklubber</h3>
           <p>Meld dig ind i en filmklub, og se udvalgte film til reduceret pris!</p>
