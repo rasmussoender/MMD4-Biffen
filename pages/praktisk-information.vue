@@ -3,6 +3,8 @@ import { onMounted } from 'vue'
 import { useHead } from '#app'
 
 // Seo/meta
+
+//Use head er en composable funktion der giver os muligheden for at ændre metaddata så som description og keywords
 useHead({
   title: 'Praktisk Information',
   meta: [
@@ -16,10 +18,16 @@ useHead({
     }
   ]
 })
-onMounted(()=>{
 
+//onMounted er life cycle hook der kører koden, når vores vue komponenten er blevet renderet i doom, så vil alt kode i vores life cyclehook onmounted bliver kørt.
+
+onMounted(()=>{
   const buttons = document.querySelectorAll(".buttons button");
   const accordions = document.querySelectorAll(".accordions");
+
+  //En foreach som looper igennem all vores knapper og gemmer en index og tilføjer en eventlistner til dem. Derefter skjuler vi alle accordions sektioner. Herefter bruges den gemte index til at vise den rigtige accordion sektion. for eksempel hvis man trykker på button 1, så bliver accordion sektion 1 og hvis man trykker på button2 så vises accordion sektion 2 osv.
+  
+  //Alle buttons får tilføjet en inactive klasse, som bliver fjernet afhænging af hvilken en man trykker på.
   buttons.forEach(function(button, index){
     button.addEventListener("click",function(e){
       accordions.forEach(function(accordion){
@@ -36,6 +44,7 @@ onMounted(()=>{
 
 const accordionsFull = document.querySelectorAll(".wrapper3 .accordion");
 
+//en foreach som tilføjer en eventlistner til alle accordions. når man trykker på accordion, toggles klassen hide on and off på det sidste p tag i accordion. Samme sker med arrowicon bare med klassen rotate.
 accordionsFull.forEach(function(accordion) {
   accordion.addEventListener("click", function () {
     const arrowIcon = accordion.querySelector("i");
