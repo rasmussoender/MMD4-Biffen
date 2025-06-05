@@ -145,7 +145,7 @@ watch(() => route.fullPath, () => {
       <div class="fullscreenInner">
         <div class="menuLayout">
 
-          <div class="menuColumn">
+          <div class="menuColumn underlineAnimationLinks">
     <div class="menuItem">
       <span class="menuNumber">01</span>
       <NuxtLink to="/film" class="menuLink">Alle film</NuxtLink>
@@ -164,7 +164,7 @@ watch(() => route.fullPath, () => {
     </div>
   </div>
 
-  <div class="menuColumn">
+  <div class="menuColumn underlineAnimationLinks">
     <div class="menuItem">
       <span class="menuNumber">05</span>
       <NuxtLink to="/filmklub" class="menuLink">Filmklubber</NuxtLink>
@@ -550,12 +550,7 @@ watch(() => route.fullPath, () => {
   flex-wrap: wrap;
 }
 
-@media (min-width: 1500px) {
-.headerInner,
-.fullscreenInnerWrapper {
-  max-width: 1500px;
-}
-}
+
 
 .menuLayout {
   flex-grow: 1;
@@ -595,10 +590,6 @@ watch(() => route.fullPath, () => {
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 200;
-  transition: color 0.5s;
-}
-.menuLink:hover {
-  color: var(--interactive-red);
 }
 
 .fullscreenFooter {
