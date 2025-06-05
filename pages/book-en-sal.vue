@@ -3,6 +3,7 @@ import Header from '@/components/Header.vue';
 import { useHead } from '#app'
 
 // Seo/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Book En Sal',
   meta: [
@@ -26,10 +27,8 @@ useHead({
     <img src="../assets/img/ArrangementMobil.png" alt="" class="mobilbillede">
     <img src="../assets/img/ArrangementDesktop.png" alt="" class="pcbillede">
     <div class="introWrapper">
-    <div class="headingNdLine">
-      <h1>Dit arrangement</h1>
-      <div></div>
-    </div>
+    <h1 class="overskrift-med-streg"><span>Dit arrangement</span></h1>
+
     <p>Både private og virksomheder kan leje biografsal og café til arrangementer og events.</p>
     <p>Digitalt udstyr til film, billeder og lyd af enhver art og i bedste kvalitet forefindes, ligesom caféen kan benyttes til afholdelse af forskellige typer arrangementer. Salen kan også benyttes til forelæsninger, debat eller andet.</p>
     <p>Biffen tilbyder desuden samarbejder med virksomheder, der ønsker at benytte biografens hyggelige rammer til at kræse om medarbejdere, kunder og samarbejdspartnere.</p>
@@ -43,14 +42,12 @@ useHead({
     <img src="../assets/img/SkoleDesktop.png" alt="" class="pcbillede">
     </div>
     <div class="introWrapper column1">
-    <div class="headingNdLine">
-      <h1>Med skolen i biografen</h1>
-      <div></div>
-    </div>
+    <h2 class="overskrift-med-streg"><span>Med skolen i biografen</span></h2>
+
     <p>Størstedelen af de nordjyske skoler booker hvert skoleår den lokale biograf som klasselokale, og ca. titusindvis af børn og unge går på udflugt ind i verdener, historiske perioder og konflikter, de kan spejle sig i og blive klogere på livet af at besøge. Intet rum i børns aktuelle virkelighed egner sig bedre hertil end netop biografens rum.</p>
     <p>Med Skolen I Biografen er ikke blot en udflugt ind i filmens magiske univers. Det er også anledning til at præsentere tidens børn og unge for film og filmnationer, de ikke selv kunne drømme om at besøge. Med Skolen I Biografen tilrettelægges og administreres af UCN, Center for Undervisningsmaterialer i Aalborg.</p>
-    <h2>Gymnasier</h2>
-    <p>og VIDEREGÅENDE UDDANNELSER - skriv til Karin Fast, <span class="red">info@biffen.eu</span></p>
+    <h3>Gymnasier og videregående uddannelser </h3>
+    <p> skriv til Karin Fast, <span class="red">info@biffen.eu</span></p>
     </div>
   </section>
 
@@ -85,10 +82,7 @@ useHead({
     </article>
     <article class="text">
    <div class="toShow">
-    <div class="headingNdLine">
-    <h1>Børnefødselsdag</h1>
-    <div></div>
-    </div>
+<h2 class="overskrift-med-streg"><span>Børnefødselsdag</span></h2>
    </div>
     <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden.</p>
     <p>Inviter venner eller hele klassen med til fødselsdagsfest i Biffen Nordkraft og fejr dagen i filmens magiske verden. Glem alt om oprydning - Vi tager os af det praktiske, så du kan fokusere på at nyde dagen sammen med fødselaren.</p>

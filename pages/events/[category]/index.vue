@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue'
 import { useHead } from '#app'
 
 // Seo/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Eventtype',
   meta: [
@@ -18,19 +19,26 @@ useHead({
   ]
 })
 
+// // Variabel til at hente route for url.
 const route = useRoute()
 const currentCategorySlug = route.params.category
 
+// Opretter to tomme reaktive arrays, som kan opdateres automatisk
+// En til vores liste af alle events og en til eventkategorier
 const eventsInCategory = ref([])
 const categoryList = ref([])
 
+// Bruger onMounted, så når den vises på siden vil den starte med at hente alle event kategorier fra WordPress
 onMounted(async () => {
   const categoryResponse = await fetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event-kategori')
+  // Den gemmer listen i categoryList
   categoryList.value = await categoryResponse.json()
-
+// Finder den kategori, der passer med slug’en fra URL’en.
   const matchingCategory = categoryList.value.find(cat => cat.slug === currentCategorySlug)
+  // Stopper hvis der ikke findes en matchende kategori
   if (!matchingCategory) return
 
+  // Nu henter den alle events der hører til den matchende kategori
   const eventResponse = await fetch(`https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?event-kategori=${matchingCategory.id}&_embed`)
   eventsInCategory.value = await eventResponse.json()
 })

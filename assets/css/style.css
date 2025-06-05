@@ -130,7 +130,7 @@ a {
 }
 
 .btn-primary:hover {
-  background-color: #f41a3e;
+  background-color: #e11d48;
 }
 
 .btn-secondary {
@@ -141,8 +141,8 @@ a {
 
 }
 
-.btn-secondary i {
-  font-size: 30px;
+.btn-secondary i, .btn-primary i {
+  font-size: 20px;
 }
 
 .btn-secondary:hover {
@@ -311,32 +311,7 @@ border-radius: var(--radius-section);
   margin-right: 0.5rem;
 }
 
-.read-more-button-container {
-  margin-top: auto;
-  padding-top: 1rem;
 
-}
-
-.read-more-btn {
-  background: var(--interactive-red);
-  color: white;
-  padding: 15px 25px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: var(--radius-button);
-  cursor: pointer;
-  display: inline-flex; 
-  gap: 10px;
-  width: auto;
-  transition: background 0.3s;
-  text-decoration: none;
-  align-items: center;   
-}
-
-.read-more-btn:hover {
-  background: #e11d48;
-}
 
 
 @media (max-width: 767px) {

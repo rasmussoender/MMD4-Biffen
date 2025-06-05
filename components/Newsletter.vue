@@ -1,10 +1,14 @@
 <script setup>
+// Opretter variabler som default er null
 const emailInput = ref(null)
 const thankYouMsg = ref(null)
 
+// Når bruger klikker på send knap
 const handleSendClick = () => {
   const email = emailInput.value?.value.trim()
-
+// Hvis der er blevet skrevet noget i feltet
+// Viser den thankYouMsg som er defineret i template
+// Derefter tømmer den feltet med en tom string
   if (email) {
     thankYouMsg.value.style.display = "block"
     emailInput.value.value = ""

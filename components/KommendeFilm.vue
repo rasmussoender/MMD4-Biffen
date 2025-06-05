@@ -1,28 +1,42 @@
 <script setup>
+// Tager brug af gsap library: https://gsap.com/
 import { computed, nextTick, onMounted } from 'vue'
 import { useFetch } from '#app'
 import gsap from 'gsap'
 
+// Her fetches data fra wordpress api, ved hjælp af useFetch. 
+// Her defineres pending og error, altså hvis der skulle ske en fejl kommer der besked, samt når den loader
 const { data: movies, error, pending } = useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100')
 
+// Tjekker om datoen er i fremtiden, hvis ja får den "kommende" tag
 const isUpcoming = date => new Date(date) > new Date()
 const formatDate = date =>
+// Formaterer dato
   new Date(date).toLocaleDateString('da-DK', {
     day: 'numeric',
     month: 'short',
     year: 'numeric'
   })
 
+// Sortering af kommende film, sorterert fra tidligst til seneste
+// Laver variabel som bruger computed
 const filteredMovies = computed(() => {
+  // Hvis der ikke er nogle film, retunerer den en tom liste
   if (!movies.value) return []
+  // Den vælger kun de film som kommer i fremtiden
+  // Så sorterer vi  kommende film efter deres udgivelsesdato
+  // Film med den tidligste dato kommer først
   return movies.value
     .filter(m => isUpcoming(m.acf.udgivelsesdato))
     .sort((a, b) => new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato))
 })
 
+// Gsap animation, bruger onMOunted, som kører koden når at den er klar til at blive vist
+// Await, nexttick venter på at dom'en er færdig med at køre
 onMounted(async () => {
   await nextTick();
   gsap.from('.movieCard', {
+    // Herinde kan vi definere vores animation, og hvordan det skal opføre sig
     opacity: 0,
     y: 30,
     stagger: 0.1,
@@ -31,7 +45,12 @@ onMounted(async () => {
   });
 });
 
+// For at genbruge dette komponent på både forside og kommende film side, definerer vi props, så vi kan nøjes med at render 4 på forsiden
+
+// Her modtager komponenten en prop kaldet limit
+//  Hvis ingen limit bliver givet, er den null er derfor ingen grænse
 const { limit = null } = defineProps(['limit'])
+// Hvis limit definereres, tager den kun de første film fra filteredMovies. Hvis ikke, viser den alle film.
 const displayedMovies = computed(() =>
   limit ? filteredMovies.value.slice(0, limit) : filteredMovies.value
 )

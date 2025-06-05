@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { useHead, useFetch } from '#app';
 
 // SEO/meta
+// Her definerer vi title, metadescripton og keywords til seo
 useHead({
   title: 'Events',
   meta: [
@@ -17,18 +18,27 @@ useHead({
   ]
 });
 
+// Her kan vi både hente info fra vores API, for både alle event kategorier og alle vores events vha. useFetch
 const { data: categoryData } = await useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event-kategori');
 const { data: eventData } = await useFetch('https://biffen.rasmus-pedersen.com/wp-json/wp/v2/event?_embed');
 
+// Opretter 2 reaktive lister, som gemmer kategorier og events. Hvis der ikke er noget data er det bare en tom liste
 const categoryList = ref(categoryData.value || []);
 const eventList = ref(eventData.value || []);
 
+// Funktion finder og returnerer slug for den kategori, som eventet tilhører.
+//  Hvis kategorien ikke findes, returneres 'unknown'.
 function getEventCategorySlug(eventItem) {
+  // Finder det første kategoriid fra eventets kategori
   const categoryId = eventItem['event-kategori']?.[0];
+  // Søger i categoryList efter den kategori, der har samme id som categoryId.
   const foundCategory = categoryList.value.find(cat => cat.id === categoryId);
   return foundCategory?.slug || 'unknown';
 }
-
+// Viser events i rækkefølge ud fra dato
+// Sorterer listen ved at sammenligne datoerne i hvert event (a og b).
+//  Omregner acf.dato til date objekter, så de kan sammenlignes.
+//  Returnerer forskellen, så sorteringen bliver fra ældste til nyeste dato.
 const sortedEvents = computed(() => {
   return [...eventList.value].sort((a, b) => {
     return new Date(a.acf?.dato) - new Date(b.acf?.dato);

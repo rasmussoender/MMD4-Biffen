@@ -323,6 +323,11 @@ watch(() => route.fullPath, () => {
   color: white;
   cursor: pointer;
   padding: 8px;
+  transition: color 0.5s;
+}
+
+.burgerIcon:hover {
+  color: var(--interactive-red);
 }
 
 .menuCircleOverlay {
@@ -505,6 +510,11 @@ watch(() => route.fullPath, () => {
   cursor: pointer;
   z-index: 10000;
   padding-right: 1.50rem;
+  transition: color 0.5s;
+}
+
+.closeIcon:hover {
+  color: var(--interactive-red);
 }
 
 .fullscreenContent {
@@ -538,6 +548,13 @@ watch(() => route.fullPath, () => {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+
+@media (min-width: 1500px) {
+.headerInner,
+.fullscreenInnerWrapper {
+  max-width: 1500px;
+}
 }
 
 .menuLayout {
@@ -578,6 +595,10 @@ watch(() => route.fullPath, () => {
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 200;
+  transition: color 0.5s;
+}
+.menuLink:hover {
+  color: var(--interactive-red);
 }
 
 .fullscreenFooter {
