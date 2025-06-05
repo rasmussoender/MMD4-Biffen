@@ -133,7 +133,6 @@ const { data: filmklubber, pending, error } = await useFetch(
 .section-boks-1-beskrivelse {
   font-size: 18px;
   line-height: 175%;
-  margin-top: 40px;
 }
 
 .forside-entry-section {

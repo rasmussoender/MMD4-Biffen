@@ -58,7 +58,7 @@ const handleSendClick = () => {
 }
 
 .nyhedsbrev-card {
-  background-color: #1d2a4a;
+  background-color: var(--secondary-blue);
   border-radius: 40px;
   padding: 80px 40px 60px;
   text-align: center;
@@ -123,7 +123,7 @@ const handleSendClick = () => {
   top: -54px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #1d2a4a;
+  background-color: var(--secondary-blue);
   border: 3px solid #4a90e2;
   border-radius: 50%;
   width: 108px;

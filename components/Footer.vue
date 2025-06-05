@@ -183,8 +183,8 @@ footer {
 
 .footerDivider {
   border: none;
-  border-top: 2px solid var(--color-body);
-  margin: 2rem 0 1rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.169);
+  margin: 2rem 0 2rem;
 }
 
 .footerBottom {
