@@ -31,17 +31,17 @@ const filteredMovies = computed(() => {
     .sort((a, b) => new Date(a.acf.udgivelsesdato) - new Date(b.acf.udgivelsesdato))
 })
 
-// Gsap animation, bruger onMOunted, som kører koden når at den er klar til at blive vist
-// Await, nexttick venter på at dom'en er færdig med at køre
+// Gsap animation bruger onMOunted, som kører koden når at den er klar til at blive vist
+// Await nexttick venter på at dom'en er færdig med at køre
 onMounted(async () => {
   await nextTick();
   gsap.from('.movieCard', {
-    // Herinde kan vi definere vores animation, og hvordan det skal opføre sig
-    opacity: 0,
-    y: 30,
-    stagger: 0.1,
-    duration: 0.8,
-    ease: 'power2.out'
+    // Herinde kan vi definere vores animation og hvordan det skal opføre sig
+    opacity: 0, // Starter med at være usynlig
+    y: 30, // Starter med at være 30px nede
+    stagger: 0.1, // Stagger er hvor lang tid der skal gå mellem hver animation
+    duration: 0.8, // Hvor lang tid animationen skal tage
+    ease: 'power2.out' // Easing funktion der gør at animationen føles mere naturlig
   });
 });
 

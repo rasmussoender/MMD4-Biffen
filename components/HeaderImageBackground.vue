@@ -1,42 +1,57 @@
 <script setup>
 import { ref, onUnmounted, onMounted } from 'vue'
 
+// Her holder vi styr på, om menuen er åben
 const isMenuOpen = ref(false)
+
+// Bruges når menuen skal lukke med en animation
 const isClosing = ref(false)
+
+// Gør at indholdet i menuen først bliver vist lidt efter åbning for en blødere effekt
 const contentVisible = ref(false)
+
+// Bliver true når vi scroller ned
 const isScrolled = ref(false)
+
+// Gemmer hvor langt ned vi var scrollet sidst
 const lastScrollY = ref(0)
+
+// Bruges til at skjule headeren når man scroller nedad og vise den igen når man scroller op
 const showHeader = ref(true)
 
+// Når menuen åbnes skal man ikke kunne scrolle på resten af siden
 function lockScroll() {
   const scrollY = window.scrollY
   document.body.style.position = 'fixed'
-  document.body.style.top = `-${scrollY}px`
+  document.body.style.top = `-${scrollY}px` // Gemmer scroll-positionen så vi kan gå tilbage til den senere
   document.body.style.left = '0'
   document.body.style.right = '0'
   document.body.style.overflow = 'hidden'
   document.body.dataset.scrollY = scrollY
 }
 
+// Når menuen lukkes gendanner vi scrollen som den var før
 function unlockScroll() {
   const scrollY = document.body.dataset.scrollY
   document.body.style.position = ''
   document.body.style.top = ''
-  document.body.style.left = ''
+  document.body.style.left = '' 
   document.body.style.right = ''
   document.body.style.overflow = ''
-  window.scrollTo(0, parseInt(scrollY || '0'))
+  window.scrollTo(0, parseInt(scrollY || '0')) // Går tilbage til den scroll-position vi havde før
   delete document.body.dataset.scrollY
 }
 
+// Åbner menuen og låser scroll, så indholdet vises med lidt forsinkelse
 function openMenu() {
   isMenuOpen.value = true
   lockScroll()
   setTimeout(() => {
     contentVisible.value = true
-  }, 800)
+  }, 800) // Viser først indholdet efter 0.8 sekunder
 }
 
+// Lukker menuen. Først skjules indhold og så kører vi en lukkeanimation
 function closeMenu() {
   contentVisible.value = false
   setTimeout(() => {
@@ -45,29 +60,33 @@ function closeMenu() {
       isMenuOpen.value = false
       isClosing.value = false
       unlockScroll()
-    }, 800)
-  }, 400)
+    }, 800) // Hele menuen forsvinder efter animationen
+  }, 400) // Venter 0.4 sekunder før vi starter lukkeanimationen
 }
 
+// Hver gang man scroller tjekker vi hvor langt vi er, og om headeren skal skjules eller vises
 function handleScroll() {
   const currentScroll = window.scrollY
-  isScrolled.value = currentScroll > 10
-  showHeader.value = currentScroll < lastScrollY.value || currentScroll < 10
+  isScrolled.value = currentScroll > 10 // Hvis vi er scrollet mere end 10px ned så skjules headeren
+  showHeader.value = currentScroll < lastScrollY.value || currentScroll < 10 // Hvis vi scroller opad eller er tæt på toppen så vises headeren igen
   lastScrollY.value = currentScroll
 }
 
+// Når siden loader begynder vi at lytte efter scroll
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 })
 
+// Når komponenten forsvinder så fjerner vi scroll-listeneren og gendanner scroll
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   unlockScroll()
 })
 </script>
 
+
 <template>
-  <header class="siteHeader" :class="{ 'scrolled': isScrolled, 'hiddenHeader': !showHeader }">
+  <header class="siteHeader" :class="{ 'scrolled': isScrolled, 'hiddenHeader': !showHeader }"> <!-- Her sætter vi classes på fra JS og CSS som ændrer udseendet på headeren -->
     <div class="headerInner">
       <a href="/" class="logoWrapper headerLogo" v-show="!isMenuOpen">
         <img src="/public/img/biffenLogo.png" alt="Biffen Nordkraft Logo" class="siteLogo" />
@@ -85,8 +104,8 @@ onUnmounted(() => {
     </div>
   </header>
 
-  <div class="menuCircleOverlay" :class="{ active: isMenuOpen, closing: isClosing }"></div>
-  <div class="lavaLampBackground" v-show="isMenuOpen" :class="{ visible: contentVisible }">
+  <div class="menuCircleOverlay" :class="{ active: isMenuOpen, closing: isClosing }"></div> <!-- Denne cirkel overlay bruges til at lave en effekt når menuen åbnes -->
+  <div class="lavaLampBackground" v-show="isMenuOpen" :class="{ visible: contentVisible }"> <!-- Baggrunden der laves med CSS for at give effekterne -->
     <div class="darkCenterOverlay"></div>
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
@@ -94,7 +113,7 @@ onUnmounted(() => {
     <div class="blob blobElectric"></div>
   </div>
 
-  <div class="fullscreenMenu" v-if="isMenuOpen">
+  <div class="fullscreenMenu" v-if="isMenuOpen"> <!-- Denne wrapper bruges til at lave en fullscreen menu -->
     <div class="fullscreenTopBar">
       <div class="fullscreenInnerWrapper">
         <div class="fullscreenTopBarInner">
@@ -112,7 +131,7 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <div class="fullscreenContent" :class="{ visible: contentVisible }">
+    <div class="fullscreenContent" :class="{ visible: contentVisible }"> <!-- Her giver vi en class som styrer om indholdet i menuen skal være synligt -->
       <div class="fullscreenInner">
         <div class="menuLayout">
           <div class="menuColumn underlineAnimationLinks">

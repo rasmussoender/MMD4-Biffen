@@ -19,17 +19,17 @@ const { data: movies, pending, error } = await useFetch(
   'https://biffen.rasmus-pedersen.com/wp-json/wp/v2/movie?per_page=100'
 );
 
-// Gsap animation, bruger onMOunted, som kører koden når at den er klar til at blive vist
-// Await, nexttick venter på at dom'en er færdig med at køre
+// Gsap animation bruger onMOunted, som kører koden når at den er klar til at blive vist
+// Await nexttick venter på at dom'en er færdig med at køre
 onMounted(async () => {
   await nextTick();
   gsap.from('.movieCard', {
     // Herinde kan vi definere vores animation, og hvordan det skal opføre sig
-    opacity: 0,
-    y: 30,
-    stagger: 0.1,
-    duration: 0.8,
-    ease: 'power2.out'
+    opacity: 0, // Starter med at være usynlig
+    y: 30,  // Starter med at være 30px nede
+    stagger: 0.1, // Stagger er hvor lang tid der skal gå mellem hver animation
+    duration: 0.8, // Hvor lang tid animationen skal tage
+    ease: 'power2.out' // Easing funktion der gør at animationen føles mere naturlig
   });
 });
 
@@ -47,7 +47,7 @@ const isUpcoming = (releaseDate) => {
 
 // Formatering af dato
 const formatDate = (dateString) => {
-  // Definerer at vi gerne vil vise dag, måned (kort) og år
+  // Definerer at vi gerne vil vise dag, måned kort og år
   const options = { day: 'numeric', month: 'short', year: 'numeric' };
   // Retunerer datoen i dansk format på måde vi har defineret
   return new Date(dateString).toLocaleDateString('da-DK', options);
